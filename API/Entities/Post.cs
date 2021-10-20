@@ -12,6 +12,9 @@ namespace API
         
         // Facebook account name
         public string AccountName { get; set; }
+
+        // post content
+        public string PostContent {get; set;}
         
         // Facebook profile image 
         public string ProfileImage { get; set; }

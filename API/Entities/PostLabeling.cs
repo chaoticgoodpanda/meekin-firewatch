@@ -1,4 +1,5 @@
 using System;
+using API.Data.PostAggregate;
 
 namespace API
 {
@@ -10,22 +11,29 @@ namespace API
         public int? PostId { get; set; }
         
         // country for Rabat analysis
-        public string RabatCountry { get; set; }
+        public RabatCountry Country { get; set; }
         
         // speaker status for Rabat analysis
-        public string RabatSpeakerStatus { get; set; }
+        public RabatSpeaker Speaker { get; set; }
         
         // content of speech for Rabat analysis
-        public string RabatContentandForm { get; set; }
+        public RabatOffensive Offensive { get; set; }
+
+        // content that is dangerous and increases likelihood of violence against target
+        // needs to be included with other Rabat factors in analysis
+        public bool? IsDangerous {get; set;}
+
+        // argument put forth by content as to why to engage in violence
+        public RabatJustifications? Justifications {get; set;}
         
         // virality for Rabat analysis
         public long RabatVirality { get; set; }
         
         // Rabat intent
-        public string RabatIntent { get; set; }
+        public RabatIntent? Intent { get; set; }
 
-        // Rabat likelihood of harm
-        public string RabatLikelihoodHarm { get; set; }
+        // Rabat likelihood of harm, probably a double ranging from -1 to 1, or -100 to 100, or 1 to 10
+        public double RabatLikelihoodHarm { get; set; }
         public string Language { get; set; }
         
         // boolean for whether user has marked speech as offensive or not
