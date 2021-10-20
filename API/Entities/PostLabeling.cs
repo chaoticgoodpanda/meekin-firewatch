@@ -1,6 +1,6 @@
 using System;
 
-namespace DefaultNamespace
+namespace API
 {
     public class PostLabeling
     {
