@@ -1,10 +1,16 @@
 using System;
+using System.Collections.Generic;
 
 namespace API
 {
     public class Post
     {
         // Id for the Post in question allocated by MeekinF
+        public Post(ICollection<PostLabeling> postLabeling)
+        {
+            PostLabeling = new HashSet<PostLabeling>();
+        }
+
         public int Id { get; set; }
         
         // Facebook account id
@@ -67,5 +73,8 @@ namespace API
         public int? AngryCount { get; set; }
         public int? ThankfulCount { get; set; }
         public int? CareCount { get; set; }
+        
+        // each post has a labeling set
+        public virtual ICollection<PostLabeling> PostLabeling { get; set; }
     }
 }
