@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace API.Crowdtangle
 {
+    
     public class CrowdtangleApi<T>
     {
         private readonly MeekinFirewatchContext _context;

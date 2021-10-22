@@ -37,6 +37,12 @@ namespace API
         // country of the page
         public string AccountCountry { get; set; }
         
+        // page created date
+        public DateTime? PageCreatedDate { get; set; }
+        
+        //category of page
+        public string PageCategory { get; set; }
+        
         // verified account
         public bool Verified { get; set; }
         
@@ -59,7 +65,10 @@ namespace API
         public DateTime? PostCreationTime { get; set; }
         public DateTime? CrowdtangleUpdateTime { get; set; }
         public DateTime? AccessTime { get; set; }
+        
+        // external link shared in post
         public string ExternalLink { get; set; }
+        
         public string LinkCaption { get; set; }
         public string LinkTitle { get; set; }
         public string LinkDescription { get; set; }
@@ -76,5 +85,8 @@ namespace API
         
         // each post has a labeling set
         public virtual ICollection<PostLabeling> PostLabeling { get; set; }
+        
+        // media -- photos, videos
+        public virtual ICollection<Media> Media { get; set; }
     }
 }
