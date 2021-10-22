@@ -26,7 +26,7 @@ namespace API.Crowdtangle
         private const string baseUrl = "https://api.crowdtangle.com/";
         private string urlParameters = "posts?";
 
-        public async Task<T> Get(string url)
+        public static async Task<T> Get(string url)
         {
             url = baseUrl + url;
             try
