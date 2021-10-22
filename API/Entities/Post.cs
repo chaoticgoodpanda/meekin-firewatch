@@ -6,7 +6,7 @@ namespace API
     public class Post
     {
         // Id for the Post in question allocated by MeekinF
-        public Post(ICollection<PostLabeling> postLabeling)
+        public Post()
         {
             PostLabeling = new HashSet<PostLabeling>();
         }

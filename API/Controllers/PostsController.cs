@@ -39,6 +39,7 @@ namespace API.Controllers
         {
             var Url = string.Format("posts?");
             var result = await CrowdtangleApi<List<Post>>.Get(Url);
+            return Ok();
         }
     }
 }

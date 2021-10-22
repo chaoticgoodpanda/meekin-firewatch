@@ -13,7 +13,7 @@ namespace API.Data
 
             var posts = new List<Post>()
             {
-                new Post(new List<PostLabeling>())
+                new Post()
                 {
                     AccountName = "Donald Trump Fake",
                     PostContent = "I love drinking coffeve",
@@ -23,7 +23,7 @@ namespace API.Data
                     PostUrl = "https://www.facebook.com/DonaldTrump/posts/10166091482665725?__cft__[0]=AZXyUYTB1f0B0jlYpRi0oBBU0fC8gOMevY0EEfcis0TFMWK9JfJD2Oee0ve4ENTRdd-CtZgrmVUIrBMgjcN3R2NW2qgdo4FXFuVEkGVkWwKry417SMa0oLtW-DY9G-zAgSndoCI-5FfTi-LiwfrnXCC-&__tn__=%2CO%2CP-R",
                     SubscriberCount = 57836723,
                     Score = 3978473.3,
-                    LikeCount = 7263,
+                    LikeCount = 7263
                     
                 }
             };
