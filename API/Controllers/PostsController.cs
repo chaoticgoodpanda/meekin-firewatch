@@ -30,14 +30,14 @@ namespace API.Controllers
 
         [HttpGet]
         public async Task<ActionResult> GetFacebookPosts(
-            string _fbApiKey, 
+            string _fbApiKey
             
             
             
             
             )
         {
-            var Url = string.Format("posts?")
+            var Url = string.Format("posts?");
             var result = await CrowdtangleApi<List<Post>>.Get(Url);
         }
     }
