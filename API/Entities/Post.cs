@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace API
 {
@@ -12,10 +13,12 @@ namespace API
         }
 
         public int Id { get; set; }
+       
         
         // Facebook account id
         public int AccountId { get; set; }
         
+        [JsonProperty("accountName")]
         // Facebook account name
         public string AccountName { get; set; }
 

@@ -16,18 +16,22 @@ namespace API.Tests
     [TestClass]
     public class ApiUnitTest
     {
-        // private string _fbApiKey = "KHfpY8pNGbJeov4JdALnuSBOU9mvFWscnZItoutX";
-        private string _fbApiKey;
+        private string _fbApiKey = "KHfpY8pNGbJeov4JdALnuSBOU9mvFWscnZItoutX";
         private string _instaApiKey;
 
         private string _redditApiKey;
+        // public ApiUnitTest(IConfiguration config)
+        // {
+        //     _fbApiKey = config.GetSection("CrowdtangleSettings:FacebookApiKey").Value;
+        //     _instaApiKey = config.GetSection("CrowdtangleSettings:InstagramApiKey").Value;
+        //     _redditApiKey = config.GetSection("CrowdtangleSettings:RedditApiKey").Value;
+        // }
+
         // runs first before every test
         [TestInitialize]
-        public void Setup(IConfiguration config)
+        public void Setup()
         {
-            _fbApiKey = config.GetSection("CrowdtangleSettings:FacebookApiKey").Value;
-            _instaApiKey = config.GetSection("CrowdtangleSettings:InstagramApiKey").Value;
-            _redditApiKey = config.GetSection("CrowdtangleSettings:RedditApiKey").Value;
+
         }
         
         private string baseUrl = "https://api.crowdtangle.com/";
@@ -151,7 +155,7 @@ namespace API.Tests
             //call helper function
             RestResponse restResponse = new RestResponse((int)statusCode, responseData.Result);
             // Console.WriteLine(restResponse.ToString());
-            var jsonObject = JsonConvert.DeserializeObject<Post>(restResponse.ResponseContent);
+            var jsonObject = JsonConvert.DeserializeObject<PostJSON>(restResponse.ResponseContent);
             
             Console.WriteLine(jsonObject.ToString());
             

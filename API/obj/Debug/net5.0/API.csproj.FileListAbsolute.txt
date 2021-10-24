@@ -139,3 +139,4 @@
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/RestSharp.dll
