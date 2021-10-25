@@ -5,6 +5,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using API.Crowdtangle;
 using API.Data;
+using API.Facebook;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
@@ -43,15 +44,20 @@ namespace API.Controllers
             // var posts = _context.Posts.ToList();
             
             // create a new RestSharp HttpClient
-            IRestClient restClient = new RestClient();
+            IRestClient client = new RestClient();
             Uri getUri = new Uri(baseUrl + postsUrl + _fbApiKey);
-            IRestRequest restRequest = new RestRequest(getUri);
-            restRequest.AddHeader("Accept", "application/json");
+            IRestRequest request = new RestRequest(getUri);
+            request.AddHeader("Accept", "application/json");
 
             // deserialize the JSON response content
-            IRestResponse<List<Post>> restResponse = restClient.Get<List<Post>>(restRequest);
+            // IRestResponse<List<Post>> restResponse = restClient.Get<List<Post>>(restRequest);
+            var response = client.Get<Root>(request);
 
-            return restResponse.Data;
+            // if error, print stack trace
+            if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException); 
+
+            // else, return the data from the restResponse request.
+            return Ok(response.Data);
 
 
         }
