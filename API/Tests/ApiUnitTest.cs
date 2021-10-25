@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
+using API.Facebook;
 using API.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -155,7 +156,7 @@ namespace API.Tests
             //call helper function
             RestResponse restResponse = new RestResponse((int)statusCode, responseData.Result);
             // Console.WriteLine(restResponse.ToString());
-            var jsonObject = JsonConvert.DeserializeObject<PostJSON>(restResponse.ResponseContent);
+            var jsonObject = JsonConvert.DeserializeObject<Post>(restResponse.ResponseContent);
             
             Console.WriteLine(jsonObject.ToString());
             
