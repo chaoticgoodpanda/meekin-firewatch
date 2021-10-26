@@ -64,7 +64,7 @@ namespace API.Facebook
         public string LanguageCode { get; set; }
 
         [JsonPropertyName("legacyId")]
-        public int LegacyId { get; set; }
+        public int? LegacyId { get; set; }
 
         [JsonPropertyName("id")]
         public string Id { get; set; }

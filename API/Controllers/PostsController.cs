@@ -8,6 +8,7 @@ using API.Crowdtangle;
 using API.Data;
 using API.Facebook;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 
@@ -57,7 +58,15 @@ namespace API.Controllers
 
 
         }
-        
+
+        // get the posts stored locally on the SQL DB
+        [HttpGet("local")]
+        public async Task<ActionResult<List<Facebook.Post>>> GetLocalPosts()
+        {
+            return await _context.Posts.ToListAsync();
+            
+        }
+
         // TODO: figure out how to sync the [number]_[number] format in the right string format for CT
         // id is string because Facebook stores post ids in this format: 155869377766434_6112776065409039
         [HttpGet("{id}")]

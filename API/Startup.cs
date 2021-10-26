@@ -45,6 +45,12 @@ namespace API
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+            // add CORS, make sure it's in this order, after routing
+            app.UseCors(opt =>
+            {
+                // add local React host
+                opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+            });
 
             app.UseAuthorization();
 
