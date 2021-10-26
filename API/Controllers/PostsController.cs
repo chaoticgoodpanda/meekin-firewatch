@@ -25,6 +25,7 @@ namespace API.Controllers
         private readonly string _redditApiKey;
         private string baseUrl = "https://api.crowdtangle.com/";
         private string postsUrl = "posts?token=";
+        private string count = "&count=20";
         
 
         public PostsController(MeekinFirewatchContext context, IConfiguration config)
@@ -42,7 +43,7 @@ namespace API.Controllers
 
             // create a new RestSharp HttpClient
             IRestClient client = new RestClient();
-            Uri getUri = new Uri(baseUrl + postsUrl + _fbApiKey);
+            Uri getUri = new Uri(baseUrl + postsUrl + _fbApiKey + count);
             IRestRequest request = new RestRequest(getUri);
             // cancellation RestSharp token for async requests
             var cancellationTokenSource = new CancellationTokenSource();

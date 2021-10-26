@@ -1,28 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import {Post} from "../models/post";
 import Catalog from "../../features/catalog/Catalog";
-import {Root} from "../models/root";
+import {Typography} from "@mui/material";
+import {Medium} from "../models/medium";
 
 
 function App() {
     // use the setPosts functions to modify the state
     // set to Post type as in models
-    const [post, setRoot] = useState<Post[]>([]);
+    const [post, setPosts] = useState<Post[]>([]);
+    const [media, setMedia] = useState<Medium[]>([]);
     
     // can add a side effect to component OnInit, i.e. when it loads, is destroyed, etc.
     useEffect(() => {
         // API endpoint
         fetch('https://localhost:5001/api/posts')
             .then(response => response.json())
-            .then(data => setRoot(Array.from(data)))
+            .then(data => setPosts(Array.from(data)))
 
     }, []);
     
     
   return (
     <div>
-      <h1>Meekin Firewatch</h1>
-        <Catalog posts={post} />
+        <Typography variant='h1'>Meekin Firewatch</Typography>
+        <Catalog posts={post} media={media}/>
 
     </div>
   );
