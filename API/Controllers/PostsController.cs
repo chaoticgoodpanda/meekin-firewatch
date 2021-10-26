@@ -54,7 +54,7 @@ namespace API.Controllers
             if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException); 
 
             // else, return the data from the restResponse request.
-            return Ok(response.Data);
+            return Ok(response.Data.Result.Posts);
 
 
         }
