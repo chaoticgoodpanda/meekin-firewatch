@@ -4,6 +4,9 @@ namespace API.Facebook
 {
     public class Actual
     {
+        // id for DBcontext
+        public int Id { get; set; }
+        
         [JsonPropertyName("likeCount")]
         public int LikeCount { get; set; }
 

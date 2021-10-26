@@ -4,6 +4,8 @@ namespace API.Facebook
 {
     public class Medium
     {
+        public int Id { get; set; }
+        
         [JsonPropertyName("type")]
         public string Type { get; set; }
 

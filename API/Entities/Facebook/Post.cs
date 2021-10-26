@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace API.Facebook
 {
     public class Post
     {
+        [Key]
+        public int PrimaryId { get; set; }
+        
         [JsonPropertyName("platformId")]
         public string PlatformId { get; set; }
 

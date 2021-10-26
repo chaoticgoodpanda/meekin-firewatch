@@ -4,6 +4,8 @@ namespace API.Facebook
 {
     public class Expected
     {
+        public int Id { get; set; }
+        
         [JsonPropertyName("likeCount")]
         public int LikeCount { get; set; }
 

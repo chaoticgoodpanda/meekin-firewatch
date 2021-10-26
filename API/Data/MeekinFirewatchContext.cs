@@ -12,7 +12,7 @@ namespace API.Data
     {
     }
 
-    public DbSet<Post> Posts {get; set;}
-    public DbSet<PostLabeling> PostLabels {get; set;}
+    public DbSet<Facebook.Post> Posts {get; set;}
+    // public DbSet<PostLabeling> PostLabels {get; set;}
   }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using API.Facebook;
 
 namespace API.Data
 {
@@ -11,19 +12,17 @@ namespace API.Data
             // if it's already populated, exit this method
             if (context.Posts.Any()) return;
 
-            var posts = new List<Post>()
+            var posts = new List<Facebook.Post>()
             {
-                new Post()
+                new Facebook.Post()
                 {
-                    AccountName = "Donald Trump Fake",
-                    PostContent = "I love drinking coffeve",
-                    ProfileImage = "/images/posts/donald.png",
-                    AccountType = "page",
-                    AccountCountry = "US",
-                    PostUrl = "https://www.facebook.com/DonaldTrump/posts/10166091482665725?__cft__[0]=AZXyUYTB1f0B0jlYpRi0oBBU0fC8gOMevY0EEfcis0TFMWK9JfJD2Oee0ve4ENTRdd-CtZgrmVUIrBMgjcN3R2NW2qgdo4FXFuVEkGVkWwKry417SMa0oLtW-DY9G-zAgSndoCI-5FfTi-LiwfrnXCC-&__tn__=%2CO%2CP-R",
-                    SubscriberCount = 57836723,
-                    Score = 3978473.3,
-                    LikeCount = 7263
+                    PostUrl = "https://www.facebook.com/155869377766434/posts/6112776065409039",
+                    PlatformId = "155869377766434_6112776065409039",
+                    Platform = "Facebook",
+                    Title = "Autopsy of Brian Laundrie's remains came back inconclusive, attorney says",
+                    SubscriberCount = 10753023,
+                    LanguageCode = "en",
+                    Caption = "nbcnews.com"
                     
                 }
             };

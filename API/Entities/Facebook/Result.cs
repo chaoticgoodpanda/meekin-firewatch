@@ -5,6 +5,8 @@ namespace API.Facebook
 {
     public class Result
     {
+        public int Id { get; set; }
+        
         [JsonPropertyName("posts")]
         public List<Post> Posts { get; set; }
 

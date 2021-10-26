@@ -36,7 +36,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Post>>> GetFacebookPosts()
+        public async Task<ActionResult<List<Facebook.Post>>> GetFacebookPosts()
         {
 
             // create a new RestSharp HttpClient
