@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ae740b3-b27f-41a0-95e3-1063bcbf1d0c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/features/catalog/Catalog.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/features/catalog/PostPhoto.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/app/layout/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/layout/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/features/catalog/Catalog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/features/catalog/Catalog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/features/catalog/PostCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/features/catalog/PostCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/features/catalog/PostList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/features/catalog/PostList.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +44,7 @@
       <updated>1635268104261</updated>
       <workItem from="1635268110981" duration="66000" />
       <workItem from="1635268408219" duration="132000" />
+      <workItem from="1635345663033" duration="346000" />
     </task>
     <servers />
   </component>

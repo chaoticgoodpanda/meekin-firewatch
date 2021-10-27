@@ -1,6 +1,7 @@
-import {Avatar, List, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
+import {Grid, List, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import {Post} from "../../app/models/post";
 import PostCard from "./PostCard";
+import {Medium} from "../../app/models/medium";
 
 interface Props {
     posts: Post[];
@@ -8,10 +9,12 @@ interface Props {
 
 export default function PostList({posts}: Props) {
     return (
-        <List>
+        <Grid container spacing={4}>
             {posts.map((post) => (
-                <PostCard key={post.id} post={post} />
+                <Grid item xs={4} key={post.id}>
+                    <PostCard post={post} />
+                </Grid>
             ))}
-        </List>
+        </Grid>
     )
 }

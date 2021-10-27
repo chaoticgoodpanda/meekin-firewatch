@@ -5,7 +5,6 @@ import PostList from "./PostList";
 
 interface Props {
     posts: Post[];
-    media: Medium[];
 }
 
 export default function Catalog({posts}: Props) {
