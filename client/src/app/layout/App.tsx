@@ -1,39 +1,37 @@
-import React, {useEffect, useState} from 'react';
-import {Post} from "../models/post";
+import React, {useState} from 'react';
 import Catalog from "../../features/catalog/Catalog";
-import {Container, CssBaseline, Typography} from "@mui/material";
-import {Medium} from "../models/medium";
+import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import Header from "./Header";
 
 
 function App() {
-    // use the setPosts functions to modify the state
-    // set to Post type as in models
-    const [post, setPosts] = useState<Post[]>([]);
-    // const [media, setMedia] = useState<Medium[]>([]);
-    
-    // can add a side effect to component OnInit, i.e. when it loads, is destroyed, etc.
-    useEffect(() => {
-        // API endpoint
-        fetch('https://localhost:5001/api/posts')
-            .then(response => response.json())
-            .then(data => {
-                    setPosts(Array.from(data))
+    // create a dark theme, with mode switching capability
+    const [darkMode, setDarkMode] = useState(true);
+    const paletteType = darkMode ? 'dark' : 'light';
+    const theme = createTheme({
+        palette: {
+            mode: paletteType,
+            background: {
+                default: (paletteType === 'light' ? '#eaeaea' : '#121212')
             }
-                )
-
-    }, []);
+        }
+    })
+    
+    // toggles between dark and light mode
+    function handleThemeChange() {
+        setDarkMode(!darkMode);
+    }
     
   return (
-    <>
+    <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Header />
+        <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
         <Container>
-            <Catalog posts={post} />
+            <Catalog />
         </Container>
         
 
-    </>
+    </ThemeProvider>
   );
 }
 

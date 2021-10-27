@@ -1,10 +1,13 @@
-import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, IconButton, Switch, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import {Search} from "@mui/icons-material";
-import SearchIcon from '@mui/icons-material/Search';
 
 
-export default function Header() {
+interface Props {
+    darkMode: boolean;
+    handleThemeChange: () => void;
+}
+
+export default function Header({darkMode, handleThemeChange}: Props) {
     return (
         <AppBar position ='static' sx={{mb: 4}}>
             <Toolbar>
@@ -20,9 +23,7 @@ export default function Header() {
                 <Typography variant='h6'>
                     MEEKIN FIREWATCH
                 </Typography>
-                <Search>
-                    <SearchIcon />
-                </Search>
+                <Switch checked={darkMode} onChange={handleThemeChange} color="secondary" name="Dark mode"/>
             </Toolbar>
         </AppBar>
     )
