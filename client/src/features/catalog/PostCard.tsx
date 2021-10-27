@@ -41,7 +41,7 @@ export default function PostCard({post}: Props) {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title={post.title}
+                title={post.account.name}
                 titleTypographyProps={{
                     sx: {fontWeight: 'bold', color: 'primary.main'}
                 }}
@@ -49,17 +49,20 @@ export default function PostCard({post}: Props) {
             />
             <CardMedia
                 component="img"
-                sx={{height: 140, backgroundSize: 'contain', bgcolor: 'primary.light'}}
+                sx={{height: 200, backgroundSize: 'contain', bgcolor: 'primary.light'}}
                 image={post.postUrl}
                 alt="Post image"
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
+                    <strong>{post.title}</strong>
+                    <br/><br/>
                     {post.message}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
+                    {post.statistics.actual?.likeCount} 
                     <FavoriteIcon />
                 </IconButton>
                 <IconButton aria-label="share">
