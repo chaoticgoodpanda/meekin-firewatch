@@ -5,12 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using API.Facebook;
-using API.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using RestSharp;
+using RestResponse = API.Helpers.RestResponse;
 
 namespace API.Tests
 {
@@ -168,6 +170,38 @@ namespace API.Tests
             // Assert.IsTrue(jsonObject.AccountType.Contains("facebook_page"));
             
             httpClient.Dispose();
+        }
+        
+                // get the response in Json format
+        [TestMethod]
+        public async Task TestSpecificPostIdEndpoint()
+        {
+            string id = "155869377766434_6112776065409039";
+            // specific post ID segment of URL
+            var onePost = string.Format("post/{0}?token=", id);
+            
+            string[] idTokens = id.Split('_');
+            var number1 = Int64.Parse(idTokens[0]);
+            var number2 = Int64.Parse(idTokens[1]);
+
+            IRestClient client = new RestClient();
+            Uri getUri = new Uri(baseUrl + onePost + _fbApiKey);
+            IRestRequest request = new RestRequest(getUri);
+            request.AddHeader("Accept", "application/json");
+            var cancellationTokenSource = new CancellationTokenSource();
+            // request.AddUrlSegment("id", number1 + "_" + number2);
+
+            var response = await client.ExecuteAsync<Root>(request, cancellationTokenSource.Token);
+
+            // if error, print stack trace
+            if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException); 
+            
+            // assertion test that 200 code is returned
+            Assert.IsTrue(response.IsSuccessful);
+
+            Console.WriteLine(response.Data);
+
+
         }
 
         // test sending a message to endpoint

@@ -87,7 +87,7 @@ namespace API.Controllers
             var cancellationTokenSource = new CancellationTokenSource();
             // request.AddUrlSegment("id", number1 + "_" + number2);
 
-            var response = await client.ExecuteAsync<Facebook.Post>(request, cancellationTokenSource.Token);
+            var response = await client.ExecuteAsync<Root>(request, cancellationTokenSource.Token);
             
             // if error, print stack trace
             if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException); 

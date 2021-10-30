@@ -1,4 +1,4 @@
-import {Avatar} from "@mui/material";
+import {Avatar, Box, Button} from "@mui/material";
 import {Post} from "../../app/models/post";
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {Link} from "react-router-dom";
 
 interface Props {
     post: Post;
@@ -69,6 +70,16 @@ export default function PostCard({post}: Props) {
                     <ShareIcon />
                 </IconButton>
             </CardActions>
+            <Box textAlign='center' sx={{mb: 2}}>
+                <Button component={Link} to={`/catalog/${post.id}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
+                <Button component={Link} to={`/catalog/${post.id}`} variant="contained" color="success">
+                    Label
+                </Button>&nbsp;&nbsp;&nbsp;
+                <Button variant="outlined" color="error">
+                    Appeal
+                </Button>
+            </Box>
+
         </Card>
     );
 }
