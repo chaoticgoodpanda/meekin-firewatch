@@ -19,7 +19,7 @@ export interface Post {
     postUrl: string;
     subscriberCount: number;
     score: number;
-    media?: Medium[];
+    media: Medium[];
     statistics: Statistics;
     account: Account;
     languageCode: string;

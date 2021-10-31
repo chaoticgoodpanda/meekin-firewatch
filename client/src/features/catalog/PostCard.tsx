@@ -24,6 +24,8 @@ interface ExpandMoreProps extends IconButtonProps {
 
 export default function PostCard({post}: Props) {
     const [expanded, setExpanded] = React.useState(false);
+    // const [media, setMedia] = useState<Medium[]>();
+    
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -48,12 +50,15 @@ export default function PostCard({post}: Props) {
                 }}
                 subheader={post.date}
             />
-            <CardMedia
-                component="img"
-                sx={{height: 200, backgroundSize: 'contain', bgcolor: 'primary.light'}}
-                image={post.postUrl}
-                alt="Post image"
-            />
+            {post.media.map((media) => (
+                <CardMedia
+                    key={media.id}
+                    component="img"
+                    sx={{height: 200, backgroundSize: 'center', bgcolor: 'transparent', justifyContent: 'center'}}
+                    image={media.url}
+                    alt="Post image"
+                />
+            ))}
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     <strong>{post.title}</strong>
@@ -71,8 +76,8 @@ export default function PostCard({post}: Props) {
                 </IconButton>
             </CardActions>
             <Box textAlign='center' sx={{mb: 2}}>
-                <Button component={Link} to={`/catalog/${post.id}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
-                <Button component={Link} to={`/catalog/${post.id}`} variant="contained" color="success">
+                <Button component={Link} to={`/catalog/${post.platformId}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
+                <Button component={Link} to={`/catalog/${post.platformId}`} variant="contained" color="success">
                     Label
                 </Button>&nbsp;&nbsp;&nbsp;
                 <Button variant="outlined" color="error">

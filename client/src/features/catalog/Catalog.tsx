@@ -1,6 +1,8 @@
 import {Post} from "../../app/models/post";
 import PostList from "./PostList";
 import {useEffect, useState} from "react";
+import {Medium} from "../../app/models/medium";
+import axios from "axios";
 
 // interface Props {
 //     posts: Post[];
@@ -11,7 +13,8 @@ export default function Catalog() {
     // use the setPosts functions to modify the state
     // set to Post type as in models
     const [posts, setPosts] = useState<Post[]>([]);
-    // const [media, setMedia] = useState<Medium[]>([]);
+    const [postImages, setPostImages] = useState<Post[]>([]);
+    const [loading, setLoading] = useState(true);
 
     // can add a side effect to component OnInit, i.e. when it loads, is destroyed, etc.
     useEffect(() => {
@@ -24,10 +27,11 @@ export default function Catalog() {
             )
 
     }, []);
+    
 
     return (
         <>
-            <PostList posts={posts} />
+            <PostList posts={posts} media={postImages}/>
         </>
 
 )
