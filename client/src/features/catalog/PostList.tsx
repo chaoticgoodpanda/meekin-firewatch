@@ -1,7 +1,6 @@
 import {Grid, } from "@mui/material";
 import {Post} from "../../app/models/post";
 import PostCard from "./PostCard";
-import {Medium} from "../../app/models/medium";
 
 interface Props {
     posts: Post[];

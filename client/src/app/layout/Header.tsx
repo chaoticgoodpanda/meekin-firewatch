@@ -1,4 +1,4 @@
-import {AppBar, Badge, Box, Icon, IconButton, List, ListItem, Switch, Toolbar, Typography} from "@mui/material";
+import {AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {NavLink} from "react-router-dom";
 import {Notifications, ShoppingCart} from "@mui/icons-material";

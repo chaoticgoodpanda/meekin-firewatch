@@ -1,6 +1,5 @@
 import {
-    Card,
-    CardContent,
+    Button,
     Divider,
     Grid,
     Table,
@@ -14,8 +13,9 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Post} from "../../app/models/post";
-import {Root} from "../../app/models/root";
-import PostCard from "./PostCard";
+import {history} from "../../index";
+import NotFound from "../../app/errors/NotFound";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 export default function PostDetails() {
     // takes the http URL as a string for the specific post detail
@@ -31,14 +31,14 @@ export default function PostDetails() {
                     setPost((response.data.result.posts))
                 }
             )
-            .catch(error => console.log(error))
+            .catch(error => console.log(error.response))
             .finally(() => setLoading(false));
     }, [id]);
     
     
-    if (loading) return <h3>Loading...</h3>;
+    if (loading) return <LoadingComponent message='Loading your post...'/>
     
-    if (!post) return <h3>Product not found.</h3>;
+    if (!post) return <NotFound />;
     
     
     return (
@@ -47,6 +47,7 @@ export default function PostDetails() {
                 {post.map((onePost) => (
                     <><Grid item xs={6} key={onePost.id}>
                         <img src={onePost.account.profileImage} alt={onePost.account.name} style={{width: '100%'}}/>
+                        <Button onClick={() => history.push('/catalog')} color="secondary">Back to Catalog</Button>
                     </Grid><Grid item xs={6}>
                         <Typography variant='h3'>{onePost.description}</Typography>
                         <Divider sx={{mb: 2}} />
