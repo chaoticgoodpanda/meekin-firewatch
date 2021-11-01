@@ -14,10 +14,7 @@ using RestSharp;
 
 namespace API.Controllers
 {
-
-    [ApiController]
-    [Route("api/[controller]")]
-    public class PostsController : ControllerBase
+    public class PostsController : BaseApiController
     {
         private readonly MeekinFirewatchContext _context;
         private readonly string _fbApiKey;
