@@ -1,4 +1,15 @@
-import {Card, CardContent, Divider, Grid, Typography} from "@mui/material";
+import {
+    Card,
+    CardContent,
+    Divider,
+    Grid,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableRow,
+    Typography
+} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -40,6 +51,32 @@ export default function PostDetails() {
                         <Typography variant='h3'>{onePost.description}</Typography>
                         <Divider sx={{mb: 2}} />
                         <Typography variant='h4' color='secondary'>{onePost.message}</Typography>
+                        <TableContainer>
+                            <Table>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell>Account Name</TableCell>
+                                        <TableCell>{onePost.account.name}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>Last updated</TableCell>
+                                        <TableCell>{onePost.date}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>Title (if any)</TableCell>
+                                        <TableCell>{onePost.title}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>Post content</TableCell>
+                                        <TableCell>{onePost.message}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>Original post URL</TableCell>
+                                        <TableCell><a target="_blank" rel="noopener noreferrer" href={onePost.postUrl}>{onePost.postUrl}</a></TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </Grid></>
                     ))}
             </Grid>

@@ -31,7 +31,7 @@ export default function Catalog() {
 
     return (
         <>
-            <PostList posts={posts} media={postImages}/>
+            <PostList posts={posts}/>
         </>
 
 )

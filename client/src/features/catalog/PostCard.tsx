@@ -50,7 +50,7 @@ export default function PostCard({post}: Props) {
                 }}
                 subheader={post.date}
             />
-            {post.media.map((media) => (
+            {post.media?.map((media) => (
                 <CardMedia
                     key={media.id}
                     component="img"

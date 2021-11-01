@@ -5,7 +5,6 @@ import {Medium} from "../../app/models/medium";
 
 interface Props {
     posts: Post[];
-    media: Post[];
 }
 
 export default function PostList({posts}: Props) {
