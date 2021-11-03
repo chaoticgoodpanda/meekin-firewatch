@@ -1,4 +1,4 @@
-import {Avatar, Box, Button} from "@mui/material";
+import {Avatar, Box, Button, Collapse, duration, Icon, IconButtonProps, styled, ThemeProvider} from "@mui/material";
 import {Post} from "../../app/models/post";
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -12,15 +12,40 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {Link} from "react-router-dom";
-import {useState} from "react";
-import GoogleTranslate from "../translate/GoogleTranslate";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+    ChildCare,
+    Dangerous, EmojiObjects,
+    SentimentVeryDissatisfied,
+    SentimentVerySatisfied,
+    ThumbUpAltOutlined
+} from "@mui/icons-material";
 
 interface Props {
     post: Post;
 }
 
+interface ExpandMoreProps extends IconButtonProps {
+    expand: boolean;
+}
+
+// expands text for text in posts that are too long
+const ExpandMore = styled((props: ExpandMoreProps) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+})(({theme, expand}: any) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+
+}));
+
 
 export default function PostCard({post}: Props) {
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
     return (
         <Card>
@@ -58,13 +83,48 @@ export default function PostCard({post}: Props) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    {post.statistics.actual?.likeCount} 
-                    <FavoriteIcon />
+                <IconButton aria-label="add to favorites" sx={{fontSize: 12}} size="small">
+                    <ThumbUpAltOutlined />
+                    &nbsp;{post.statistics.actual?.likeCount}
                 </IconButton>
+                <IconButton sx={{fontSize: 12}} size="small">
+                    <Dangerous />
+                    &nbsp;{post.statistics.actual?.angryCount}
+                </IconButton>
+                <Collapse in={expanded} timeout="auto"  unmountOnExit>
+                    <IconButton sx={{fontSize: 12}} size="small">
+                        <FavoriteIcon />
+                        &nbsp;{post.statistics.actual?.loveCount}
+                    </IconButton>
+                    <IconButton sx={{fontSize: 12}} size="small">
+                        <ChildCare />
+                        &nbsp;{post.statistics.actual?.careCount}
+                    </IconButton>
+                    <IconButton sx={{fontSize: 12}} size="small">
+                        <SentimentVerySatisfied />
+                        &nbsp;{post.statistics.actual?.hahaCount}
+                    </IconButton>
+                    <IconButton sx={{fontSize: 12}} size="small">
+                        <EmojiObjects />
+                        &nbsp;{post.statistics.actual?.wowCount}
+                    </IconButton>
+                    <IconButton sx={{fontSize: 12}} size="small">
+                        <SentimentVeryDissatisfied />
+                        &nbsp;{post.statistics.actual?.sadCount}
+                    </IconButton>
+                </Collapse>
+                
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
+                <ExpandMore
+                    expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMoreIcon />
+                </ExpandMore>
             </CardActions>
             <Box textAlign='center' sx={{mb: 2}}>
                 <Button component={Link} to={`/catalog/${post.platformId}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
@@ -75,7 +135,6 @@ export default function PostCard({post}: Props) {
                     Appeal
                 </Button>
             </Box>
-
         </Card>
     );
 }
