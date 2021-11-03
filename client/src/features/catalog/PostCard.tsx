@@ -54,6 +54,7 @@ export default function PostCard({post}: Props) {
                     <br/><br/>
                     {post.message}
                 </Typography>
+                <Button>Translate</Button>
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">

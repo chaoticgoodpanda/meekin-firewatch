@@ -46,7 +46,9 @@ export default function PostDetails() {
             <Grid container spacing={6}>
                 {post.map((onePost) => (
                     <><Grid item xs={6} key={onePost.id}>
-                        <img src={onePost.account.profileImage} alt={onePost.account.name} style={{width: '100%'}}/>
+                        {onePost.media.map((media) => (
+                            <img key={media.id} src={media.url} alt={onePost.account.name} style={{width: '100%'}}/>
+                        ))}
                         <Button onClick={() => history.push('/catalog')} color="secondary">Back to Catalog</Button>
                     </Grid><Grid item xs={6}>
                         <Typography variant='h3'>{onePost.description}</Typography>
