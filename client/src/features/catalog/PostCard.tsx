@@ -12,6 +12,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {Link} from "react-router-dom";
+import {useState} from "react";
+import GoogleTranslate from "../translate/GoogleTranslate";
 
 interface Props {
     post: Post;
@@ -54,7 +56,6 @@ export default function PostCard({post}: Props) {
                     <br/><br/>
                     {post.message}
                 </Typography>
-                <Button>Translate</Button>
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">

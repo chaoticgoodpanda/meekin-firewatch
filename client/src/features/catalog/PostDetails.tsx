@@ -16,6 +16,8 @@ import {Post} from "../../app/models/post";
 import {history} from "../../index";
 import NotFound from "../../app/errors/NotFound";
 import LoadingComponent from "../../app/layout/LoadingComponent";
+import GoogleTranslate from "../translate/GoogleTranslate";
+import * as React from "react";
 
 export default function PostDetails() {
     // takes the http URL as a string for the specific post detail
@@ -74,9 +76,16 @@ export default function PostDetails() {
                                         <TableCell>{onePost.message}</TableCell>
                                     </TableRow>
                                     <TableRow>
+                                        <TableCell>Translated post content</TableCell>
+                                        <TableCell>
+                                            <GoogleTranslate language="en" text={onePost.message} />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
                                         <TableCell>Original post URL</TableCell>
                                         <TableCell><a target="_blank" rel="noopener noreferrer" href={onePost.postUrl}>{onePost.postUrl}</a></TableCell>
                                     </TableRow>
+                                    
                                 </TableBody>
                             </Table>
                         </TableContainer>
