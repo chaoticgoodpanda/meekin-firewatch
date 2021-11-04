@@ -9,9 +9,9 @@ namespace API
         public int Quantity { get; set; }
         
         //navigation properties
-        public int PostId { get; set; }
+        public string PostId { get; set; }
         
-        public Post Post { get; set; }
+        public Facebook.Post Post { get; set; }
         
         // EF Core setups so Vaults cannot exist without Posts
         public int VaultId { get; set; }

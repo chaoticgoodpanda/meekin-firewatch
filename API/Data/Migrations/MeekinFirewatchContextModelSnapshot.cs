@@ -294,232 +294,6 @@ namespace API.Data.Migrations
                     b.ToTable("Statistics");
                 });
 
-            modelBuilder.Entity("API.Media", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("Accesstime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Full")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Height")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("PostId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("PostId1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Width")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId1");
-
-                    b.ToTable("Media");
-                });
-
-            modelBuilder.Entity("API.Post", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("AccessTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AccountCountry")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AccountName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AccountType")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("AngryCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CareCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CommentCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("CrowdtangleUpdateTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ExternalLink")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("HahaCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ImageText")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("LikeCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("LinkCaption")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LinkDescription")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LinkTitle")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("LoveCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("MediaUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PageCategory")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("PageCreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PostContent")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("PostCreationTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PostUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ProfileImage")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("SadCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("Score")
-                        .HasColumnType("REAL");
-
-                    b.Property<int?>("ShareCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SocialMediaPlatform")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("SocialMediaPlatformId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("SubscriberCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("ThankfulCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Verified")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("WowCount")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Post");
-                });
-
-            modelBuilder.Entity("API.PostLabeling", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("AccessTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("AnalysisDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AnalysisReport")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Country")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("DecisionDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FacebookDecision")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("HumanTarget")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Intent")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsDangerous")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Justifications")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Offensive")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("OffensiveContent")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("OrganizationId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("PostId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("RabatLikelihoodHarm")
-                        .HasColumnType("REAL");
-
-                    b.Property<long>("RabatVirality")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Speaker")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SummaryAnalysis")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostLabeling");
-                });
-
             modelBuilder.Entity("API.Vault", b =>
                 {
                     b.Property<int>("Id")
@@ -540,7 +314,10 @@ namespace API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PostId")
+                    b.Property<string>("PostId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("PostPrimaryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")
@@ -551,7 +328,7 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("PostPrimaryId");
 
                     b.HasIndex("VaultId");
 
@@ -602,27 +379,11 @@ namespace API.Data.Migrations
                     b.Navigation("Expected");
                 });
 
-            modelBuilder.Entity("API.Media", b =>
-                {
-                    b.HasOne("API.Post", null)
-                        .WithMany("Media")
-                        .HasForeignKey("PostId1");
-                });
-
-            modelBuilder.Entity("API.PostLabeling", b =>
-                {
-                    b.HasOne("API.Post", null)
-                        .WithMany("PostLabeling")
-                        .HasForeignKey("PostId");
-                });
-
             modelBuilder.Entity("API.VaultItem", b =>
                 {
-                    b.HasOne("API.Post", "Post")
+                    b.HasOne("API.Facebook.Post", "Post")
                         .WithMany()
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PostPrimaryId");
 
                     b.HasOne("API.Vault", "Vault")
                         .WithMany("Items")
@@ -640,13 +401,6 @@ namespace API.Data.Migrations
                     b.Navigation("ExpandedLinks");
 
                     b.Navigation("Media");
-                });
-
-            modelBuilder.Entity("API.Post", b =>
-                {
-                    b.Navigation("Media");
-
-                    b.Navigation("PostLabeling");
                 });
 
             modelBuilder.Entity("API.Vault", b =>

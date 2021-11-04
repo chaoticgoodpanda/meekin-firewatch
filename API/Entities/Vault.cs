@@ -12,7 +12,7 @@ namespace API
 
         public List<VaultItem> Items { get; set; } = new List<VaultItem>();
 
-        public void AddItem(Post post, int quantity)
+        public void AddItem(Facebook.Post post, int quantity)
         {
             if (Items.All(item => item.PostId != post.Id))
             {
@@ -23,7 +23,7 @@ namespace API
             if (existingItem != null) existingItem.Quantity = existingItem.Quantity = quantity;
         }
 
-        public void RemoveItem(int postId, int quantity)
+        public void RemoveItem(string postId, int quantity)
         {
             var item = Items.FirstOrDefault(item => item.PostId == postId);
             if (item == null) return;
