@@ -261,6 +261,9 @@ namespace API.Data.Migrations
                     b.Property<string>("Updated")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("VaultItemId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("VideoLengthMS")
                         .HasColumnType("INTEGER");
 
@@ -269,6 +272,8 @@ namespace API.Data.Migrations
                     b.HasIndex("AccountId");
 
                     b.HasIndex("StatisticsId");
+
+                    b.HasIndex("VaultItemId");
 
                     b.ToTable("Posts");
                 });
@@ -317,9 +322,6 @@ namespace API.Data.Migrations
                     b.Property<string>("PostId")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PostPrimaryId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
@@ -327,8 +329,6 @@ namespace API.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostPrimaryId");
 
                     b.HasIndex("VaultId");
 
@@ -359,6 +359,10 @@ namespace API.Data.Migrations
                         .WithMany()
                         .HasForeignKey("StatisticsId");
 
+                    b.HasOne("API.VaultItem", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("VaultItemId");
+
                     b.Navigation("Account");
 
                     b.Navigation("Statistics");
@@ -381,17 +385,11 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.VaultItem", b =>
                 {
-                    b.HasOne("API.Facebook.Post", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostPrimaryId");
-
                     b.HasOne("API.Vault", "Vault")
                         .WithMany("Items")
                         .HasForeignKey("VaultId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Post");
 
                     b.Navigation("Vault");
                 });
@@ -406,6 +404,11 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Vault", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("API.VaultItem", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

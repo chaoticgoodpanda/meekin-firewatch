@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using API.Facebook;
 
 namespace API
 {
@@ -12,14 +13,16 @@ namespace API
 
         public List<VaultItem> Items { get; set; } = new List<VaultItem>();
 
-        public void AddItem(Facebook.Post post, int quantity)
+        public void AddItem(List<Post> posts, int quantity)
         {
-            if (Items.All(item => item.PostId != post.Id))
+            var post = posts.Select(p => p.PlatformId);
+            var stringPost = string.Join("", post.ToArray() );
+            if (Items.All(item => item.PostId != stringPost))
             {
-                Items.Add(new VaultItem{Post = post, Quantity = quantity});
+                Items.Add(new VaultItem{Posts = posts, Quantity = quantity});
             }
 
-            var existingItem = Items.FirstOrDefault(item => item.PostId == post.Id);
+            var existingItem = Items.FirstOrDefault(item => item.PostId == stringPost);
             if (existingItem != null) existingItem.Quantity = existingItem.Quantity = quantity;
         }
 
