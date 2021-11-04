@@ -14,10 +14,6 @@ namespace API.Data
 
     public DbSet<Facebook.Post> Posts {get; set;}
     // public DbSet<PostLabeling> PostLabels {get; set;}
-    
-    public DbSet<Vault> Vaults { get; set; }
-    
-    // we'll have a need to query individual Vault items
-    public DbSet<VaultItem> VaultItems { get; set; }
+
   }
 }

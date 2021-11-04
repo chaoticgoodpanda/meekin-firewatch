@@ -261,9 +261,6 @@ namespace API.Data.Migrations
                     b.Property<string>("Updated")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("VaultItemId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("VideoLengthMS")
                         .HasColumnType("INTEGER");
 
@@ -272,8 +269,6 @@ namespace API.Data.Migrations
                     b.HasIndex("AccountId");
 
                     b.HasIndex("StatisticsId");
-
-                    b.HasIndex("VaultItemId");
 
                     b.ToTable("Posts");
                 });
@@ -297,42 +292,6 @@ namespace API.Data.Migrations
                     b.HasIndex("ExpectedId");
 
                     b.ToTable("Statistics");
-                });
-
-            modelBuilder.Entity("API.Vault", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vaults");
-                });
-
-            modelBuilder.Entity("API.VaultItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("PostId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("VaultId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VaultId");
-
-                    b.ToTable("VaultItems");
                 });
 
             modelBuilder.Entity("API.Facebook.ExpandedLink", b =>
@@ -359,10 +318,6 @@ namespace API.Data.Migrations
                         .WithMany()
                         .HasForeignKey("StatisticsId");
 
-                    b.HasOne("API.VaultItem", null)
-                        .WithMany("Posts")
-                        .HasForeignKey("VaultItemId");
-
                     b.Navigation("Account");
 
                     b.Navigation("Statistics");
@@ -383,32 +338,11 @@ namespace API.Data.Migrations
                     b.Navigation("Expected");
                 });
 
-            modelBuilder.Entity("API.VaultItem", b =>
-                {
-                    b.HasOne("API.Vault", "Vault")
-                        .WithMany("Items")
-                        .HasForeignKey("VaultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vault");
-                });
-
             modelBuilder.Entity("API.Facebook.Post", b =>
                 {
                     b.Navigation("ExpandedLinks");
 
                     b.Navigation("Media");
-                });
-
-            modelBuilder.Entity("API.Vault", b =>
-                {
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("API.VaultItem", b =>
-                {
-                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }
