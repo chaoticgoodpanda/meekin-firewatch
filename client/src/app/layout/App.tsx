@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ServerError from "../errors/ServerError";
 import NotFound from "../errors/NotFound";
 import Sandbox from "../../features/sandbox/Sandbox";
+import ThreatDashboard from "../../features/threats/threatDashboard/ThreatDashboard";
 
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
                 <Route path='/catalog/:id' component={PostDetails}/>
                 <Route path='/about' component={AboutPage}/>
                 <Route path='/contact' component={ContactPage}/>
-                <Route path='/threats' component={ThreatPage} />
+                <Route path='/threats' component={ThreatDashboard} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />
             </Switch>
