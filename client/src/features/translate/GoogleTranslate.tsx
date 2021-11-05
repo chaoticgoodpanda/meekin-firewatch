@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography} from "@mui/material";
 import axios from "axios";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 const googleTranslateApiKey = "AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM";
 
@@ -48,6 +49,7 @@ const GoogleTranslate = ({language, text}) => {
         };
         doTranslation();
     }, [language, text]);
+    
     
     return (
         <Typography variant="body2" color="text.secondary">

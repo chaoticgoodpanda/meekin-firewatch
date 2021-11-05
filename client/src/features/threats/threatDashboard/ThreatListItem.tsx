@@ -23,7 +23,7 @@ export default function ThreatListItem() {
                     Threat Message
                 </Typography>
             </CardContent>
-            <ImageList sx={{ width: 500, height: 80 }} cols={3} rowHeight={150}>
+            <ImageList sx={{ width: 500, height: 80, ml: 2 }} cols={3} rowHeight={150}>
                 <ThreatListAttendee />
                 <ThreatListAttendee />
                 <ThreatListAttendee />

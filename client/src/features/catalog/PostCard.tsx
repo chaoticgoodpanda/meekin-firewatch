@@ -51,8 +51,8 @@ export default function PostCard({post}: Props) {
         <Card>
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: 'secondary.main' }} src={post.account.profileImage} aria-label="post">
-                        {post.account.name}
+                    <Avatar sx={{ bgcolor: 'secondary.main'}} src={post.account.profileImage} aria-label="post">
+                            {post.account.name}
                     </Avatar>
                 }
                 action={
@@ -66,9 +66,9 @@ export default function PostCard({post}: Props) {
                 }}
                 subheader={post.date}
             />
-            {post.media?.map((media) => (
+            {post.media?.map((media, index1) => (
                 <CardMedia
-                    key={media.id}
+                    key={index1}
                     component="img"
                     sx={{height: 200, backgroundSize: 'center', bgcolor: 'transparent', justifyContent: 'center'}}
                     image={media.url}
@@ -129,7 +129,7 @@ export default function PostCard({post}: Props) {
             <Box textAlign='center' sx={{mb: 2}}>
                 <Button component={Link} to={`/catalog/${post.platformId}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
                 <Button component={Link} to={`/catalog/${post.platformId}`} variant="contained" color="success">
-                    Label
+                    Report
                 </Button>&nbsp;&nbsp;&nbsp;
                 <Button variant="outlined" color="error">
                     Appeal

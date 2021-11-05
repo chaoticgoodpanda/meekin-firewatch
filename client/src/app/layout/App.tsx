@@ -7,13 +7,13 @@ import HomePage from "../../features/home/HomePage";
 import PostDetails from "../../features/catalog/PostDetails";
 import AboutPage from "../../features/about/AboutPage";
 import ContactPage from "../../features/contact/ContactPage";
-import ThreatPage from "../../features/threats/ThreatPage";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ServerError from "../errors/ServerError";
 import NotFound from "../errors/NotFound";
 import Sandbox from "../../features/sandbox/Sandbox";
 import ThreatDashboard from "../../features/threats/threatDashboard/ThreatDashboard";
+import ThreatForm from "../../features/threats/threatForm/ThreatForm";
 
 
 function App() {
@@ -48,6 +48,7 @@ function App() {
                 <Route path='/about' component={AboutPage}/>
                 <Route path='/contact' component={ContactPage}/>
                 <Route path='/threats' component={ThreatDashboard} />
+                <Route path='/threatForm' component={ThreatForm} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />
             </Switch>

@@ -1,12 +1,13 @@
 import {
-    Button,
+    Box,
+    Button, Collapse,
     Divider,
-    Grid,
+    Grid, IconButtonProps, styled,
     Table,
     TableBody,
     TableCell,
     TableContainer,
-    TableRow,
+    TableRow, TextField,
     Typography
 } from "@mui/material";
 import {useParams} from "react-router-dom";
@@ -18,13 +19,35 @@ import NotFound from "../../app/errors/NotFound";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import GoogleTranslate from "../translate/GoogleTranslate";
 import * as React from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import IconButton from "@mui/material/IconButton";
+
+
+interface ExpandMoreProps extends IconButtonProps {
+    expand: boolean;
+}
+
+// expands text for text in posts that are too long
+const ExpandMore = styled((props: ExpandMoreProps) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+})(({theme, expand}: any) => ({
+    text: "Hide Report Form"
+
+}));
 
 export default function PostDetails() {
+    const [report, setReport] = useState('');
+    const [expanded, setExpanded] = React.useState(false);
     // takes the http URL as a string for the specific post detail
     const {id} = useParams<{id: string}>();
     const [post, setPost] = useState<Post[]>([]);
     // set loading indicator to true when initializing this component
     const [loading, setLoading] = useState(true);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
     
     // same as OnInit in Angular
     useEffect(() => {
@@ -46,13 +69,44 @@ export default function PostDetails() {
     return (
         <>
             <Grid container spacing={6}>
-                {post.map((onePost) => (
-                    <><Grid item xs={6} key={onePost.id}>
-                        {onePost.media.map((media) => (
-                            <img key={media.id} src={media.url} alt={onePost.account.name} style={{width: '100%'}}/>
+                {post.map((onePost, index1) => (
+                    <>
+                    <Grid item xs={6} key={index1}>
+                        {onePost.media.map((media, index2) => (
+                            <img key={index2} src={media.url} alt={onePost.account.name} style={{width: '100%'}}/>
                         ))}
+                        <Collapse in={expanded} timeout="auto"  unmountOnExit >
+                            <br/>
+                            Please fill out the fields below. When you submit, the post data 
+                            on the right will be submitted along with your report. 
+                            <br/>
+                            <Box
+                                component="form"
+                                sx={{
+                                    '& > :not(style)': { m: 1, width: '60ch' },
+                                }}
+                                noValidate
+                                autoComplete="on"
+                            >
+                                <TextField id="outlined-basic" label="Report title" variant="outlined" />
+                                <TextField id="filled-multiline-flexible" label="Analysis" variant="filled" 
+                                           multiline rows={8}
+                                />
+                            </Box>
+                            <Button sx={{ml: 1, mt: 1}} type='submit' onClick={() => history.push('/catalog')} color="warning" variant="contained">Submit Report</Button>
+                        </Collapse>
+                        <ExpandMore
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label="show more"
+                        >
+                            <Button color="primary">Toggle Report Form</Button>
+                        </ExpandMore>
                         <Button onClick={() => history.push('/catalog')} color="secondary">Back to Catalog</Button>
-                    </Grid><Grid item xs={6}>
+                    </Grid>
+                        
+                        <Grid item xs={6}>
                         <Typography variant='h3'>{onePost.description}</Typography>
                         <Divider sx={{mb: 2}} />
                         <Typography variant='h4' color='secondary'>{onePost.message}</Typography>
@@ -89,22 +143,11 @@ export default function PostDetails() {
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                    </Grid></>
+                    </Grid>
+                    </>
                     ))}
             </Grid>
         </>
 
     )
 }
-
-// <Typography variant='h2'>
-//     {post.map((onePost) => (
-//             <Card key={onePost.id}>
-//                 <CardContent>
-//                     {onePost.message}
-//                 </CardContent>
-//             </Card>
-//         )
-//
-//     )}
-// </Typography>
