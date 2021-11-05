@@ -12,6 +12,7 @@ import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ServerError from "../errors/ServerError";
 import NotFound from "../errors/NotFound";
+import Sandbox from "../../features/sandbox/Sandbox";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
             <Switch>
                 <Route exact path='/' component={HomePage}/>
                 <Route exact path='/catalog' component={Catalog}/>
+                <Route exact path='/sandbox' component={Sandbox}/>
                 <Route path='/catalog/:id' component={PostDetails}/>
                 <Route path='/about' component={AboutPage}/>
                 <Route path='/contact' component={ContactPage}/>
