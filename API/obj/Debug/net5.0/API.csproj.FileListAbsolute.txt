@@ -146,3 +146,5 @@
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Persistence.dll
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Domain.pdb
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Persistence.pdb
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/MediatR.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/MediatR.Extensions.Microsoft.DependencyInjection.dll

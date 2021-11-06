@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
@@ -7,7 +8,7 @@ namespace Domain.Facebook
     public class Post
     {
         [Key]
-        public int PrimaryId { get; set; }
+        public Guid GuidId { get; set; }
         
         [JsonPropertyName("platformId")]
         public string PlatformId { get; set; }

@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Events;
 using Domain.Facebook;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Persistence;
 using RestSharp;
 
 namespace API.Controllers
 {
     public class PostsController : BaseApiController
     {
-        private readonly MeekinFirewatchContext _context;
         private readonly string _fbApiKey;
         private readonly string _instaApiKey;
         private readonly string _redditApiKey;
@@ -22,9 +21,8 @@ namespace API.Controllers
         private string count = "&count=20";
         
 
-        public PostsController(MeekinFirewatchContext context, IConfiguration config)
+        public PostsController(IConfiguration config)
         {
-            _context = context;
             _fbApiKey = config.GetSection("CrowdtangleSettings:FacebookApiKey").Value;
             _instaApiKey = config.GetSection("CrowdtangleSettings:InstagramApiKey").Value;
             _redditApiKey = config.GetSection("CrowdtangleSettings:RedditApiKey").Value;
@@ -58,8 +56,15 @@ namespace API.Controllers
         [HttpGet("local")]
         public async Task<ActionResult<List<Post>>> GetLocalPosts()
         {
-            return await _context.Posts.ToListAsync();
-            
+            return await Mediator.Send(new List.Query());
+
+        }
+        
+        //get a specific post stored locally on the SQL DB
+        [HttpGet("local/{id}")]
+        public async Task<ActionResult<Post>> GetLocalPost(Guid id)
+        {
+            return await Mediator.Send(new Details.Query{Id = id});
         }
 
         // TODO: figure out how to sync the [number]_[number] format in the right string format for CT

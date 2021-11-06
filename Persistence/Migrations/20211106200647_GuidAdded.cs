@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class InitialCT : Migration
+    public partial class GuidAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -105,8 +106,7 @@ namespace Persistence.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    PrimaryId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    GuidId = table.Column<Guid>(type: "TEXT", nullable: false),
                     PlatformId = table.Column<string>(type: "TEXT", nullable: true),
                     Platform = table.Column<string>(type: "TEXT", nullable: true),
                     Date = table.Column<string>(type: "TEXT", nullable: true),
@@ -123,13 +123,13 @@ namespace Persistence.Migrations
                     StatisticsId = table.Column<int>(type: "INTEGER", nullable: true),
                     AccountId = table.Column<int>(type: "INTEGER", nullable: true),
                     LanguageCode = table.Column<string>(type: "TEXT", nullable: true),
-                    LegacyId = table.Column<int>(type: "INTEGER", nullable: false),
+                    LegacyId = table.Column<int>(type: "INTEGER", nullable: true),
                     Id = table.Column<string>(type: "TEXT", nullable: true),
                     VideoLengthMS = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.PrimaryId);
+                    table.PrimaryKey("PK_Posts", x => x.GuidId);
                     table.ForeignKey(
                         name: "FK_Posts_Account_AccountId",
                         column: x => x.AccountId,
@@ -152,16 +152,16 @@ namespace Persistence.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Original = table.Column<string>(type: "TEXT", nullable: true),
                     Expanded = table.Column<string>(type: "TEXT", nullable: true),
-                    PostPrimaryId = table.Column<int>(type: "INTEGER", nullable: true)
+                    PostGuidId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExpandedLink", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExpandedLink_Posts_PostPrimaryId",
-                        column: x => x.PostPrimaryId,
+                        name: "FK_ExpandedLink_Posts_PostGuidId",
+                        column: x => x.PostGuidId,
                         principalTable: "Posts",
-                        principalColumn: "PrimaryId",
+                        principalColumn: "GuidId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -176,28 +176,28 @@ namespace Persistence.Migrations
                     Height = table.Column<int>(type: "INTEGER", nullable: false),
                     Width = table.Column<int>(type: "INTEGER", nullable: false),
                     Full = table.Column<string>(type: "TEXT", nullable: true),
-                    PostPrimaryId = table.Column<int>(type: "INTEGER", nullable: true)
+                    PostGuidId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Medium", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Medium_Posts_PostPrimaryId",
-                        column: x => x.PostPrimaryId,
+                        name: "FK_Medium_Posts_PostGuidId",
+                        column: x => x.PostGuidId,
                         principalTable: "Posts",
-                        principalColumn: "PrimaryId",
+                        principalColumn: "GuidId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExpandedLink_PostPrimaryId",
+                name: "IX_ExpandedLink_PostGuidId",
                 table: "ExpandedLink",
-                column: "PostPrimaryId");
+                column: "PostGuidId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Medium_PostPrimaryId",
+                name: "IX_Medium_PostGuidId",
                 table: "Medium",
-                column: "PostPrimaryId");
+                column: "PostGuidId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_AccountId",

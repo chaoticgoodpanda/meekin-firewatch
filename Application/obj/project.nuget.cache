@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "b+8d9cj0edxb71w0FPYP02bzZ/m53ag8+LtYOSpM2l5ylULVne8HNUnUFOYlJBFK+kfN9uEzUC/HhXCa/7w00g==",
+  "dgSpecHash": "6R285gRxc3pYCR2eg94qO6Yah1kM3yix38syXfMb6LIfXL171WB9yVT6PVClZjn8V6KvOVc5Ey1iasWVj7ijDQ==",
   "success": true,
   "projectFilePath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Application/Application.csproj",
   "expectedPackageFiles": [
+    "/Users/michaellwin/.nuget/packages/mediatr/9.0.0/mediatr.9.0.0.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/9.0.0/mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/microsoft.data.sqlite.core/5.0.11/microsoft.data.sqlite.core.5.0.11.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/microsoft.dotnet.platformabstractions/3.1.6/microsoft.dotnet.platformabstractions.3.1.6.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/microsoft.entityframeworkcore/5.0.11/microsoft.entityframeworkcore.5.0.11.nupkg.sha512",

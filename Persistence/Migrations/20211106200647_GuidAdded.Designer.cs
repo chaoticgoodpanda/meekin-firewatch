@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MeekinFirewatchContext))]
-    [Migration("20211026100411_InitialCT")]
-    partial class InitialCT
+    [Migration("20211106200647_GuidAdded")]
+    partial class GuidAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace Persistence.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.11");
 
-            modelBuilder.Entity("API.Facebook.Account", b =>
+            modelBuilder.Entity("Domain.Facebook.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +68,7 @@ namespace Persistence.Migrations
                     b.ToTable("Account");
                 });
 
-            modelBuilder.Entity("API.Facebook.Actual", b =>
+            modelBuilder.Entity("Domain.Facebook.Actual", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace Persistence.Migrations
                     b.ToTable("Actual");
                 });
 
-            modelBuilder.Entity("API.Facebook.ExpandedLink", b =>
+            modelBuilder.Entity("Domain.Facebook.ExpandedLink", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,17 +121,17 @@ namespace Persistence.Migrations
                     b.Property<string>("Original")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PostPrimaryId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid?>("PostGuidId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostPrimaryId");
+                    b.HasIndex("PostGuidId");
 
                     b.ToTable("ExpandedLink");
                 });
 
-            modelBuilder.Entity("API.Facebook.Expected", b =>
+            modelBuilder.Entity("Domain.Facebook.Expected", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -172,7 +172,7 @@ namespace Persistence.Migrations
                     b.ToTable("Expected");
                 });
 
-            modelBuilder.Entity("API.Facebook.Medium", b =>
+            modelBuilder.Entity("Domain.Facebook.Medium", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -184,8 +184,8 @@ namespace Persistence.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PostPrimaryId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid?>("PostGuidId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Type")
                         .HasColumnType("TEXT");
@@ -198,16 +198,16 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostPrimaryId");
+                    b.HasIndex("PostGuidId");
 
                     b.ToTable("Medium");
                 });
 
-            modelBuilder.Entity("API.Facebook.Post", b =>
+            modelBuilder.Entity("Domain.Facebook.Post", b =>
                 {
-                    b.Property<int>("PrimaryId")
+                    b.Property<Guid>("GuidId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("AccountId")
                         .HasColumnType("INTEGER");
@@ -227,7 +227,7 @@ namespace Persistence.Migrations
                     b.Property<string>("LanguageCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("LegacyId")
+                    b.Property<int?>("LegacyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Link")
@@ -266,7 +266,7 @@ namespace Persistence.Migrations
                     b.Property<int?>("VideoLengthMS")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("PrimaryId");
+                    b.HasKey("GuidId");
 
                     b.HasIndex("AccountId");
 
@@ -275,7 +275,7 @@ namespace Persistence.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("API.Facebook.Statistics", b =>
+            modelBuilder.Entity("Domain.Facebook.Statistics", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -296,27 +296,27 @@ namespace Persistence.Migrations
                     b.ToTable("Statistics");
                 });
 
-            modelBuilder.Entity("API.Facebook.ExpandedLink", b =>
+            modelBuilder.Entity("Domain.Facebook.ExpandedLink", b =>
                 {
-                    b.HasOne("API.Facebook.Post", null)
+                    b.HasOne("Domain.Facebook.Post", null)
                         .WithMany("ExpandedLinks")
-                        .HasForeignKey("PostPrimaryId");
+                        .HasForeignKey("PostGuidId");
                 });
 
-            modelBuilder.Entity("API.Facebook.Medium", b =>
+            modelBuilder.Entity("Domain.Facebook.Medium", b =>
                 {
-                    b.HasOne("API.Facebook.Post", null)
+                    b.HasOne("Domain.Facebook.Post", null)
                         .WithMany("Media")
-                        .HasForeignKey("PostPrimaryId");
+                        .HasForeignKey("PostGuidId");
                 });
 
-            modelBuilder.Entity("API.Facebook.Post", b =>
+            modelBuilder.Entity("Domain.Facebook.Post", b =>
                 {
-                    b.HasOne("API.Facebook.Account", "Account")
+                    b.HasOne("Domain.Facebook.Account", "Account")
                         .WithMany()
                         .HasForeignKey("AccountId");
 
-                    b.HasOne("API.Facebook.Statistics", "Statistics")
+                    b.HasOne("Domain.Facebook.Statistics", "Statistics")
                         .WithMany()
                         .HasForeignKey("StatisticsId");
 
@@ -325,13 +325,13 @@ namespace Persistence.Migrations
                     b.Navigation("Statistics");
                 });
 
-            modelBuilder.Entity("API.Facebook.Statistics", b =>
+            modelBuilder.Entity("Domain.Facebook.Statistics", b =>
                 {
-                    b.HasOne("API.Facebook.Actual", "Actual")
+                    b.HasOne("Domain.Facebook.Actual", "Actual")
                         .WithMany()
                         .HasForeignKey("ActualId");
 
-                    b.HasOne("API.Facebook.Expected", "Expected")
+                    b.HasOne("Domain.Facebook.Expected", "Expected")
                         .WithMany()
                         .HasForeignKey("ExpectedId");
 
@@ -340,7 +340,7 @@ namespace Persistence.Migrations
                     b.Navigation("Expected");
                 });
 
-            modelBuilder.Entity("API.Facebook.Post", b =>
+            modelBuilder.Entity("Domain.Facebook.Post", b =>
                 {
                     b.Navigation("ExpandedLinks");
 
