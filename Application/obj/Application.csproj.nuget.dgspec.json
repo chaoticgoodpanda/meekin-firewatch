@@ -1,0 +1,184 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Application/Application.csproj": {}
+  },
+  "projects": {
+    "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Application/Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Application/Application.csproj",
+        "projectName": "Application",
+        "projectPath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Application/Application.csproj",
+        "packagesPath": "/Users/michaellwin/.nuget/packages/",
+        "outputPath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Application/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/michaellwin/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Domain/Domain.csproj": {
+                "projectPath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Domain/Domain.csproj"
+              },
+              "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/Persistence.csproj": {
+                "projectPath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/Persistence.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.300/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Domain/Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Domain/Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Domain/Domain.csproj",
+        "packagesPath": "/Users/michaellwin/.nuget/packages/",
+        "outputPath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Domain/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/michaellwin/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.300/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/Persistence.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/Persistence.csproj",
+        "projectName": "Persistence",
+        "projectPath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/Persistence.csproj",
+        "packagesPath": "/Users/michaellwin/.nuget/packages/",
+        "outputPath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/michaellwin/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Domain/Domain.csproj": {
+                "projectPath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Domain/Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.300/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
