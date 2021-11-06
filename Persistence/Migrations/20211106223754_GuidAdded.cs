@@ -11,8 +11,8 @@ namespace Persistence.Migrations
                 name: "Account",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    AccountId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Handle = table.Column<string>(type: "TEXT", nullable: true),
                     ProfileImage = table.Column<string>(type: "TEXT", nullable: true),
@@ -29,7 +29,7 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Account", x => x.Id);
+                    table.PrimaryKey("PK_Account", x => x.AccountId);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,7 +121,7 @@ namespace Persistence.Migrations
                     SubscriberCount = table.Column<int>(type: "INTEGER", nullable: false),
                     Score = table.Column<double>(type: "REAL", nullable: false),
                     StatisticsId = table.Column<int>(type: "INTEGER", nullable: true),
-                    AccountId = table.Column<int>(type: "INTEGER", nullable: true),
+                    AccountId = table.Column<Guid>(type: "TEXT", nullable: true),
                     LanguageCode = table.Column<string>(type: "TEXT", nullable: true),
                     LegacyId = table.Column<int>(type: "INTEGER", nullable: true),
                     Id = table.Column<string>(type: "TEXT", nullable: true),
@@ -134,7 +134,7 @@ namespace Persistence.Migrations
                         name: "FK_Posts_Account_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Account",
-                        principalColumn: "Id",
+                        principalColumn: "AccountId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Posts_Statistics_StatisticsId",

@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MeekinFirewatchContext))]
-    [Migration("20211106200647_GuidAdded")]
+    [Migration("20211106223754_GuidAdded")]
     partial class GuidAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,15 +20,18 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Facebook.Account", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("AccountId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("AccountType")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Handle")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -63,7 +66,7 @@ namespace Persistence.Migrations
                     b.Property<bool>("Verified")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("AccountId");
 
                     b.ToTable("Account");
                 });
@@ -209,8 +212,8 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid?>("AccountId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Caption")
                         .HasColumnType("TEXT");

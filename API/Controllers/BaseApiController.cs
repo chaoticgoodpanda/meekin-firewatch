@@ -9,8 +9,13 @@ namespace API.Controllers
     public class BaseApiController : ControllerBase
     {
         private IMediator _mediator;
+        protected string baseUrl = "https://api.crowdtangle.com/";
+        protected string postsUrl = "posts?token=";
+        protected string count = "&count=100";
 
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices
             .GetService<IMediator>();
+        
+        
     }
 }

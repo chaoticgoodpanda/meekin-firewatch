@@ -15,10 +15,6 @@ namespace API.Controllers
         private readonly string _fbApiKey;
         private readonly string _instaApiKey;
         private readonly string _redditApiKey;
-        private string baseUrl = "https://api.crowdtangle.com/";
-        private string postsUrl = "posts?token=";
-        private string count = "&count=100";
-        
 
         public PostsController(IConfiguration config)
         {
@@ -28,27 +24,12 @@ namespace API.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<Post>>> GetFacebookPosts()
+        [HttpPost]
+        public async Task<IActionResult> GetFacebookPosts()
         {
 
-            // create a new RestSharp HttpClient
-            IRestClient client = new RestClient();
-            Uri getUri = new Uri(baseUrl + postsUrl + _fbApiKey + count);
-            IRestRequest request = new RestRequest(getUri);
-            // cancellation RestSharp token for async requests
-            var cancellationTokenSource = new CancellationTokenSource();
-            request.AddHeader("Accept", "application/json");
+            return Ok(await Mediator.Send(new AddManyPosts.Command()));
             
-            var response =  await client.ExecuteAsync<Root>(request, cancellationTokenSource.Token);
-
-            // if error, print stack trace
-            if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException); 
-
-            // else, return the data from the restResponse request.
-            return Ok(response.Data.Result.Posts);
-
-
         }
 
         // get the posts stored locally on the SQL DB

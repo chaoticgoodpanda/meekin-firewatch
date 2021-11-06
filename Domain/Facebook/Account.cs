@@ -1,9 +1,14 @@
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Domain.Facebook
 {
     public class Account
     {
+        [Key]
+        public Guid AccountId { get; set; }
+        
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
