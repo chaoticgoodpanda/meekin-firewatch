@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.Facebook;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Data
+namespace Persistence
 {
   public class MeekinFirewatchContext : DbContext
   {

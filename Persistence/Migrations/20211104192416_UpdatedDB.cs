@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace API.Data.Migrations
+namespace Persistence.Migrations
 {
     public partial class UpdatedDB : Migration
     {
