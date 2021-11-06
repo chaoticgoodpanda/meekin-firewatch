@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
-using API.Crowdtangle;
 using API.Data;
 using API.Facebook;
 using Microsoft.AspNetCore.Mvc;
