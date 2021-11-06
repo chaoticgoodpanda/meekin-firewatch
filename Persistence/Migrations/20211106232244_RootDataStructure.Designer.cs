@@ -9,12 +9,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MeekinFirewatchContext))]
-    [Migration("20211106223754_GuidAdded")]
-    partial class GuidAdded
+    [Migration("20211106232244_RootDataStructure")]
+    partial class RootDataStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
-#pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.11");
 
@@ -206,6 +205,20 @@ namespace Persistence.Migrations
                     b.ToTable("Medium");
                 });
 
+            modelBuilder.Entity("Domain.Facebook.Pagination", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NextPage")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pagination");
+                });
+
             modelBuilder.Entity("Domain.Facebook.Post", b =>
                 {
                     b.Property<Guid>("GuidId")
@@ -248,6 +261,9 @@ namespace Persistence.Migrations
                     b.Property<string>("PostUrl")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("ResultId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<double>("Score")
                         .HasColumnType("REAL");
 
@@ -273,9 +289,46 @@ namespace Persistence.Migrations
 
                     b.HasIndex("AccountId");
 
+                    b.HasIndex("ResultId");
+
                     b.HasIndex("StatisticsId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Domain.Facebook.Result", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PaginationId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaginationId");
+
+                    b.ToTable("Result");
+                });
+
+            modelBuilder.Entity("Domain.Facebook.Root", b =>
+                {
+                    b.Property<Guid>("RootId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("ResultId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RootId");
+
+                    b.HasIndex("ResultId");
+
+                    b.ToTable("Roots");
                 });
 
             modelBuilder.Entity("Domain.Facebook.Statistics", b =>
@@ -319,6 +372,10 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("AccountId");
 
+                    b.HasOne("Domain.Facebook.Result", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("ResultId");
+
                     b.HasOne("Domain.Facebook.Statistics", "Statistics")
                         .WithMany()
                         .HasForeignKey("StatisticsId");
@@ -326,6 +383,24 @@ namespace Persistence.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("Statistics");
+                });
+
+            modelBuilder.Entity("Domain.Facebook.Result", b =>
+                {
+                    b.HasOne("Domain.Facebook.Pagination", "Pagination")
+                        .WithMany()
+                        .HasForeignKey("PaginationId");
+
+                    b.Navigation("Pagination");
+                });
+
+            modelBuilder.Entity("Domain.Facebook.Root", b =>
+                {
+                    b.HasOne("Domain.Facebook.Result", "Result")
+                        .WithMany()
+                        .HasForeignKey("ResultId");
+
+                    b.Navigation("Result");
                 });
 
             modelBuilder.Entity("Domain.Facebook.Statistics", b =>
@@ -349,7 +424,11 @@ namespace Persistence.Migrations
 
                     b.Navigation("Media");
                 });
-#pragma warning restore 612, 618
+
+            modelBuilder.Entity("Domain.Facebook.Result", b =>
+                {
+                    b.Navigation("Posts");
+                });
         }
     }
 }

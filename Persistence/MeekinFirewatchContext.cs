@@ -9,8 +9,11 @@ namespace Persistence
     {
     }
 
-    public DbSet<Post> Posts {get; set;}
-    // public DbSet<PostLabeling> PostLabels {get; set;}
+    public DbSet<Root> Roots {get; set;}
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Account> Accounts { get; set; }
+    public DbSet<Medium> Media { get; set; }
+    
 
   }
 }

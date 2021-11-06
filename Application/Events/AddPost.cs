@@ -65,7 +65,7 @@ namespace Application.Events
                 var data = response.Data;
 
                 // add the index 0 of the List ot the database (only one item in List)
-                _context.Posts.Add(data.Result.Posts[0]);
+                _context.Roots.Add(data);
 
                 await _context.SaveChangesAsync();
 

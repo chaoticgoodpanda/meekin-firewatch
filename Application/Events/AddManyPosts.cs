@@ -24,7 +24,7 @@ namespace Application.Events
             private readonly string _redditApiKey;
             private string baseUrl = "https://api.crowdtangle.com/";
             private string postsUrl = "posts?token=";
-            private string count = "&count=2";
+            private string count = "&count=10";
 
             public Handler(MeekinFirewatchContext context, IConfiguration config)
             {
@@ -49,12 +49,8 @@ namespace Application.Events
                 // if error, print stack trace
                 if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException);
                 var data = response.Data;
-                
-                // iterate over all the posts in the array and write to DB
-                foreach (Post post in data.Result.Posts)
-                {
-                    _context.Posts.Add(post);
-                }
+
+                _context.Roots.Add(data);
 
                 await _context.SaveChangesAsync();
 

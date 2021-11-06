@@ -33,7 +33,7 @@ namespace API.Controllers
         }
 
         // get the posts stored locally on the SQL DB
-        [HttpGet("local")]
+        [HttpGet]
         public async Task<ActionResult<List<Post>>> GetLocalPosts()
         {
             return await Mediator.Send(new List.Query());

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class GuidAdded : Migration
+    public partial class RootDataStructure : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -77,6 +77,19 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pagination",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NextPage = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pagination", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Statistics",
                 columns: table => new
                 {
@@ -98,6 +111,25 @@ namespace Persistence.Migrations
                         name: "FK_Statistics_Expected_ExpectedId",
                         column: x => x.ExpectedId,
                         principalTable: "Expected",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Result",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PaginationId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Result", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Result_Pagination_PaginationId",
+                        column: x => x.PaginationId,
+                        principalTable: "Pagination",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -125,7 +157,8 @@ namespace Persistence.Migrations
                     LanguageCode = table.Column<string>(type: "TEXT", nullable: true),
                     LegacyId = table.Column<int>(type: "INTEGER", nullable: true),
                     Id = table.Column<string>(type: "TEXT", nullable: true),
-                    VideoLengthMS = table.Column<int>(type: "INTEGER", nullable: true)
+                    VideoLengthMS = table.Column<int>(type: "INTEGER", nullable: true),
+                    ResultId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -137,9 +170,34 @@ namespace Persistence.Migrations
                         principalColumn: "AccountId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Posts_Result_ResultId",
+                        column: x => x.ResultId,
+                        principalTable: "Result",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Posts_Statistics_StatisticsId",
                         column: x => x.StatisticsId,
                         principalTable: "Statistics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roots",
+                columns: table => new
+                {
+                    RootId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    ResultId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roots", x => x.RootId);
+                    table.ForeignKey(
+                        name: "FK_Roots_Result_ResultId",
+                        column: x => x.ResultId,
+                        principalTable: "Result",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -205,9 +263,24 @@ namespace Persistence.Migrations
                 column: "AccountId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Posts_ResultId",
+                table: "Posts",
+                column: "ResultId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_StatisticsId",
                 table: "Posts",
                 column: "StatisticsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Result_PaginationId",
+                table: "Result",
+                column: "PaginationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roots_ResultId",
+                table: "Roots",
+                column: "ResultId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Statistics_ActualId",
@@ -229,13 +302,22 @@ namespace Persistence.Migrations
                 name: "Medium");
 
             migrationBuilder.DropTable(
+                name: "Roots");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Account");
 
             migrationBuilder.DropTable(
+                name: "Result");
+
+            migrationBuilder.DropTable(
                 name: "Statistics");
+
+            migrationBuilder.DropTable(
+                name: "Pagination");
 
             migrationBuilder.DropTable(
                 name: "Actual");
