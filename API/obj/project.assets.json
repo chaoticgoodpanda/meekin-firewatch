@@ -706,7 +706,7 @@
           "lib/netstandard2.0/NuGet.Frameworks.dll": {}
         }
       },
-      "RestSharp/106.12.0": {
+      "RestSharp/106.13.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/RestSharp.dll": {}
@@ -2061,7 +2061,9 @@
         "dependencies": {
           "Domain": "1.0.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "9.0.0",
-          "Persistence": "1.0.0"
+          "Newtonsoft.Json": "13.0.1",
+          "Persistence": "1.0.0",
+          "RestSharp": "106.13.0"
         },
         "compile": {
           "bin/placeholder/Application.dll": {}
@@ -3605,10 +3607,10 @@
         "nuget.frameworks.nuspec"
       ]
     },
-    "RestSharp/106.12.0": {
-      "sha512": "irOsQHe5nTJB0BKxGQnTX1dsgCPl5dLTxvL7gbl98JiFPiHMN4wpFyUG/66ZpaFCsIrPKh6XwozWXlwYe9JwYQ==",
+    "RestSharp/106.13.0": {
+      "sha512": "vwUdmmtC5vtePeNfBWnFcixBF2KjUeVv3ss4ZFzCIkOf7NB7W/9qX8JNZD9DOrz2yGk4AJW8k9znwgPZhnoiNg==",
       "type": "package",
-      "path": "restsharp/106.12.0",
+      "path": "restsharp/106.13.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3616,7 +3618,7 @@
         "lib/net452/RestSharp.xml",
         "lib/netstandard2.0/RestSharp.dll",
         "lib/netstandard2.0/RestSharp.xml",
-        "restsharp.106.12.0.nupkg.sha512",
+        "restsharp.106.13.0.nupkg.sha512",
         "restsharp.nuspec",
         "restsharp.png"
       ]
@@ -7215,7 +7217,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 5.0.11",
       "Microsoft.NET.Test.Sdk >= 16.11.0",
       "Newtonsoft.Json >= 13.0.1",
-      "RestSharp >= 106.12.0",
+      "RestSharp >= 106.13.0",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
@@ -7292,7 +7294,7 @@
           },
           "RestSharp": {
             "target": "Package",
-            "version": "[106.12.0, )"
+            "version": "[106.13.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

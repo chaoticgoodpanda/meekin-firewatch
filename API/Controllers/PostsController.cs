@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Events;
 using Domain.Facebook;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
@@ -18,7 +17,7 @@ namespace API.Controllers
         private readonly string _redditApiKey;
         private string baseUrl = "https://api.crowdtangle.com/";
         private string postsUrl = "posts?token=";
-        private string count = "&count=20";
+        private string count = "&count=100";
         
 
         public PostsController(IConfiguration config)
@@ -66,33 +65,14 @@ namespace API.Controllers
         {
             return await Mediator.Send(new Details.Query{Id = id});
         }
-
-        // TODO: figure out how to sync the [number]_[number] format in the right string format for CT
-        // id is string because Facebook stores post ids in this format: 155869377766434_6112776065409039
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> GetFacebookPost(string id)
+        
+        
+        // add a post from Crowdtangle to local DB
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddPost(string id)
         {
-            // specific post ID segment of URL
-            var onePost = string.Format("post/{0}?token=", id);
-            
-            string[] idTokens = id.Split('_');
-            var number1 = Int64.Parse(idTokens[0]);
-            var number2 = Int64.Parse(idTokens[1]);
 
-            IRestClient client = new RestClient();
-            Uri getUri = new Uri(baseUrl + onePost + _fbApiKey);
-            IRestRequest request = new RestRequest(getUri);
-            request.AddHeader("Accept", "application/json");
-            var cancellationTokenSource = new CancellationTokenSource();
-            // request.AddUrlSegment("id", number1 + "_" + number2);
-
-            var response = await client.ExecuteAsync<Root>(request, cancellationTokenSource.Token);
-            
-            // if error, print stack trace
-            if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException); 
-
-            // else, return the data from the restResponse request.
-            return Ok(response.Data);
+            return Ok(await Mediator.Send(new AddPost.Command { Id = id }));
         }
     }
 }

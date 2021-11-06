@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6R285gRxc3pYCR2eg94qO6Yah1kM3yix38syXfMb6LIfXL171WB9yVT6PVClZjn8V6KvOVc5Ey1iasWVj7ijDQ==",
+  "dgSpecHash": "J7yLKA4wYj0i70vUCSTQzdOlGazS/l21sEQQuZHDZV80ieZFonIpttgE93iTiMmdyLk2QS5OA5Ly4PQ0Klqbag==",
   "success": true,
   "projectFilePath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Application/Application.csproj",
   "expectedPackageFiles": [
@@ -24,6 +24,8 @@
     "/Users/michaellwin/.nuget/packages/microsoft.extensions.logging.abstractions/5.0.0/microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/microsoft.extensions.options/5.0.0/microsoft.extensions.options.5.0.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/restsharp/106.13.0/restsharp.106.13.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.0.4/sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/sqlitepclraw.core/2.0.4/sqlitepclraw.core.2.0.4.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.0.4/sqlitepclraw.lib.e_sqlite3.2.0.4.nupkg.sha512",
