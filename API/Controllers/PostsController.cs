@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Data;
-using API.Facebook;
+using Domain.Facebook;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +32,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Facebook.Post>>> GetFacebookPosts()
+        public async Task<ActionResult<List<Post>>> GetFacebookPosts()
         {
 
             // create a new RestSharp HttpClient
@@ -56,7 +56,7 @@ namespace API.Controllers
 
         // get the posts stored locally on the SQL DB
         [HttpGet("local")]
-        public async Task<ActionResult<List<Facebook.Post>>> GetLocalPosts()
+        public async Task<ActionResult<List<Post>>> GetLocalPosts()
         {
             return await _context.Posts.ToListAsync();
             
@@ -65,7 +65,7 @@ namespace API.Controllers
         // TODO: figure out how to sync the [number]_[number] format in the right string format for CT
         // id is string because Facebook stores post ids in this format: 155869377766434_6112776065409039
         [HttpGet("{id}")]
-        public async Task<ActionResult<Facebook.Post>> GetFacebookPost(string id)
+        public async Task<ActionResult<Post>> GetFacebookPost(string id)
         {
             // specific post ID segment of URL
             var onePost = string.Format("post/{0}?token=", id);

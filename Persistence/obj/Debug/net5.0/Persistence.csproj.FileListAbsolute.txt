@@ -1,0 +1,15 @@
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/bin/Debug/net5.0/Persistence.deps.json
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/bin/Debug/net5.0/Persistence.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/bin/Debug/net5.0/ref/Persistence.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/bin/Debug/net5.0/Persistence.pdb
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/Debug/net5.0/Persistence.csproj.AssemblyReference.cache
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/Debug/net5.0/Persistence.GeneratedMSBuildEditorConfig.editorconfig
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/Debug/net5.0/Persistence.AssemblyInfoInputs.cache
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/Debug/net5.0/Persistence.AssemblyInfo.cs
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/Debug/net5.0/Persistence.csproj.CoreCompileInputs.cache
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/Debug/net5.0/Persistence.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/Debug/net5.0/ref/Persistence.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/Debug/net5.0/Persistence.pdb
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/bin/Debug/net5.0/Domain.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/bin/Debug/net5.0/Domain.pdb
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/obj/Debug/net5.0/Persistence.csproj.CopyComplete

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using API.Facebook;
+using Domain.Facebook;
 
 namespace API.Data
 {
@@ -12,9 +12,9 @@ namespace API.Data
             // if it's already populated, exit this method
             if (context.Posts.Any()) return;
 
-            var posts = new List<Facebook.Post>()
+            var posts = new List<Post>()
             {
-                new Facebook.Post()
+                new Post()
                 {
                     PostUrl = "https://www.facebook.com/155869377766434/posts/6112776065409039",
                     PlatformId = "155869377766434_6112776065409039",
