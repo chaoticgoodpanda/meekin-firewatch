@@ -4,6 +4,7 @@ import {Statistics} from "./statistics";
 import {Account} from "./account";
 
 export interface Post {
+    guidId: string;
     primaryId: number;
     platformId: string;
     platform: string;

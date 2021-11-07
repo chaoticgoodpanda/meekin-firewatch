@@ -1,4 +1,5 @@
 export interface Account {
+    accountId: string;
     id: number;
     name: string;
     handle: string;
