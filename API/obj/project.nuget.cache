@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "1tj0lfMNDpe1GFN4CPn+Jpbhn3hlfFcvxEQ3zmO11+OdTGkGTWVNm4ITplZswTBSKX4L1guXt2b+LunD/j22KQ==",
+  "dgSpecHash": "oN0zbKosoe9qYJYh/iOC9JqqWRcGZHOVGcfrSoHkmRjrpTwOyTdeUrRZ5uOhBqFnMarUbf247eVs9dda5jabpQ==",
   "success": true,
   "projectFilePath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/API.csproj",
   "expectedPackageFiles": [
+    "/Users/michaellwin/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/8.1.1/automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/iso3166/1.0.3/iso3166.1.0.3.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/mediatr/9.0.0/mediatr.9.0.0.nupkg.sha512",
@@ -96,7 +98,7 @@
     "/Users/michaellwin/.nuget/packages/system.net.sockets/4.3.0/system.net.sockets.4.3.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.objectmodel/4.3.0/system.objectmodel.4.3.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.reflection/4.3.0/system.reflection.4.3.0.nupkg.sha512",
-    "/Users/michaellwin/.nuget/packages/system.reflection.emit/4.3.0/system.reflection.emit.4.3.0.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/system.reflection.emit/4.7.0/system.reflection.emit.4.7.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.reflection.emit.ilgeneration/4.3.0/system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.reflection.emit.lightweight/4.3.0/system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.reflection.extensions/4.3.0/system.reflection.extensions.4.3.0.nupkg.sha512",

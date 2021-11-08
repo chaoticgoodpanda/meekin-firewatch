@@ -50,8 +50,8 @@ namespace Application.Events
                 if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException);
                 var data = response.Data;
 
+                
                 _context.Roots.Add(data);
-
                 await _context.SaveChangesAsync();
 
                 return Unit.Value;

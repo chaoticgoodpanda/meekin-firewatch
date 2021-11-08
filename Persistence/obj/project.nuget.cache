@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TCBaOnIqBFTt1uU/iFpveNooQtvkpK8Y7GUxumCoJ2o05CDpkehDOQiQ01U3FdwfVNPL6PWqIE03lCkUKPzerg==",
+  "dgSpecHash": "cQCfO5cFswWuTg1t3H/24QYDu6wrWn/MjZvNEMqbbQnunwEZw5heHfjct0u4PodGUZLAMQs38RG8ikce0iJK7A==",
   "success": true,
   "projectFilePath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Persistence/Persistence.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,7 @@
     "/Users/michaellwin/.nuget/packages/microsoft.extensions.logging.abstractions/5.0.0/microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/microsoft.extensions.options/5.0.0/microsoft.extensions.options.5.0.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.0.4/sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/sqlitepclraw.core/2.0.4/sqlitepclraw.core.2.0.4.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.0.4/sqlitepclraw.lib.e_sqlite3.2.0.4.nupkg.sha512",

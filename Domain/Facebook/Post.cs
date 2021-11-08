@@ -72,5 +72,7 @@ namespace Domain.Facebook
 
         [JsonPropertyName("videoLengthMS")]
         public int? VideoLengthMS { get; set; }
+        
+       
     }
 }

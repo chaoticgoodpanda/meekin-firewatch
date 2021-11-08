@@ -15,7 +15,7 @@ export default function Catalog() {
     // can add a side effect to component OnInit, i.e. when it loads, is destroyed, etc.
     useEffect(() => {
         agent.Catalog.list()
-            .then(posts => setPosts(Array.from(posts)))
+            .then(posts => setPosts((posts)))
             .catch(error => console.log(error))
             .finally(() => setLoading(false))
     }, []);

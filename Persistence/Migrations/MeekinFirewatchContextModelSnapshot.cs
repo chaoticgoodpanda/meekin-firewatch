@@ -351,6 +351,80 @@ namespace Persistence.Migrations
                     b.ToTable("Statistics");
                 });
 
+            modelBuilder.Entity("Domain.PostLabeling", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("AccessTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("AnalysisDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AnalysisReport")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Country")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DecisionDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FacebookDecision")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("HumanTarget")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Intent")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsDangerous")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Justifications")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Offensive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("OffensiveContent")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("OrganizationId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PostId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("RabatLikelihoodHarm")
+                        .HasColumnType("REAL");
+
+                    b.Property<long>("RabatVirality")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Speaker")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SummaryAnalysis")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PostLabelings");
+                });
+
             modelBuilder.Entity("Domain.Facebook.ExpandedLink", b =>
                 {
                     b.HasOne("Domain.Facebook.Post", null)

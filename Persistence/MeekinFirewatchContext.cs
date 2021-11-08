@@ -1,5 +1,9 @@
+using System.Collections.Generic;
+using Domain;
 using Domain.Facebook;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
 
 namespace Persistence
 {
@@ -13,7 +17,7 @@ namespace Persistence
     public DbSet<Post> Posts { get; set; }
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Medium> Media { get; set; }
-    
+    public DbSet<PostLabeling> PostLabelings { get; set; }
 
   }
 }

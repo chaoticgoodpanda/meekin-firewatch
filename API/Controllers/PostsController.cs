@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Events;
+using Domain;
 using Domain.Facebook;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -54,6 +55,21 @@ namespace API.Controllers
         {
 
             return Ok(await Mediator.Send(new AddPost.Command { Id = id }));
+        }
+
+        // creates a new report for post, with Rabat labels
+        [HttpPost("postLabeling")]
+        public async Task<IActionResult> CreateReport(PostLabeling postLabeling)
+        {
+            return Ok(await Mediator.Send(new CreateReport.Command { PostLabeling = postLabeling }));
+        }
+        
+        // updates a report
+        [HttpPut("postLabeling/{id}")]
+        public async Task<IActionResult> EditReport(Guid id, PostLabeling postLabeling)
+        {
+            postLabeling.Id = id;
+            return Ok(await Mediator.Send(new EditReport.Command { PostLabeling = postLabeling }));
         }
     }
 }
