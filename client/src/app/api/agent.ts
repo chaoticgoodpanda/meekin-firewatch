@@ -69,7 +69,7 @@ const requests = {
 // requests specifically for the catalog
 const Catalog = {
     list: () => requests.get('posts'),
-    details: (id: string) => requests.get(`posts/${id}`)
+    details: (guidId: string) => requests.get(`posts/${guidId}`)
 }
 
 // testing errors on API

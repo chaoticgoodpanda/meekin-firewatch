@@ -127,8 +127,8 @@ export default function PostCard({post}: Props) {
                 </ExpandMore>
             </CardActions>
             <Box textAlign='center' sx={{mb: 2}}>
-                <Button component={Link} to={`/catalog/${post.platformId}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
-                <Button component={Link} to={`/catalog/${post.platformId}`} variant="contained" color="success">
+                <Button component={Link} to={`/catalog/${post.guidId}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
+                <Button component={Link} to={`/catalog/${post.guidId}`} variant="contained" color="success">
                     Report
                 </Button>&nbsp;&nbsp;&nbsp;
                 <Button variant="outlined" color="error">

@@ -41,7 +41,7 @@ export default function PostDetails() {
     const [expanded, setExpanded] = React.useState(false);
     // takes the http URL as a string for the specific post detail
     const {id} = useParams<{id: string}>();
-    const [post, setPost] = useState<Post[]>([]);
+    const [post, setPost] = useState<Post>();
     // set loading indicator to true when initializing this component
     const [loading, setLoading] = useState(true);
 
@@ -51,9 +51,10 @@ export default function PostDetails() {
     
     // same as OnInit in Angular
     useEffect(() => {
-        axios.get(`https://localhost:5001/api/posts/${id}`)
+        axios.get<Post>(`https://localhost:5001/api/posts/${id}`)
             .then(response => {
-                    setPost((response.data.result.posts))
+                 setPost((response.data))
+                 console.log(post);
                 }
             )
             .catch(error => console.log(error.response))
@@ -69,11 +70,10 @@ export default function PostDetails() {
     return (
         <>
             <Grid container spacing={6}>
-                {post.map((onePost, index1) => (
                     <>
-                    <Grid item xs={6} key={index1}>
-                        {onePost.media.map((media, index2) => (
-                            <img key={index2} src={media.url} alt={onePost.account.name} style={{width: '100%'}}/>
+                    <Grid item xs={6} >
+                        {post.media.map((media, index2) => (
+                            <img key={index2} src={media.url} alt={post.account.name} style={{width: '100%'}}/>
                         ))}
                         <Collapse in={expanded} timeout="auto"  unmountOnExit >
                             <br/>
@@ -107,37 +107,37 @@ export default function PostDetails() {
                     </Grid>
                         
                         <Grid item xs={6}>
-                        <Typography variant='h3'>{onePost.description}</Typography>
+                        <Typography variant='h3'>{post.description}</Typography>
                         <Divider sx={{mb: 2}} />
-                        <Typography variant='h4' color='secondary'>{onePost.message}</Typography>
+                        <Typography variant='h4' color='secondary'>{post.message}</Typography>
                         <TableContainer>
                             <Table>
                                 <TableBody>
                                     <TableRow>
                                         <TableCell>Account Name</TableCell>
-                                        <TableCell>{onePost.account.name}</TableCell>
+                                        <TableCell>{post.account.name}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Last updated</TableCell>
-                                        <TableCell>{onePost.date}</TableCell>
+                                        <TableCell>{post.date}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Title (if any)</TableCell>
-                                        <TableCell>{onePost.title}</TableCell>
+                                        <TableCell>{post.title}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Post content</TableCell>
-                                        <TableCell>{onePost.message}</TableCell>
+                                        <TableCell>{post.message}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Translated post content</TableCell>
                                         <TableCell>
-                                            <GoogleTranslate language="en" text={onePost.message} />
+                                            <GoogleTranslate language="en" text={post.message} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Original post URL</TableCell>
-                                        <TableCell><a target="_blank" rel="noopener noreferrer" href={onePost.postUrl}>{onePost.postUrl}</a></TableCell>
+                                        <TableCell><a target="_blank" rel="noopener noreferrer" href={post.postUrl}>{post.postUrl}</a></TableCell>
                                     </TableRow>
                                     
                                 </TableBody>
@@ -145,7 +145,6 @@ export default function PostDetails() {
                         </TableContainer>
                     </Grid>
                     </>
-                    ))}
             </Grid>
         </>
 
