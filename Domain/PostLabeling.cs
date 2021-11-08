@@ -9,6 +9,11 @@ namespace Domain
         public int? OrganizationId { get; set; }
         public int? UserId { get; set; }
         public int? PostId { get; set; }
+        // the Facebook post ID matching the report
+        public string platformId { get; set; }
+        
+        // the GUID of the Facebook post matching the report
+        public Guid FacebookGuid { get; set; }
         
         // country for Rabat analysis
         public RabatCountry Country { get; set; }

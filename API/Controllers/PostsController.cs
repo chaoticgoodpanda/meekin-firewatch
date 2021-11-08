@@ -58,18 +58,32 @@ namespace API.Controllers
         }
 
         // creates a new report for post, with Rabat labels
-        [HttpPost("postLabeling")]
+        [HttpPost("report")]
         public async Task<IActionResult> CreateReport(PostLabeling postLabeling)
         {
             return Ok(await Mediator.Send(new CreateReport.Command { PostLabeling = postLabeling }));
         }
         
         // updates a report
-        [HttpPut("postLabeling/{id}")]
+        [HttpPut("report/{id}")]
         public async Task<IActionResult> EditReport(Guid id, PostLabeling postLabeling)
         {
             postLabeling.Id = id;
             return Ok(await Mediator.Send(new EditReport.Command { PostLabeling = postLabeling }));
+        }
+        
+        //get a specific report stored locally on the SQL DB
+        [HttpGet("report/{id}")]
+        public async Task<ActionResult<PostLabeling>> GetReport(Guid id)
+        {
+            return await Mediator.Send(new GetOneReport.Query{Id = id});
+        }
+
+        // delete a specific report
+        [HttpDelete("report/{id}")]
+        public async Task<IActionResult> DeleteReport(Guid id)
+        {
+            return Ok(await Mediator.Send(new DeleteReport.Command { Id = id }));
         }
     }
 }
