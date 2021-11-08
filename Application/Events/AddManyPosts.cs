@@ -46,13 +46,14 @@ namespace Application.Events
                 var cancellationTokenSource = new CancellationTokenSource();
                 restRequest.AddHeader("Accept", "application/json");
             
-                var response =  await client.ExecuteAsync<Post>(restRequest, cancellationTokenSource.Token);
+                var response =  await client.ExecuteAsync<Root>(restRequest, cancellationTokenSource.Token);
 
                 // if error, print stack trace
                 if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException);
                 var data = response.Data;
+                var postData = response.Data.Result.Posts;
                 
-                _context.Posts.Add(data);
+                _context.Roots.Add(data);
                 await _context.SaveChangesAsync();
 
                 return Unit.Value;

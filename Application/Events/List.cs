@@ -44,7 +44,16 @@ namespace Application.Events
                 {
                     _logger.LogInformation("Posts retrieval was canceled by user.");
                 }
-                return await _context.Posts.ToListAsync();
+
+                // eagerly load the nested arrays
+                var posts = await _context.Posts
+                    .Include(m => m.Media)
+                    .Include(a => a.Account)
+                    .Include(s => s.Statistics)
+                    .Include(e => e.ExpandedLinks)
+                    .ToListAsync(cancellationToken);
+
+                return posts;
 
             }
         }
