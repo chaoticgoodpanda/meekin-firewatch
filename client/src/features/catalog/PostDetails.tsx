@@ -21,6 +21,7 @@ import GoogleTranslate from "../translate/GoogleTranslate";
 import * as React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
+import ThreatForm from "../threats/threatForm/ThreatForm";
 
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -80,20 +81,7 @@ export default function PostDetails() {
                             Please fill out the fields below. When you submit, the post data 
                             on the right will be submitted along with your report. 
                             <br/>
-                            <Box
-                                component="form"
-                                sx={{
-                                    '& > :not(style)': { m: 1, width: '60ch' },
-                                }}
-                                noValidate
-                                autoComplete="on"
-                            >
-                                <TextField id="outlined-basic" label="Report title" variant="outlined" />
-                                <TextField id="filled-multiline-flexible" label="Analysis" variant="filled" 
-                                           multiline rows={8}
-                                />
-                            </Box>
-                            <Button sx={{ml: 1, mt: 1}} type='submit' onClick={() => history.push('/catalog')} color="warning" variant="contained">Submit Report</Button>
+                            <ThreatForm />
                         </Collapse>
                         <ExpandMore
                             expand={expanded}
