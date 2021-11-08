@@ -49,8 +49,9 @@ namespace Application.Events
                 var posts = await _context.Posts
                     .Include(m => m.Media)
                     .Include(a => a.Account)
-                    .Include(s => s.Statistics)
                     .Include(e => e.ExpandedLinks)
+                    .Include(s => s.Statistics)
+                    .ThenInclude(act => act.Actual)
                     .ToListAsync(cancellationToken);
 
                 return posts;

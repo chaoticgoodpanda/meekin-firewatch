@@ -14,40 +14,42 @@ interface Props {
     closeForm: () => void;
 }
 
-export default function ThreatForm({report: selectedReport, closeForm}: Props) {
+// {report: selectedReport, closeForm}
+
+export default function ThreatForm() {
     
-    const initialState = selectedReport ?? {
-        id: '',
-        organizationId: '',
-        userId: '',
-        postId: '',
-        platformId: '',
-        facebookGuid: '',
-        country: '',
-        speaker: '',
-        offensive: '',
-        isDangerous: '',
-        justifications: '',
-        rabatVirality: '',
-        intent: '',
-        rabatLikelihoodHarm: '',
-        language: '',
-        offensiveContent: '',
-        humanTarget: '',
-        facebookDecision: '',
-        createdDate: '',
-        decisionDate: '',
-        accessTime: '',
-        analysisReport: '',
-        summaryAnalysis: '',
-        analysisDate: ''
-    }
+    // const initialState = selectedReport ?? {
+    //     id: '',
+    //     organizationId: '',
+    //     userId: '',
+    //     postId: '',
+    //     platformId: '',
+    //     facebookGuid: '',
+    //     country: '',
+    //     speaker: '',
+    //     offensive: '',
+    //     isDangerous: '',
+    //     justifications: '',
+    //     rabatVirality: '',
+    //     intent: '',
+    //     rabatLikelihoodHarm: '',
+    //     language: '',
+    //     offensiveContent: '',
+    //     humanTarget: '',
+    //     facebookDecision: '',
+    //     createdDate: '',
+    //     decisionDate: '',
+    //     accessTime: '',
+    //     analysisReport: '',
+    //     summaryAnalysis: '',
+    //     analysisDate: ''
+    // }
     
-    const [report, setReport] = useState(initialState);
+    // const [report, setReport] = useState(initialState);
     
-    function handleSubmit() {
-        console.log(report);
-    }
+    // function handleSubmit() {
+    //     console.log(report);
+    // }
     
     return (
         <>

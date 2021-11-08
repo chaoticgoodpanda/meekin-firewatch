@@ -81,7 +81,7 @@ export default function PostDetails() {
                             Please fill out the fields below. When you submit, the post data 
                             on the right will be submitted along with your report. 
                             <br/>
-                            <ThreatForm />
+                            <ThreatForm  />
                         </Collapse>
                         <ExpandMore
                             expand={expanded}
