@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain.Facebook;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Persistence;
 using RestSharp;
@@ -44,14 +46,13 @@ namespace Application.Events
                 var cancellationTokenSource = new CancellationTokenSource();
                 restRequest.AddHeader("Accept", "application/json");
             
-                var response =  await client.ExecuteAsync<Root>(restRequest, cancellationTokenSource.Token);
+                var response =  await client.ExecuteAsync<Post>(restRequest, cancellationTokenSource.Token);
 
                 // if error, print stack trace
                 if (!response.IsSuccessful) Console.WriteLine("Stack Trace: " + response.ErrorException);
                 var data = response.Data;
-
                 
-                _context.Roots.Add(data);
+                _context.Posts.Add(data);
                 await _context.SaveChangesAsync();
 
                 return Unit.Value;
