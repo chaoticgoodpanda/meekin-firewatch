@@ -22,6 +22,12 @@ import * as React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import ThreatForm from "../threats/threatForm/ThreatForm";
+import {PostLabeling} from "../../app/models/postLabeling";
+
+interface Props {
+    selectedPost: Post;
+    closeForm: () => void;
+}
 
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -37,8 +43,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 }));
 
-export default function PostDetails() {
-    const [report, setReport] = useState('');
+export default function PostDetails({selectedPost, closeForm}: Props) {
+    const [report, setReport] = useState<PostLabeling>();
     const [expanded, setExpanded] = React.useState(false);
     // takes the http URL as a string for the specific post detail
     const {id} = useParams<{id: string}>();
@@ -55,12 +61,15 @@ export default function PostDetails() {
         axios.get<Post>(`https://localhost:5001/api/posts/${id}`)
             .then(response => {
                  setPost((response.data))
-                 console.log(post);
                 }
             )
             .catch(error => console.log(error.response))
             .finally(() => setLoading(false));
     }, [id]);
+
+    if (post) {
+        selectedPost = post;
+    }
     
     
     if (loading) return <LoadingComponent message='Loading your post...'/>
@@ -81,7 +90,7 @@ export default function PostDetails() {
                             Please fill out the fields below. When you submit, the post data 
                             on the right will be submitted along with your report. 
                             <br/>
-                            <ThreatForm  />
+                            <ThreatForm report={report} closeForm={closeForm} post={selectedPost}  />
                         </Collapse>
                         <ExpandMore
                             expand={expanded}
