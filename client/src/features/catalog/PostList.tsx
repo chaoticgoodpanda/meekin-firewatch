@@ -1,10 +1,14 @@
 import {Grid, } from "@mui/material";
 import {Post} from "../../app/models/post";
 import PostCard from "./PostCard";
+import {PostLabeling} from "../../app/models/postLabeling";
 
 interface Props {
     posts: Post[];
+    // reports: PostLabeling[];
 }
+
+
 
 export default function PostList({posts}: Props) {
     return (

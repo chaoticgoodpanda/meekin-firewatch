@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Domain.PostAggregate;
 
 namespace Domain
@@ -8,7 +9,7 @@ namespace Domain
         public Guid Id { get; set; }
         public int? OrganizationId { get; set; }
         public int? UserId { get; set; }
-        // the Facebook post ID matching the report
+        // the Facebook post ID matching the report (or other platform ID, such as Twitter or TikTok)
         public string platformId { get; set; }
         
         // the GUID of the Facebook post matching the report
@@ -25,7 +26,7 @@ namespace Domain
         
 
         // argument put forth by content as to why to engage in violence
-        public RabatJustifications? Justifications {get; set;}
+        public List<Justifications> Justifications {get; set;}
         
         // virality for Rabat analysis
         public long RabatVirality { get; set; }

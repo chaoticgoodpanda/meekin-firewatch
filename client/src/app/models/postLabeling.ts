@@ -13,7 +13,7 @@ export interface PostLabeling {
   country: RabatCountry;
   speaker: RabatSpeaker;
   speechContent: string;
-  justifications: RabatJustifications | null;
+  justifications: string[] | undefined;
   rabatVirality: number;
   intent?: RabatIntent | null;
   rabatLikelihoodHarm: number;

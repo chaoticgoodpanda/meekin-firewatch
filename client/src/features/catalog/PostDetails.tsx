@@ -44,6 +44,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function PostDetails({selectedPost, closeForm}: Props) {
+    // a single report that a user might generate or update
     const [report, setReport] = useState<PostLabeling>();
     const [expanded, setExpanded] = React.useState(false);
     // takes the http URL as a string for the specific post detail
@@ -55,6 +56,13 @@ export default function PostDetails({selectedPost, closeForm}: Props) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+    
+    // create or edit the report form for threats
+    function handleCreateOrEditActivity(report: PostLabeling) {
+        // if we have a report id we know we're updating a report, rather than creating one
+        report.id ? setReport(report) :
+            setReport(report)
+    }
     
     // same as OnInit in Angular
     useEffect(() => {
