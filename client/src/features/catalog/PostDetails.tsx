@@ -23,6 +23,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import ThreatForm from "../threats/threatForm/ThreatForm";
 import {PostLabeling} from "../../app/models/postLabeling";
+import agent from "../../app/api/agent";
+import ReportCard from "./ReportCard";
 
 interface Props {
     selectedPost: Post;
@@ -46,6 +48,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 export default function PostDetails({selectedPost, closeForm}: Props) {
     // a single report that a user might generate or update
     const [report, setReport] = useState<PostLabeling>();
+    // loading the existing reports
+    const [reports, setReports] = useState<PostLabeling[]>([]);
     const [expanded, setExpanded] = React.useState(false);
     // takes the http URL as a string for the specific post detail
     const {id} = useParams<{id: string}>();
@@ -75,6 +79,14 @@ export default function PostDetails({selectedPost, closeForm}: Props) {
             .finally(() => setLoading(false));
     }, [id]);
 
+    // another useEffect, this time for loading the reports for the posts
+    useEffect( () => {
+        axios.get<PostLabeling[]>(`https://localhost:5001/api/reports/getReportsOnePost/${id}`)
+            .then(reports => setReports(reports.data))
+            .catch(error => console.log(error))
+            .finally(() => setLoading(false))
+    }, []);
+
     if (post) {
         selectedPost = post;
     }
@@ -94,6 +106,12 @@ export default function PostDetails({selectedPost, closeForm}: Props) {
                             <img key={index2} src={media.url} alt={post.account.name} style={{width: '100%'}}/>
                         ))}
                         <Collapse in={expanded} timeout="auto"  unmountOnExit >
+                            <br/>
+                            {reports.map((report) => (
+                                <Grid item key={report.id}>
+                                    {report.analysisReport}
+                                </Grid>
+                            ))}
                             <br/>
                             Please fill out the fields below. When you submit, the post data 
                             on the right will be submitted along with your report. 

@@ -20,6 +20,14 @@ namespace API.Controllers
         {
             return await Mediator.Send(new GetReports.Query(), cancellationToken);
         }
+        
+        // get a list of reports matching a platformId (because multiple users can write multiple reports for multiple posts)
+        [HttpGet("getReportsOnePost/{platformId}")]
+        public async Task<ActionResult<List<PostLabeling>>> GetReportsForOnePost(string platformId, CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(new GetReportsForOnePost.Query{PlatformId = platformId}, cancellationToken); 
+        }
+
 
         // find a report matching the specific id inputted
         [HttpGet("{id}")]

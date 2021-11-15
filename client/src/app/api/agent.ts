@@ -72,6 +72,11 @@ const Catalog = {
     details: (guidId: string) => requests.get(`posts/${guidId}`)
 }
 
+const Reports = {
+    list: () => requests.get('reports'),
+    oneReport: (guidId: string) => requests.get(`reports/${guidId}`)
+}
+
 // testing errors on API
 const TestErrors = {
     get400Error: () => requests.get('buggy/bad-request'),
@@ -83,7 +88,8 @@ const TestErrors = {
 
 const agent = {
     Catalog,
-    TestErrors
+    TestErrors,
+    Reports
 }
 
 export default agent;
