@@ -25,6 +25,7 @@ interface Props {
     report: PostLabeling | undefined;
     closeForm: () => void;
     post: Post;
+    editMode: boolean;
 }
 
 
@@ -58,10 +59,14 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
     
     const [report, setReport] = useState(initialState);
     const [radioValue, setRadioValue] = React.useState('');
+    const [humanRadio, setHumanRadio] = React.useState('');
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRadioValue((event.target as HTMLInputElement).value);
-        
+    };
+
+    const handleHumanRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setHumanRadio((event.target as HTMLInputElement).value);
     };
 
     // for dropdowns
@@ -159,7 +164,7 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
                 />
                 <FormControl component="fieldset">
                     <FormLabel component="legend">Who is the speaker?</FormLabel>
-                        <RadioGroup row aria-label="rabat-speaker?" value={report.speaker} name="row-buttons-radio-group" onChange={handleInputChange}>
+                        <RadioGroup row aria-label="rabat-speaker?" value={radioValue} name="row-buttons-radio-group" onChange={handleRadioChange}>
                             <FormControlLabel value="Politician" control={<Radio />} label="Politician" color="secondary" />
                             <FormControlLabel value="Public Figure" control={<Radio />} label="Public Figure" color="secondary" />
                             <FormControlLabel value="Private Person" control={<Radio />} label="Private Person" color="secondary" />
@@ -167,7 +172,7 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
                 </FormControl>
                 <FormControl component="fieldset">
                     <FormLabel component="legend">Does the content target a human or group of humans?</FormLabel>
-                    <RadioGroup row aria-label="rabat-speaker?" value={report.humanTarget} name="row-buttons-radio-group" onChange={handleInputChange}>
+                    <RadioGroup row aria-label="rabat-speaker?" value={humanRadio} name="row-buttons-radio-group" onChange={handleHumanRadioChange}>
                         <FormControlLabel value="true" control={<Radio />} label="Yes" color="secondary" />
                         <FormControlLabel value="false" control={<Radio />} label="No" color="secondary" />
                     </RadioGroup>
@@ -178,7 +183,7 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
                         labelId="demo-multiple-chip-label"
                         id="demo-multiple-chip"
                         multiple
-                        value={report.justifications}
+                        value={justification}
                         onChange={handleChangeJustifications}
                         input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                         renderValue={(selected) => (

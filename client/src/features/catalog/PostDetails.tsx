@@ -24,11 +24,14 @@ import IconButton from "@mui/material/IconButton";
 import ThreatForm from "../threats/threatForm/ThreatForm";
 import {PostLabeling} from "../../app/models/postLabeling";
 import agent from "../../app/api/agent";
-import ReportCard from "./ReportCard";
+import {Edit} from "@mui/icons-material";
 
 interface Props {
     selectedPost: Post;
     closeForm: () => void;
+    selectedReport: PostLabeling;
+    selectReport: (id: string) => void;
+    cancelSelectReport: () => void;
 }
 
 
@@ -45,11 +48,15 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 }));
 
-export default function PostDetails({selectedPost, closeForm}: Props) {
+export default function PostDetails({selectedPost, closeForm, selectedReport, selectReport, cancelSelectReport}: Props) {
     // a single report that a user might generate or update
     const [report, setReport] = useState<PostLabeling>();
     // loading the existing reports
     const [reports, setReports] = useState<PostLabeling[]>([]);
+    // create the edit mode state for editing reports, initial state of false
+    const [editMode, setEditMode] = useState(false);
+    // const [selectedReport, setSelectedReport] = useState<PostLabeling | undefined>(undefined);
+    
     const [expanded, setExpanded] = React.useState(false);
     // takes the http URL as a string for the specific post detail
     const {id} = useParams<{id: string}>();
@@ -59,13 +66,17 @@ export default function PostDetails({selectedPost, closeForm}: Props) {
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
+        setEditMode(!editMode);
     };
+    
     
     // create or edit the report form for threats
     function handleCreateOrEditActivity(report: PostLabeling) {
         // if we have a report id we know we're updating a report, rather than creating one
-        report.id ? setReport(report) :
-            setReport(report)
+        report.id 
+            ? setReports([...reports.filter(x => x.id !== report.id), report]) 
+            : setReports([...reports, report]);
+        setEditMode(true);
     }
     
     // same as OnInit in Angular
@@ -116,13 +127,14 @@ export default function PostDetails({selectedPost, closeForm}: Props) {
                             Please fill out the fields below. When you submit, the post data 
                             on the right will be submitted along with your report. 
                             <br/>
-                            <ThreatForm report={report} closeForm={closeForm} post={selectedPost}  />
+                            <ThreatForm report={report} closeForm={closeForm} post={selectedPost} editMode={editMode}   />
                         </Collapse>
                         <ExpandMore
                             expand={expanded}
                             onClick={handleExpandClick}
                             aria-expanded={expanded}
                             aria-label="show more"
+                            editMode={editMode}
                         >
                             <Button color="primary">Toggle Report Form</Button>
                         </ExpandMore>

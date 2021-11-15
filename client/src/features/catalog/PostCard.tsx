@@ -15,14 +15,20 @@ import {Link} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
     ChildCare,
-    Dangerous, EmojiObjects,
+    Dangerous, EmojiObjects, Report,
     SentimentVeryDissatisfied,
     SentimentVerySatisfied,
     ThumbUpAltOutlined
 } from "@mui/icons-material";
+import {PostLabeling} from "../../app/models/postLabeling";
 
 interface Props {
     post: Post;
+    reports: PostLabeling[];
+    selectedReport: PostLabeling | undefined;
+    selectReport: (id: string) => void;
+    cancelSelectReport: () => void;
+    openForm: (id: string) => void;
 }
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -40,7 +46,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 
-export default function PostCard({post}: Props) {
+export default function PostCard({post, reports, selectReport, selectedReport, cancelSelectReport, openForm}: Props) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -128,7 +134,7 @@ export default function PostCard({post}: Props) {
             </CardActions>
             <Box textAlign='center' sx={{mb: 2}}>
                 <Button component={Link} to={`/catalog/${post.guidId}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
-                <Button component={Link} to={`/catalog/${post.guidId}`} variant="contained" color="success">
+                <Button onClick={() => openForm(selectedReport!.id)} variant="contained" color="success">
                     Report
                 </Button>&nbsp;&nbsp;&nbsp;
                 <Button variant="outlined" color="error">

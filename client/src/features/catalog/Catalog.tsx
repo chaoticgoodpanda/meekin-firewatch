@@ -12,8 +12,11 @@ export default function Catalog() {
     // use the setPosts functions to modify the state
     // set to Post type as in models
     const [posts, setPosts] = useState<Post[]>([]);
+    // const [report, setReport] = useState<PostLabeling | undefined>(undefined);
     const [reports, setReports] = useState<PostLabeling[]>([]);
     const [loading, setLoading] = useState(true);
+    const [selectedReport, setSelectedReport] = useState<PostLabeling | undefined>(undefined);
+    const [editMode, setEditMode] = useState(false);
 
     // can add a side effect to component OnInit, i.e. when it loads, is destroyed, etc.
     useEffect(() => {
@@ -32,12 +35,39 @@ export default function Catalog() {
             .finally(() => setLoading(false))
     }, []);
     
+    function handleSelectReport(id: string) {
+        setSelectedReport(reports.find(x => x.id === id));
+    }
+    
+    function handleCancelSelectReport() {
+        setSelectedReport(undefined);
+    }
+    
+    // set the report to be undefined
+    function handleFormOpen(id?: string) {
+        id ? handleSelectReport(id) : handleCancelSelectReport();
+        setEditMode(true);
+    }
+    
+    function handleFormClosed() {
+        setEditMode(false);
+    }
+    
     if (loading) return <LoadingComponent message='Loading posts and reports...' />;
     
 
     return (
         <>
-            <PostList posts={posts} reports={reports}/>
+            <PostList
+                posts={posts} 
+                reports={reports}
+                selectedReport={selectedReport}
+                selectReport={handleSelectReport}
+                cancelSelectReport={handleCancelSelectReport}
+                editMode={editMode}
+                openForm={handleFormOpen}
+                closeForm={handleFormClosed}
+            />
         </>
 
 )
