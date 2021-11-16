@@ -3,6 +3,10 @@ import {Post} from "../../app/models/post";
 import PostCard from "./PostCard";
 import {PostLabeling} from "../../app/models/postLabeling";
 import ThreatCard from "./ThreatCard";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {Medium} from "../../app/models/medium";
+import agent from "../../app/api/agent";
 
 interface Props {
     posts: Post[];
@@ -18,6 +22,14 @@ interface Props {
 
 
 export default function PostList({posts, reports, selectReport, selectedReport, cancelSelectReport, editMode, openForm, closeForm}: Props) {
+    const [medium, setMedium] = useState<Medium[]>([]);
+    // another useEffect, this time for loading the reports for the posts
+    useEffect( () => {
+        agent.Media.list()
+            .then(medium => setMedium(medium))
+            .catch(error => console.log(error))
+    }, []);
+    
     return (
         <>
             <Grid container spacing={4}>
@@ -30,7 +42,7 @@ export default function PostList({posts, reports, selectReport, selectedReport, 
                         reports={reports}
                         openForm={openForm}
                         selectedReport={selectedReport}
-                        
+                        medium={medium}
                     />
                 </Grid>
             ))}

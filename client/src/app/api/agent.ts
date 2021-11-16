@@ -1,12 +1,15 @@
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {history} from "../..";
 import {toast} from "react-toastify";
+import {Post} from "../models/post";
+import {PostLabeling} from "../models/postLabeling";
+import {Medium} from "../models/medium";
 
 // base URL for all of our requests
 axios.defaults.baseURL = 'https://localhost:5001/api/';
 
 // make it easier to extract the response
-const responseBody = (response: AxiosResponse) => response.data;
+const responseBody = <T> (response: AxiosResponse<T>) => response.data;
 // TODO: figure out if it's possible to use this different method for {id} calls
 // const responseDetailBody = (response: AxiosResponse) => response.data.result.posts;
 
@@ -60,21 +63,25 @@ axios.interceptors.response.use(response => {
 const requests = {
     //pulls response.data straight from the get call
     //consider changing to array form
-    get: (url: string) => axios.get(url).then(responseBody),
-    post: (url: string, body: {}) => axios.post(url).then(responseBody),
-    put: (url: string, body: {}) => axios.put(url).then(responseBody),
-    delete: (url: string) => axios.delete(url).then(responseBody),
+    get: <T> (url: string) => axios.get<T>(url).then(responseBody),
+    post: <T> (url: string, body: {}) => axios.post<T>(url).then(responseBody),
+    put: <T> (url: string, body: {}) => axios.put<T>(url).then(responseBody),
+    delete: <T> (url: string) => axios.delete<T>(url).then(responseBody),
 }
 
 // requests specifically for the catalog
 const Catalog = {
-    list: () => requests.get('posts'),
+    list: () => requests.get<Post[]>('posts'),
     details: (guidId: string) => requests.get(`posts/${guidId}`)
 }
 
 const Reports = {
-    list: () => requests.get('reports'),
+    list: () => requests.get<PostLabeling[]>('reports'),
     oneReport: (guidId: string) => requests.get(`reports/${guidId}`)
+}
+
+const Media = {
+    list: () => requests.get<Medium[]>('posts')
 }
 
 // testing errors on API
@@ -89,7 +96,8 @@ const TestErrors = {
 const agent = {
     Catalog,
     TestErrors,
-    Reports
+    Reports,
+    Media
 }
 
 export default agent;

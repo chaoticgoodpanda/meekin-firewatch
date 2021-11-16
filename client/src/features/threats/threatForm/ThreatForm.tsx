@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {
     Box,
-    Button,
+    Button, 
     Chip, FormControl,
     FormControlLabel, FormLabel, InputLabel, MenuItem, OutlinedInput,
     Radio,
@@ -15,17 +15,19 @@ import {Post} from "../../../app/models/post";
 
 interface Props {
     report: PostLabeling | undefined;
+    reports: PostLabeling[];
     closeForm: () => void;
     post: Post;
     editMode: boolean;
     selectedReport: PostLabeling;
     createOrEdit: (report: PostLabeling) => void;
+    deleteReport: (id: string) => void;
     translatedContent: string;
 }
 
 
 
-export default function ThreatForm({report: selectedReport, closeForm, post, createOrEdit}: Props) {
+export default function ThreatForm({report: selectedReport, reports, closeForm, post, createOrEdit, deleteReport}: Props) {
     // for the chip dropdown
     const theme = useTheme();
     const [justification, setJustification] = React.useState<string[]>([]);

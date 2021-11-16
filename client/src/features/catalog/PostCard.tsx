@@ -21,6 +21,7 @@ import {
     ThumbUpAltOutlined
 } from "@mui/icons-material";
 import {PostLabeling} from "../../app/models/postLabeling";
+import {Medium} from "../../app/models/medium";
 
 interface Props {
     post: Post;
@@ -29,6 +30,7 @@ interface Props {
     selectReport: (id: string) => void;
     cancelSelectReport: () => void;
     openForm: (id: string) => void;
+    medium: Medium[];
 }
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -46,7 +48,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 
-export default function PostCard({post, reports, selectReport, selectedReport, cancelSelectReport, openForm}: Props) {
+
+
+export default function PostCard({post, reports, selectReport, selectedReport, cancelSelectReport, openForm, medium}: Props) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -72,15 +76,23 @@ export default function PostCard({post, reports, selectReport, selectedReport, c
                 }}
                 subheader={post.date}
             />
-            {post.media?.map((media, index1) => (
+            {post.media?.slice(0,2).map((item) => (
+                item.type === 'photo' ? (
                 <CardMedia
-                    key={index1}
+                    key={item.id}
                     component="img"
                     sx={{height: 200, backgroundSize: 'center', bgcolor: 'transparent', justifyContent: 'center'}}
-                    image={media.url}
-                    alt="Post image"
+                    image={item.url}
                 />
-            ))}
+            ) : (
+                    <CardMedia
+                        key={item.id}
+                        component="video"
+                        sx={{height: 200, backgroundSize: 'center', bgcolor: 'transparent', justifyContent: 'center'}}
+                        image={item.url}
+                        controls
+                    />
+                )))}
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     <strong>{post.title}</strong>

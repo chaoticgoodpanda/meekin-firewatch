@@ -1,12 +1,12 @@
 import {
-    Button, Collapse,
+    Button, Card, CardContent, Collapse,
     Divider,
     Grid, IconButtonProps, styled,
     Table,
     TableBody,
     TableCell,
     TableContainer,
-    TableRow, 
+    TableRow,
     Typography
 } from "@mui/material";
 import {useParams} from "react-router-dom";
@@ -70,12 +70,17 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
     
     
     // create or edit the report form for threats
-    function handleCreateOrEditActivity(report: PostLabeling) {
+    function handleCreateOrEditReport(report: PostLabeling) {
         // if we have a report id we know we're updating a report, rather than creating one
         report.id 
             ? setReports([...reports.filter(x => x.id !== report.id), report]) 
             : setReports([...reports, {...report, id: uuid()}]);
         setEditMode(true);
+    }
+    
+    // deletes a report
+    function handleDeleteReport(id: string) {
+        setReports([...reports.filter(x => x.id !== id)])
     }
     
     // same as OnInit in Angular
@@ -119,25 +124,35 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
                         {post.media.map((media, index2) => (
                             <img key={index2} src={media.url} alt={post.account.name} style={{width: '100%'}}/>
                         ))}
+                        <br/>
+                        {reports.map((report) => (
+                            <Grid item key={report.id}>
+                                <Card>
+                                    <CardContent>
+                                        <Typography>
+                                            {report.summaryAnalysis} - {report.analysisReport}
+                                        </Typography>
+                                        <Button onClick={() => handleCreateOrEditReport(report)} color='warning'>Edit</Button>
+                                        <Button onClick={() => handleDeleteReport(report.id)} color='error'>Delete</Button>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        ))}
                         <Collapse in={expanded} timeout="auto"  unmountOnExit >
-                            <br/>
-                            {reports.map((report) => (
-                                <Grid item key={report.id}>
-                                    {report.analysisReport} - {report.speechContent}
-                                </Grid>
-                            ))}
                             <br/>
                             Please fill out the fields below. When you submit, the post data 
                             on the right will be submitted along with your report. 
                             <br/>
                             <ThreatForm 
                                 report={report} 
+                                reports={reports}
                                 closeForm={closeForm} 
                                 post={selectedPost} 
                                 editMode={editMode} 
                                 selectedReport={selectedReport}
-                                createOrEdit={handleCreateOrEditActivity}
+                                createOrEdit={handleCreateOrEditReport}
                                 translatedContent={translated}
+                                deleteReport={handleDeleteReport}
                             />
                         </Collapse>
                         <ExpandMore
