@@ -55,7 +55,9 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
     const [reports, setReports] = useState<PostLabeling[]>([]);
     // create the edit mode state for editing reports, initial state of false
     const [editMode, setEditMode] = useState(false);
-    // const [selectedReport, setSelectedReport] = useState<PostLabeling | undefined>(undefined);
+    
+    // capture the translated text for persistence to DB
+    const [translated, setTranslated] = useState<string>('');
     
     const [expanded, setExpanded] = React.useState(false);
     // takes the http URL as a string for the specific post detail
@@ -97,6 +99,10 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
             .catch(error => console.log(error))
             .finally(() => setLoading(false))
     }, []);
+    
+    const handleTranslation = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTranslated((event.target as HTMLInputElement).value);
+    };
 
     if (post) {
         selectedPost = post;
@@ -120,14 +126,22 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
                             <br/>
                             {reports.map((report) => (
                                 <Grid item key={report.id}>
-                                    {report.analysisReport}
+                                    {report.analysisReport} - {report.speechContent}
                                 </Grid>
                             ))}
                             <br/>
                             Please fill out the fields below. When you submit, the post data 
                             on the right will be submitted along with your report. 
                             <br/>
-                            <ThreatForm report={report} closeForm={closeForm} post={selectedPost} editMode={editMode}   />
+                            <ThreatForm 
+                                report={report} 
+                                closeForm={closeForm} 
+                                post={selectedPost} 
+                                editMode={editMode} 
+                                selectedReport={selectedReport}
+                                createOrEdit={handleCreateOrEditActivity}
+                                translatedContent={translated}
+                            />
                         </Collapse>
                         <ExpandMore
                             expand={expanded}
@@ -167,7 +181,7 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
                                     <TableRow>
                                         <TableCell>Translated post content</TableCell>
                                         <TableCell>
-                                            <GoogleTranslate language="en" text={post.message} />
+                                            <GoogleTranslate language="en" text={post.message}   />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>

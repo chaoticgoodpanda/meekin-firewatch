@@ -7,8 +7,8 @@ namespace Domain
     public class PostLabeling
     {
         public Guid Id { get; set; }
-        public int? OrganizationId { get; set; }
-        public int? UserId { get; set; }
+        public string OrganizationId { get; set; }
+        public string UserId { get; set; }
         // the Facebook post ID matching the report (or other platform ID, such as Twitter or TikTok)
         public string platformId { get; set; }
         
@@ -16,13 +16,16 @@ namespace Domain
         public Guid FacebookGuid { get; set; }
         
         // country for Rabat analysis
-        public RabatCountry Country { get; set; }
+        public string Country { get; set; }
         
         // speaker status for Rabat analysis
-        public RabatSpeaker Speaker { get; set; }
+        public string Speaker { get; set; }
         
         // content of speech for Rabat analysis
         public string SpeechContent { get; set; }
+        
+        // translated speech content for storage
+        public string TranslatedSpeechContent { get; set; }
         
 
         // argument put forth by content as to why to engage in violence

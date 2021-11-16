@@ -4,7 +4,7 @@ import {
     Button,
     Card,
     CardHeader, Chip, FormControl,
-    FormControlLabel, FormLabel, InputLabel, MenuItem, OutlinedInput,
+    FormControlLabel, FormGroup, FormLabel, InputLabel, MenuItem, OutlinedInput,
     Radio,
     RadioGroup,
     Select, SelectChangeEvent, Slider,
@@ -20,17 +20,21 @@ import {RabatOffensive} from "../../../app/models/rabatOffensive";
 import {RabatJustifications} from "../../../app/models/rabatJustifications";
 import {RabatIntent} from "../../../app/models/rabatIntent";
 import {Post} from "../../../app/models/post";
+import {Form, Formik} from "formik";
 
 interface Props {
     report: PostLabeling | undefined;
     closeForm: () => void;
     post: Post;
     editMode: boolean;
+    selectedReport: PostLabeling;
+    createOrEdit: (report: PostLabeling) => void;
+    translatedContent: string;
 }
 
 
 
-export default function ThreatForm({report: selectedReport, closeForm, post}: Props) {
+export default function ThreatForm({report: selectedReport, closeForm, post, createOrEdit}: Props) {
     // for the chip dropdown
     const theme = useTheme();
     const [justification, setJustification] = React.useState<string[]>([]);
@@ -38,35 +42,54 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
     const initialState = selectedReport ?? {
         id: '',
         organizationId: post.account.name,     // TODO: placeholder to change later when at user identity
-        userId: post.id,
+        userId: '',
         platformId: post.platformId,
         facebookGuid: post.guidId,
         country: post.account.pageAdminTopCountry,
         speaker: '',
         justifications: [],
-        rabatVirality: post.statistics.actual?.shareCount,
-        rabatLikelihoodHarm: undefined,
+        //@ts-ignore
+        rabatVirality:  (post.statistics.actual?.shareCount + post.statistics.actual?.likeCount +
+            // @ts-ignore
+            post.statistics.actual?.angryCount + post.statistics.actual?.wowCount + post.statistics.actual?.loveCount +
+            // @ts-ignore
+            post.statistics.actual?.hahaCount + post.statistics.actual?.careCount + post.statistics.actual?.sadCount +
+            // @ts-ignore
+            post.statistics.actual?.commentCount + post.statistics.actual?.thankfulCount),
+        //@ts-ignore
+        rabatLikelihoodHarm: 0,
         language: post.languageCode,
         speechContent: post.message,
+        translatedSpeechContent: '',
         humanTarget: false,
         facebookDecision: '',
         createdDate: post.date,
         decisionDate: '',
         analysisReport: '',
         summaryAnalysis: '',
-        analysisDate: new Date().getUTCDate()
+        analysisDate: new Date()
     }
     
     const [report, setReport] = useState(initialState);
     const [radioValue, setRadioValue] = React.useState('');
-    const [humanRadio, setHumanRadio] = React.useState('');
+    const [humanRadio, setHumanRadio] = React.useState(false);
+    
+    // conversion of strings to booleans for radio values
+    var str2bool = (value: any) => {
+        if (value && typeof value === "string") {
+            if (value.toLowerCase() === "true") return true;
+            if (value.toLowerCase() === "false") return false;
+        }
+        return value;
+    }
+
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRadioValue((event.target as HTMLInputElement).value);
+        setRadioValue(report.speaker = (event.target as HTMLInputElement).value);
     };
 
     const handleHumanRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setHumanRadio((event.target as HTMLInputElement).value);
+        setHumanRadio(report.humanTarget = str2bool(event.target.value));
     };
 
     // for dropdowns
@@ -108,12 +131,13 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
         } = event;
         setJustification(
             // On autofill we get a the stringified value.
-            typeof value === 'string' ? value.split(',') : value,
+            report.justifications = typeof value === 'string' ? value.split(',') : value,
         );
     };
 
     // returns value of slider
     function valuetext(value: number) {
+        report.rabatLikelihoodHarm = value;
         return `${value}`;
     }
 
@@ -128,6 +152,7 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
     
     function handleSubmit() {
         console.log(report);
+        // createOrEdit(report);
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -145,6 +170,7 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
                 noValidate
                 autoComplete="on"
             >
+            <FormControl onSubmit={handleSubmit}>
                 <TextField id="outlined-basic" value={report.summaryAnalysis} name='summaryAnalysis' label="Report title" variant="outlined" onChange={handleInputChange} />
                 <Typography id="input-slider" gutterBottom>
                     Use the slider to express how dangerous the content is. <br/>
@@ -154,7 +180,6 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
                     aria-label="Danger Score"
                     defaultValue={0}
                     getAriaValueText={valuetext}
-                    value={report.rabatLikelihoodHarm}
                     valueLabelDisplay="auto"
                     step={10}
                     marks
@@ -209,8 +234,9 @@ export default function ThreatForm({report: selectedReport, closeForm, post}: Pr
                 <TextField id="filled-multiline-flexible" name='analysisReport' value={report.analysisReport} label="Analysis" variant="filled"
                            multiline rows={5} onChange={handleInputChange}
                 />
+            </FormControl>
             </Box>
-            <Button sx={{ml: 1, mt: 1}} type='submit' onClick={() => handleInputChange} color="success" 
+            <Button sx={{ml: 1, mt: 1}} type='submit' onClick={handleSubmit} color="success" 
                     variant="contained">Submit Report</Button>
             <Button sx={{ml: 1, mt: 1}} type='submit' onClick={closeForm} color="error"
                     variant="contained">Cancel</Button>

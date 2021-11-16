@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MeekinFirewatchContext))]
-    partial class MeekinFirewatchContextModelSnapshot : ModelSnapshot
+    [Migration("20211116143804_ChangingPostLabelingDataTypes")]
+    partial class ChangingPostLabelingDataTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -424,10 +426,7 @@ namespace Persistence.Migrations
                     b.Property<string>("SummaryAnalysis")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TranslatedSpeechContent")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("platformId")

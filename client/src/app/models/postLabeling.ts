@@ -6,13 +6,14 @@ import { RabatSpeaker } from "./rabatSpeaker";
 
 export interface PostLabeling {
   id: string;
-  organizationId: number | null;
-  userId: number | null;
+  organizationId: string;
+  userId: string;
   platformId: string;
   facebookGuid: string;
-  country: RabatCountry;
-  speaker: RabatSpeaker;
+  country: string;
+  speaker: string;
   speechContent: string;
+  translatedSpeechContent: string;
   justifications: string[] | undefined;
   rabatVirality: number;
   intent?: RabatIntent | null;
@@ -22,8 +23,7 @@ export interface PostLabeling {
   facebookDecision: string;
   createdDate: string | null;
   decisionDate: string | null;
-  accessTime: string | null;
   analysisReport: string;
   summaryAnalysis: string;
-  analysisDate: string | null;
+  analysisDate: Date;
 }
