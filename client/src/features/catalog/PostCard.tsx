@@ -1,4 +1,4 @@
-import {Avatar, Box, Button, Collapse, duration, Icon, IconButtonProps, styled, ThemeProvider} from "@mui/material";
+import {Avatar, Box, Button, Collapse, IconButtonProps, styled} from "@mui/material";
 import {Post} from "../../app/models/post";
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -15,7 +15,7 @@ import {Link} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
     ChildCare,
-    Dangerous, EmojiObjects, Report,
+    Dangerous, EmojiObjects, 
     SentimentVeryDissatisfied,
     SentimentVerySatisfied,
     ThumbUpAltOutlined

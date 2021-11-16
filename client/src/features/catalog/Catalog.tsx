@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import agent from "../../app/api/agent";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {PostLabeling} from "../../app/models/postLabeling";
-import {Report} from "@mui/icons-material";
 
 
 

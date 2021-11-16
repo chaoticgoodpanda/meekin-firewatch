@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {decrement, DECREMENT_COUNTER, increment, INCREMENT_COUNTER} from "./testReducer";
+import {decrement, increment} from "./testReducer";
 import {Button} from "@mui/material";
 
 export default function Sandbox() {

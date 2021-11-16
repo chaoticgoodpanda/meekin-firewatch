@@ -1,33 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import axios from "axios";
-import LoadingComponent from "../../app/layout/LoadingComponent";
 
 const googleTranslateApiKey = "AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM";
 
 
 // in case user wants to select different languages in the future
-const languageOptions = [
-    {
-        label: 'English',
-        value: 'en'
-    },
-    {
-        label: 'Sinhala',
-        value: 'si'
-    },
-    {
-        label: 'Burmese',
-        value: 'my'
-    },
-    {
-        label: 'Hindi',
-        value: 'hi'
-    }
-]
-
-
-// const [language, setLanguage] = useState(languageOptions[0]);
+// const languageOptions = [
+//     {
+//         label: 'English',
+//         value: 'en'
+//     },
+//     {
+//         label: 'Sinhala',
+//         value: 'si'
+//     },
+//     {
+//         label: 'Burmese',
+//         value: 'my'
+//     },
+//     {
+//         label: 'Hindi',
+//         value: 'hi'
+//     }
+// ]
 
 // @ts-ignore
 const GoogleTranslate = ({language, text}) => {

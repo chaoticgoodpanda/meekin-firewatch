@@ -1,8 +1,6 @@
 import React from 'react';
-import {Segment} from "@mui/icons-material";
 import {Avatar, AvatarGroup, Box, Button, Card, CardContent, CardHeader, CardMedia, ImageList} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {Link} from "react-router-dom";
 import ThreatListAttendee from "./ThreatListAttendee";
 
 export default function ThreatListItem() {

@@ -1,5 +1,4 @@
 import {
-    Box,
     Button, Collapse,
     Divider,
     Grid, IconButtonProps, styled,
@@ -7,7 +6,7 @@ import {
     TableBody,
     TableCell,
     TableContainer,
-    TableRow, TextField,
+    TableRow, 
     Typography
 } from "@mui/material";
 import {useParams} from "react-router-dom";
@@ -19,12 +18,10 @@ import NotFound from "../../app/errors/NotFound";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import GoogleTranslate from "../translate/GoogleTranslate";
 import * as React from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import ThreatForm from "../threats/threatForm/ThreatForm";
 import {PostLabeling} from "../../app/models/postLabeling";
-import agent from "../../app/api/agent";
-import {Edit} from "@mui/icons-material";
+import {v4 as uuid} from 'uuid';
 
 interface Props {
     selectedPost: Post;
@@ -77,7 +74,7 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
         // if we have a report id we know we're updating a report, rather than creating one
         report.id 
             ? setReports([...reports.filter(x => x.id !== report.id), report]) 
-            : setReports([...reports, report]);
+            : setReports([...reports, {...report, id: uuid()}]);
         setEditMode(true);
     }
     

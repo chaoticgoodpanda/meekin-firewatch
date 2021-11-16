@@ -2,25 +2,16 @@ import React, {ChangeEvent, useState} from 'react';
 import {
     Box,
     Button,
-    Card,
-    CardHeader, Chip, FormControl,
-    FormControlLabel, FormGroup, FormLabel, InputLabel, MenuItem, OutlinedInput,
+    Chip, FormControl,
+    FormControlLabel, FormLabel, InputLabel, MenuItem, OutlinedInput,
     Radio,
     RadioGroup,
     Select, SelectChangeEvent, Slider,
     TextField, Theme,
     Typography, useTheme
 } from "@mui/material";
-import {Segment} from "@mui/icons-material";
-import {history} from "../../../index";
 import {PostLabeling} from "../../../app/models/postLabeling";
-import {RabatCountry} from "../../../app/models/rabatCountry";
-import {RabatSpeaker} from "../../../app/models/rabatSpeaker";
-import {RabatOffensive} from "../../../app/models/rabatOffensive";
-import {RabatJustifications} from "../../../app/models/rabatJustifications";
-import {RabatIntent} from "../../../app/models/rabatIntent";
 import {Post} from "../../../app/models/post";
-import {Form, Formik} from "formik";
 
 interface Props {
     report: PostLabeling | undefined;
@@ -110,6 +101,7 @@ export default function ThreatForm({report: selectedReport, closeForm, post, cre
         'Misogyny',
         'Violence',
         'SexualViolence',
+        'Nudity',
         'RacePurity',
         'ReligiousPurity',
         'ComparisonToAnimals',
@@ -151,8 +143,8 @@ export default function ThreatForm({report: selectedReport, closeForm, post, cre
     }
     
     function handleSubmit() {
-        console.log(report);
-        // createOrEdit(report);
+        // console.log(report);
+        createOrEdit(report);
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
