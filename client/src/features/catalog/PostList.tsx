@@ -7,21 +7,19 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Medium} from "../../app/models/medium";
 import agent from "../../app/api/agent";
+import {useStore} from "../../app/stores/store";
+import {observer} from "mobx-react-lite";
 
 interface Props {
     posts: Post[];
     reports: PostLabeling[];
-    selectedReport: PostLabeling | undefined;
-    selectReport: (id: string) => void;
-    cancelSelectReport: () => void;
-    editMode: boolean;
-    openForm: (id: string) => void;
-    closeForm: () => void;
 }
 
 
 
-export default function PostList({posts, reports, selectReport, selectedReport, cancelSelectReport, editMode, openForm, closeForm}: Props) {
+export default observer(function PostList({posts, reports}: Props) {
+    const {reportStore} = useStore();
+    
     const [medium, setMedium] = useState<Medium[]>([]);
     // another useEffect, this time for loading the reports for the posts
     useEffect( () => {
@@ -37,11 +35,7 @@ export default function PostList({posts, reports, selectReport, selectedReport, 
                 <Grid item xs={4} key={post.id}>
                     <PostCard 
                         post={post}
-                        selectReport={selectReport}
-                        cancelSelectReport={cancelSelectReport}
                         reports={reports}
-                        openForm={openForm}
-                        selectedReport={selectedReport}
                         medium={medium}
                     />
                 </Grid>
@@ -49,12 +43,10 @@ export default function PostList({posts, reports, selectReport, selectedReport, 
             </Grid><Grid container spacing={2}>
                 {reports.map((report) => (
                     <Grid item xs={2} key={report.id}>
-                        {editMode &&
-                        <ThreatCard closeForm={closeForm} report={selectedReport} />
-                        }
+                        <ThreatCard  />
                     </Grid>
                 ))}
             </Grid>
         </>
     )
-}
+})

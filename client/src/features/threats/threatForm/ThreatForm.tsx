@@ -13,14 +13,11 @@ import {
 import {PostLabeling} from "../../../app/models/postLabeling";
 import {Post} from "../../../app/models/post";
 import {LoadingButton} from "@mui/lab";
+import {useStore} from "../../../app/stores/store";
+import {observer} from "mobx-react-lite";
 
 interface Props {
-    report: PostLabeling | undefined;
-    reports: PostLabeling[];
-    closeForm: () => void;
     post: Post;
-    editMode: boolean;
-    selectedReport: PostLabeling;
     createOrEdit: (report: PostLabeling) => void;
     deleteReport: (id: string) => void;
     translatedContent: string;
@@ -29,12 +26,14 @@ interface Props {
 
 
 
-export default function ThreatForm({report: selectedReport, reports, closeForm, post, createOrEdit, deleteReport, submitting}: Props) {
+export default observer (function ThreatForm({post, createOrEdit, deleteReport, submitting}: Props) {
+    const {reportStore} = useStore();
+    
     // for the chip dropdown
     const theme = useTheme();
     const [justification, setJustification] = React.useState<string[]>([]);
     
-    const initialState = selectedReport ?? {
+    const initialState = reportStore.selectedReport ?? {
         id: '',
         organizationId: post.account.name,     // TODO: placeholder to change later when at user identity
         userId: '',
@@ -231,10 +230,10 @@ export default function ThreatForm({report: selectedReport, reports, closeForm, 
             </Box>
             <LoadingButton sx={{ml: 1, mt: 1}} type='submit' onClick={handleSubmit} color="success"
                     variant="contained" loading={submitting}>Submit Report</LoadingButton>
-            <Button sx={{ml: 1, mt: 1}} type='submit' onClick={closeForm} color="error"
+            <Button sx={{ml: 1, mt: 1}} type='submit' onClick={reportStore.closeForm} color="error"
                     variant="contained">Cancel</Button>
         </>
           
     )
     
-}
+})

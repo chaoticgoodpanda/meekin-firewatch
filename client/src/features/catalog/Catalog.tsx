@@ -5,10 +5,11 @@ import agent from "../../app/api/agent";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {PostLabeling} from "../../app/models/postLabeling";
 import {useStore} from "../../app/stores/store";
+import {observer} from "mobx-react-lite";
 
 
 
-export default function Catalog() {
+export default observer(function Catalog() {
     const {reportStore} = useStore();
     // use the setPosts functions to modify the state
     // set to Post type as in models
@@ -28,40 +29,14 @@ export default function Catalog() {
         reportStore.loadReports();
     }, [reportStore]);
     
-    function handleSelectReport(id: string) {
-        setSelectedReport(reports.find(x => x.id === id));
-    }
-    
-    function handleCancelSelectReport() {
-        setSelectedReport(undefined);
-    }
-    
-    // set the report to be undefined
-    function handleFormOpen(id?: string) {
-        id ? handleSelectReport(id) : handleCancelSelectReport();
-        setEditMode(true);
-    }
-    
-    function handleFormClosed() {
-        setEditMode(false);
-    }
-    
     if (reportStore.loadingInitial) return <LoadingComponent message='Loading posts and reports...' />;
-    
-
     return (
         <>
             <PostList
                 posts={reportStore.posts} 
                 reports={reportStore.reports}
-                selectedReport={selectedReport}
-                selectReport={handleSelectReport}
-                cancelSelectReport={handleCancelSelectReport}
-                editMode={editMode}
-                openForm={handleFormOpen}
-                closeForm={handleFormClosed}
             />
         </>
 
 )
-}
+})

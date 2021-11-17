@@ -5,9 +5,9 @@ import {Post} from "../models/post";
 
 export default class ReportStore {
     posts: Post[] = [];
-    selectedPost: Post | null = null;
+    selectedPost: Post | undefined = undefined;
     reports: PostLabeling[] = [];
-    selectedReport: PostLabeling | null = null;
+    selectedReport: PostLabeling | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
@@ -19,29 +19,55 @@ export default class ReportStore {
     }
     
     loadPosts = async () => {
-        this.loadingInitial = true;
+        this.setLoadingInitial(true);
         try {
             const posts = await agent.Catalog.list();
-            // do date conversions
-            posts.forEach(post => {
-                post.date = post.date.split('T')[0];
-                this.posts.push(post);
-            })
-            this.loadingInitial = false;
+                // do date conversions
+                posts.forEach(post => {
+                    post.date = post.date.split('T')[0];
+                    this.posts.push(post);
+                })
+            this.setLoadingInitial(false);
         } catch (e) {
             console.log(e);
+            this.setLoadingInitial(false);
         }
     }
     
     loadReports = async () => {
-        this.loadingInitial = true;
+        this.setLoadingInitial(true);
         try {
             const reports = await agent.Reports.list();
-            this.loadingInitial = false;
+            this.setLoadingInitial(false);
         } catch (e) {
             console.log(e);
-            this.loadingInitial = false;
+            this.setLoadingInitial(false);
         }
+    }
+    
+    setLoadingInitial = (state: boolean) => {
+        this.loadingInitial = state;
+    }
+    
+    selectReport = (id: string) => {
+        this.selectedReport = this.reports.find(a => a.id === id);
+    }
+    
+    cancelSelectedReport = () => {
+        this.selectedReport = undefined;
+    }
+    
+    openForm = (id?: string) => {
+        id ? this.selectReport(id) : this.cancelSelectedReport();
+        this.editMode = true;
+    }
+    
+    closeForm = () => {
+        this.editMode = false;
+    }
+    
+    selectPost = (id: string) => {
+        this.selectedPost = this.posts.find(a => a.id === id);
     }
     
 

@@ -23,13 +23,11 @@ import ThreatForm from "../threats/threatForm/ThreatForm";
 import {PostLabeling} from "../../app/models/postLabeling";
 import {v4 as uuid} from 'uuid';
 import agent from "../../app/api/agent";
+import {useStore} from "../../app/stores/store";
+import {observer} from "mobx-react-lite";
 
 interface Props {
-    selectedPost: Post;
-    closeForm: () => void;
-    selectedReport: PostLabeling;
-    selectReport: (id: string) => void;
-    cancelSelectReport: () => void;
+
 }
 
 
@@ -46,7 +44,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 }));
 
-export default function PostDetails({selectedPost, closeForm, selectedReport, selectReport, cancelSelectReport}: Props) {
+export default observer(function PostDetails({}: Props) {
+    const {reportStore} = useStore();
+    
     // a single report that a user might generate or update
     const [report, setReport] = useState<PostLabeling>();
     // loading the existing reports
@@ -123,11 +123,11 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
     };
 
     if (post) {
-        selectedPost = post;
+        reportStore.selectedPost = post;
     }
     
     
-    if (loading) return <LoadingComponent message='Loading your post...'/>
+    if (reportStore.loading) return <LoadingComponent message='Loading your post...'/>
     
     if (!post) return <NotFound />;
     
@@ -159,13 +159,8 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
                             Please fill out the fields below. When you submit, the post data 
                             on the right will be submitted along with your report. 
                             <br/>
-                            <ThreatForm 
-                                report={report} 
-                                reports={reports}
-                                closeForm={closeForm} 
-                                post={selectedPost} 
-                                editMode={editMode} 
-                                selectedReport={selectedReport}
+                            <ThreatForm
+                                post={post}
                                 createOrEdit={handleCreateOrEditReport}
                                 translatedContent={translated}
                                 deleteReport={handleDeleteReport}
@@ -227,4 +222,4 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
         </>
 
     )
-}
+})

@@ -15,21 +15,19 @@ import {Link} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
     ChildCare,
-    Dangerous, EmojiObjects, 
+    Dangerous, EmojiObjects, Report,
     SentimentVeryDissatisfied,
     SentimentVerySatisfied,
     ThumbUpAltOutlined
 } from "@mui/icons-material";
 import {PostLabeling} from "../../app/models/postLabeling";
 import {Medium} from "../../app/models/medium";
+import {useStore} from "../../app/stores/store";
+import {observer} from "mobx-react-lite";
 
 interface Props {
     post: Post;
     reports: PostLabeling[];
-    selectedReport: PostLabeling | undefined;
-    selectReport: (id: string) => void;
-    cancelSelectReport: () => void;
-    openForm: (id: string) => void;
     medium: Medium[];
 }
 
@@ -50,7 +48,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 const mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
 
 
-export default function PostCard({post, reports, selectReport, selectedReport, cancelSelectReport, openForm, medium}: Props) {
+export default observer (function PostCard({post, reports, medium}: Props) {
+    const {reportStore} = useStore();
+    
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -150,7 +150,7 @@ export default function PostCard({post, reports, selectReport, selectedReport, c
             </CardActions>
             <Box textAlign='center' sx={{mb: 2}}>
                 <Button component={Link} to={`/catalog/${post.guidId}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
-                <Button onClick={() => openForm(selectedReport!.id)} variant="contained" color="success">
+                <Button onClick={() => reportStore.openForm()} variant="contained" color="success">
                     Report
                 </Button>&nbsp;&nbsp;&nbsp;
                 <Button variant="outlined" color="error">
@@ -159,5 +159,5 @@ export default function PostCard({post, reports, selectReport, selectedReport, c
             </Box>
         </Card>
     );
-}
+})
 
