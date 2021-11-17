@@ -150,3 +150,5 @@
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/MediatR.Extensions.Microsoft.DependencyInjection.dll
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/AutoMapper.dll
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Npgsql.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll

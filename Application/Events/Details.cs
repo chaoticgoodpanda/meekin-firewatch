@@ -32,7 +32,7 @@ namespace Application.Events
                     .Include(a => a.Account)
                     .Include(s => s.Statistics)
                     .Include(e => e.ExpandedLinks)
-                    .Single(r => r.GuidId == request.Id);
+                    .SingleOrDefault(r => r.GuidId == request.Id);
 
             }
         }

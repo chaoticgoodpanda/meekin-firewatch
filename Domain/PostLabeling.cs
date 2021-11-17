@@ -29,11 +29,8 @@ namespace Domain
         
 
         // argument put forth by content as to why to engage in violence
-        public List<Justifications> Justifications {get; set;}
-        
-        // virality for Rabat analysis
-        public long RabatVirality { get; set; }
-        
+        public string[] Justifications {get; set;}
+
         // Rabat intent
         public RabatIntent? Intent { get; set; }
 
@@ -45,14 +42,14 @@ namespace Domain
         // whether or not human target to speech
         public bool HumanTarget { get; set; }
         public string FacebookDecision { get; set; }
-        public DateTime? CreatedDate { get; set; }
-        public DateTime? DecisionDate { get; set; }
+        public string CreatedDate { get; set; }
+        public string DecisionDate { get; set; }
 
 
 
 
         public string AnalysisReport { get; set; }
         public string SummaryAnalysis { get; set; }
-        public DateTime? AnalysisDate { get; set; }
+        public string AnalysisDate { get; set; }
     }
 }

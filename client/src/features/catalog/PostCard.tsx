@@ -47,7 +47,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 }));
 
-
+const mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
 
 
 export default function PostCard({post, reports, selectReport, selectedReport, cancelSelectReport, openForm, medium}: Props) {
@@ -85,6 +85,7 @@ export default function PostCard({post, reports, selectReport, selectedReport, c
                     image={item.url}
                 />
             ) : (
+                item.type === 'video' ? (
                     <CardMedia
                         key={item.id}
                         component="video"
@@ -92,6 +93,9 @@ export default function PostCard({post, reports, selectReport, selectedReport, c
                         image={item.url}
                         controls
                     />
+                ) : (
+                    <CardContent>No content found!</CardContent>
+                )
                 )))}
             <CardContent>
                 <Typography variant="body2" color="text.secondary">

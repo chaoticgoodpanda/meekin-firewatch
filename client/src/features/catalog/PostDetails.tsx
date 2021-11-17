@@ -22,6 +22,7 @@ import IconButton from "@mui/material/IconButton";
 import ThreatForm from "../threats/threatForm/ThreatForm";
 import {PostLabeling} from "../../app/models/postLabeling";
 import {v4 as uuid} from 'uuid';
+import agent from "../../app/api/agent";
 
 interface Props {
     selectedPost: Post;
@@ -53,6 +54,9 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
     // create the edit mode state for editing reports, initial state of false
     const [editMode, setEditMode] = useState(false);
     
+    // submitting report to DB
+    const [submitting, setSubmitting] = useState(false);
+    
     // capture the translated text for persistence to DB
     const [translated, setTranslated] = useState<string>('');
     
@@ -71,11 +75,23 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
     
     // create or edit the report form for threats
     function handleCreateOrEditReport(report: PostLabeling) {
-        // if we have a report id we know we're updating a report, rather than creating one
-        report.id 
-            ? setReports([...reports.filter(x => x.id !== report.id), report]) 
-            : setReports([...reports, {...report, id: uuid()}]);
-        setEditMode(true);
+        setSubmitting(true);
+        if (report.id) {
+            agent.Reports.update(report).then(() => {
+                setReports([...reports.filter(x => x.id !== report.id), report]);
+                setReport(report);
+                setEditMode(false);
+                setSubmitting(false);
+            })
+        } else {
+            report.id = uuid();
+            agent.Reports.create(report).then(() => {
+                setReports([...reports, {...report}]);
+                setReport(report);
+                setEditMode(false);
+                setSubmitting(false);
+            })
+        }
     }
     
     // deletes a report
@@ -153,6 +169,7 @@ export default function PostDetails({selectedPost, closeForm, selectedReport, se
                                 createOrEdit={handleCreateOrEditReport}
                                 translatedContent={translated}
                                 deleteReport={handleDeleteReport}
+                                submitting={submitting}
                             />
                         </Collapse>
                         <ExpandMore

@@ -72,12 +72,15 @@ const requests = {
 // requests specifically for the catalog
 const Catalog = {
     list: () => requests.get<Post[]>('posts'),
-    details: (guidId: string) => requests.get(`posts/${guidId}`)
+    details: (guidId: string) => requests.get<Post>(`posts/${guidId}`)
 }
 
 const Reports = {
     list: () => requests.get<PostLabeling[]>('reports'),
-    oneReport: (guidId: string) => requests.get(`reports/${guidId}`)
+    details: (guidId: string) => requests.get<PostLabeling>(`reports/${guidId}`),
+    create: (report: PostLabeling) => axios.post('reports', report),
+    update: (report: PostLabeling) => axios.put(`reports/${report.id}`, report),
+    delete: (guidId: string) => axios.delete(`reports/${guidId}`)
 }
 
 const Media = {

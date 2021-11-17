@@ -15,7 +15,6 @@ export interface PostLabeling {
   speechContent: string;
   translatedSpeechContent: string;
   justifications: string[] | undefined;
-  rabatVirality: number;
   intent?: RabatIntent | null;
   rabatLikelihoodHarm: number;
   language: string;
@@ -25,5 +24,5 @@ export interface PostLabeling {
   decisionDate: string | null;
   analysisReport: string;
   summaryAnalysis: string;
-  analysisDate: Date;
+  analysisDate: string;
 }

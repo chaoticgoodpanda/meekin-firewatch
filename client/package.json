@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@mui/lab": "^5.0.0-alpha.55",
     "@types/uuid": "^8.3.1"
   }
 }

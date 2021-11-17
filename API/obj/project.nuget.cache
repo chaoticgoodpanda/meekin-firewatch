@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "oN0zbKosoe9qYJYh/iOC9JqqWRcGZHOVGcfrSoHkmRjrpTwOyTdeUrRZ5uOhBqFnMarUbf247eVs9dda5jabpQ==",
+  "dgSpecHash": "51ufFkkaCjOwkf/3uYQ9Pttonfqtdk5L/c3/TfXWSeX2wCfRHFNdL9sxro0WLIpW59tTPH+pE8hnSe5ejIL76w==",
   "success": true,
   "projectFilePath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/API.csproj",
   "expectedPackageFiles": [
@@ -43,6 +43,8 @@
     "/Users/michaellwin/.nuget/packages/mstest.testframework/2.2.7/mstest.testframework.2.2.7.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/npgsql/5.0.10/npgsql.5.0.10.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/npgsql.entityframeworkcore.postgresql/5.0.10/npgsql.entityframeworkcore.postgresql.5.0.10.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/nuget.frameworks/5.0.0/nuget.frameworks.5.0.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/restsharp/106.13.0/restsharp.106.13.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -107,6 +109,7 @@
     "/Users/michaellwin/.nuget/packages/system.reflection.typeextensions/4.3.0/system.reflection.typeextensions.4.3.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.resources.resourcemanager/4.3.0/system.resources.resourcemanager.4.3.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.runtime/4.3.0/system.runtime.4.3.0.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/system.runtime.compilerservices.unsafe/4.6.0/system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.runtime.extensions/4.3.0/system.runtime.extensions.4.3.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.runtime.handles/4.3.0/system.runtime.handles.4.3.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/system.runtime.interopservices/4.3.0/system.runtime.interopservices.4.3.0.nupkg.sha512",

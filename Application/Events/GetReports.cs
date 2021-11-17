@@ -46,7 +46,7 @@ namespace Application.Events
 
                 // eagerly load the nested arrays
                 var reports = await _context.PostLabelings
-                    .Include(j => j.Justifications)
+                    // .Include(j => j.Justifications)
                     // .Include(c => c.Country)
                     // .Include(i => i.Intent)
                     // .Include(s => s.Speaker)

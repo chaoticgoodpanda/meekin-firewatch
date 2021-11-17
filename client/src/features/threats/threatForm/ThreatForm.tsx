@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import {PostLabeling} from "../../../app/models/postLabeling";
 import {Post} from "../../../app/models/post";
+import {LoadingButton} from "@mui/lab";
 
 interface Props {
     report: PostLabeling | undefined;
@@ -23,11 +24,12 @@ interface Props {
     createOrEdit: (report: PostLabeling) => void;
     deleteReport: (id: string) => void;
     translatedContent: string;
+    submitting: boolean;
 }
 
 
 
-export default function ThreatForm({report: selectedReport, reports, closeForm, post, createOrEdit, deleteReport}: Props) {
+export default function ThreatForm({report: selectedReport, reports, closeForm, post, createOrEdit, deleteReport, submitting}: Props) {
     // for the chip dropdown
     const theme = useTheme();
     const [justification, setJustification] = React.useState<string[]>([]);
@@ -42,25 +44,17 @@ export default function ThreatForm({report: selectedReport, reports, closeForm, 
         speaker: '',
         justifications: [],
         //@ts-ignore
-        rabatVirality:  (post.statistics.actual?.shareCount + post.statistics.actual?.likeCount +
-            // @ts-ignore
-            post.statistics.actual?.angryCount + post.statistics.actual?.wowCount + post.statistics.actual?.loveCount +
-            // @ts-ignore
-            post.statistics.actual?.hahaCount + post.statistics.actual?.careCount + post.statistics.actual?.sadCount +
-            // @ts-ignore
-            post.statistics.actual?.commentCount + post.statistics.actual?.thankfulCount),
-        //@ts-ignore
         rabatLikelihoodHarm: 0,
         language: post.languageCode,
         speechContent: post.message,
         translatedSpeechContent: '',
         humanTarget: false,
         facebookDecision: '',
-        createdDate: post.date,
+        createdDate: customJSONstringify(post.date),
         decisionDate: '',
         analysisReport: '',
         summaryAnalysis: '',
-        analysisDate: new Date()
+        analysisDate: customJSONstringify(new Date()) 
     }
     
     const [report, setReport] = useState(initialState);
@@ -128,6 +122,11 @@ export default function ThreatForm({report: selectedReport, reports, closeForm, 
             report.justifications = typeof value === 'string' ? value.split(',') : value,
         );
     };
+
+    // stringify date to proper .NET Date format
+    function customJSONstringify(obj: any) {
+        return JSON.stringify(obj).replace(/\/Date/g, "\\\/Date").replace(/\)\//g, "\)\\\/")
+    }
 
     // returns value of slider
     function valuetext(value: number) {
@@ -230,8 +229,8 @@ export default function ThreatForm({report: selectedReport, reports, closeForm, 
                 />
             </FormControl>
             </Box>
-            <Button sx={{ml: 1, mt: 1}} type='submit' onClick={handleSubmit} color="success" 
-                    variant="contained">Submit Report</Button>
+            <LoadingButton sx={{ml: 1, mt: 1}} type='submit' onClick={handleSubmit} color="success"
+                    variant="contained" loading={submitting}>Submit Report</LoadingButton>
             <Button sx={{ml: 1, mt: 1}} type='submit' onClick={closeForm} color="error"
                     variant="contained">Cancel</Button>
         </>
