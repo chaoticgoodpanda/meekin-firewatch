@@ -45,8 +45,6 @@ function App() {
         <CssBaseline />
         <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
         <Container>
-            <h2>{reportStore.title}</h2>
-            <Button onClick={reportStore.setTitle}>Add exclamation!</Button>
             <Switch>
                 <Route exact path='/' component={HomePage}/>
                 <Route exact path='/catalog' component={Catalog}/>

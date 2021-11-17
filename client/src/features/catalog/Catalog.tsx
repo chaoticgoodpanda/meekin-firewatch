@@ -4,35 +4,29 @@ import {useEffect, useState} from "react";
 import agent from "../../app/api/agent";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {PostLabeling} from "../../app/models/postLabeling";
+import {useStore} from "../../app/stores/store";
 
 
 
 export default function Catalog() {
+    const {reportStore} = useStore();
     // use the setPosts functions to modify the state
     // set to Post type as in models
     const [posts, setPosts] = useState<Post[]>([]);
-    // const [report, setReport] = useState<PostLabeling | undefined>(undefined);
     const [reports, setReports] = useState<PostLabeling[]>([]);
-    const [loading, setLoading] = useState(true);
     const [selectedReport, setSelectedReport] = useState<PostLabeling | undefined>(undefined);
     const [editMode, setEditMode] = useState(false);
 
     // can add a side effect to component OnInit, i.e. when it loads, is destroyed, etc.
     useEffect(() => {
-        agent.Catalog.list()
-            .then(posts => setPosts((posts)))
-            .catch(error => console.log(error))
-            .finally(() => setLoading(false))
-    }, []);
+        reportStore.loadPosts();
+    }, [reportStore]);
     
     
     // another useEffect, this time for loading the reports for the posts
     useEffect( () => {
-        agent.Reports.list()
-            .then(reports => setReports(reports))
-            .catch(error => console.log(error))
-            .finally(() => setLoading(false))
-    }, []);
+        reportStore.loadReports();
+    }, [reportStore]);
     
     function handleSelectReport(id: string) {
         setSelectedReport(reports.find(x => x.id === id));
@@ -52,14 +46,14 @@ export default function Catalog() {
         setEditMode(false);
     }
     
-    if (loading) return <LoadingComponent message='Loading posts and reports...' />;
+    if (reportStore.loadingInitial) return <LoadingComponent message='Loading posts and reports...' />;
     
 
     return (
         <>
             <PostList
-                posts={posts} 
-                reports={reports}
+                posts={reportStore.posts} 
+                reports={reportStore.reports}
                 selectedReport={selectedReport}
                 selectReport={handleSelectReport}
                 cancelSelectReport={handleCancelSelectReport}
