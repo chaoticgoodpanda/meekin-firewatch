@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Catalog from "../../features/catalog/Catalog";
-import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {Button, Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import Header from "./Header";
 import {Route, Switch} from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
@@ -14,10 +14,14 @@ import NotFound from "../errors/NotFound";
 import Sandbox from "../../features/sandbox/Sandbox";
 import ThreatDashboard from "../../features/threats/threatDashboard/ThreatDashboard";
 import ThreatForm from "../../features/threats/threatForm/ThreatForm";
+import {useStore} from "../stores/store";
+import {observer} from "mobx-react-lite";
 
 
 
 function App() {
+    const {reportStore} = useStore();
+    
     // create a dark theme, with mode switching capability
     const [darkMode, setDarkMode] = useState(true);
     const paletteType = darkMode ? 'dark' : 'light';
@@ -41,6 +45,8 @@ function App() {
         <CssBaseline />
         <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
         <Container>
+            <h2>{reportStore.title}</h2>
+            <Button onClick={reportStore.setTitle}>Add exclamation!</Button>
             <Switch>
                 <Route exact path='/' component={HomePage}/>
                 <Route exact path='/catalog' component={Catalog}/>
@@ -60,4 +66,5 @@ function App() {
   );
 }
 
-export default App;
+// observer enables stores to observe components
+export default observer(App);
