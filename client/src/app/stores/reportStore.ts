@@ -131,6 +131,7 @@ export default class ReportStore {
             runInAction(() => {
                 // deletes the report from the list
                 this.reports = [...this.reports.filter(a => a.id !== id)];
+                if (this.selectedReport?.id === id) this.cancelSelectedReport();
             })
         } catch (e) {
             console.log(e);

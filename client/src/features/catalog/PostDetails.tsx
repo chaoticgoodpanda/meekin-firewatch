@@ -26,6 +26,7 @@ import {observer} from "mobx-react-lite";
 import {LoadingButton} from "@mui/lab";
 
 
+
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
 }
@@ -41,7 +42,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default observer(function PostDetails() {
     const {reportStore} = useStore();
-    const {deleteReport, loading, updateReport, reports, loadReportsForId} = reportStore;
+    const {deleteReport, loading, updateReport, reports} = reportStore;
+    
+    const [reportsForId, setReportsForId] = useState<PostLabeling[]>([]);
     
     // // loading the existing reports
     // const [reports, setReports] = useState<PostLabeling[]>([]);
@@ -68,9 +71,18 @@ export default observer(function PostDetails() {
         deleteReport(id);
     }
     
+    // useEffect(() => {
+    //     reportStore.loadReportsForId(id);
+    // }, [reportStore]);
+    
     useEffect(() => {
-        reportStore.loadReportsForId(id);
-    })
+        axios.get<PostLabeling[]>(`https://localhost:5001/api/reports/getReportsOnePost/${id}`)
+            .then(response => {
+                setReportsForId(response.data)
+            })
+            .catch(error => console.log(error.response))
+            .finally(() => setLoadPost(false));
+    }, [id]);
     
     // same as OnInit in Angular
     useEffect(() => {
@@ -114,12 +126,12 @@ export default observer(function PostDetails() {
                             <img key={index2} src={media.url} alt={post.account.name} style={{width: '100%'}}/>
                         ))}
                         <br/>
-                        {reportStore.reportsForId.map((report) => (
+                        {reportsForId.map((report) => (
                             <Grid item key={report.id}>
                                 <Card>
                                     <CardContent>
                                         <Typography>
-                                            {report.summaryAnalysis} - {report.analysisReport}
+                                            {report.speechContent} - {report.analysisReport}
                                         </Typography>
                                         <LoadingButton loading={loading} onClick={() => updateReport(report)} color='warning'>Edit</LoadingButton>
                                         <LoadingButton loading={loading} onClick={() => handleDeleteReport(report.id)} color='error'>Delete</LoadingButton>
