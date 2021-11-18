@@ -4,7 +4,7 @@ import agent from "../api/agent";
 import {Post} from "../models/post";
 import {v4 as uuid} from 'uuid';
 import {useParams, withRouter} from "react-router-dom";
-import {Report} from "@mui/icons-material";
+import {Face, Report} from "@mui/icons-material";
 
 export default class ReportStore {
     // posts: Post[] = [];
@@ -13,6 +13,7 @@ export default class ReportStore {
     // reports: PostLabeling[] = [];
     reportRegistry = new Map<string, PostLabeling>();
     reportsForId: PostLabeling[] = [];
+    reportsForIdRegistry = new Map<string, PostLabeling>();
     selectedReport: PostLabeling | undefined = undefined;
     editMode = false;
     loading = false;
@@ -34,13 +35,19 @@ export default class ReportStore {
             Date.parse(a.date) - Date.parse(b.date)).reverse();
     }
     
+    get reportsForIdByDate() {
+        return Array.from(this.reportsForIdRegistry.values()).sort((a, b) =>
+            Date.parse(a.analysisDate) - Date.parse(b.analysisDate)).reverse();
+    }
+    
     loadPosts = async () => {
+        this.loadingInitial = true;
         try {
             const posts = await agent.Catalog.list();
                 // do date conversions
                 posts.forEach(post => {
-                    post.date = post.date.split('T')[0];
-                    this.postRegistry.set(post.id, post);
+                    // this action because it's inside its own function will be set as a function in MobX
+                    this.setPost(post);
                 })
             console.log(Array.from(this.postRegistry));
             this.setLoadingInitial(false);
@@ -48,6 +55,35 @@ export default class ReportStore {
             console.log(e);
             this.setLoadingInitial(false);
         }
+    }
+    
+    loadPost = async (id: string) => {
+        this.loadingInitial = true;
+        let post = this.getPost(id);
+        if (post) {
+            this.selectedPost = post;
+        } else {
+            this.loadingInitial = true;
+            try {
+                // if the postId is not already in the post Map, only then fetch it from the API
+                post = await agent.Catalog.details(id);
+                this.setPost(post);
+                this.selectedPost = post;
+                this.setLoadingInitial(false);
+            } catch (e) {
+                console.log(e);
+                this.setLoadingInitial(false);
+            }
+        }
+    }
+    
+    private setPost = (post: Post) => {
+        post.date = post.date.split('T')[0];
+        this.postRegistry.set(post.id, post);
+    }
+
+    private getPost = (id: string) => {
+            return this.postRegistry.get(id);
     }
     
     loadReports = async () => {
@@ -67,33 +103,30 @@ export default class ReportStore {
     loadReportsForId = async (id: string) => {
         try {
             const reportsForId = await agent.Reports.forOnePost(id);
-            console.log(reportsForId);
+            reportsForId.forEach(report => {
+                this.setReportsForId(report);
+                this.setLoadingInitial(false);
+            })
+            
             this.setLoadingInitial(false);
         } catch (e) {
             console.log(e);
             this.setLoadingInitial(false);
         }
     }
+
+    private getReportsForId = (facebookGuid: string) => {
+        return this.reportsForIdRegistry.has(facebookGuid);
+    }
+
+    private setReportsForId = (report: PostLabeling) => {
+        report.analysisDate = report.analysisDate.split('T')[0];
+        this.reportsForIdRegistry.set(report.facebookGuid, report);
+    }
+
     
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
-    }
-    
-    selectReport = (id: string) => {
-        this.selectedReport = this.reportRegistry.get(id);
-    }
-    
-    cancelSelectedReport = () => {
-        this.selectedReport = undefined;
-    }
-    
-    openForm = (id?: string) => {
-        id ? this.selectReport(id) : this.cancelSelectedReport();
-        this.editMode = true;
-    }
-    
-    closeForm = () => {
-        this.editMode = false;
     }
     
     createReport = async (report: PostLabeling) => {
@@ -143,7 +176,6 @@ export default class ReportStore {
             await agent.Reports.delete(id);
             runInAction(() => {
                 this.reportRegistry.delete(id);
-                if (this.selectedReport?.id === id) this.cancelSelectedReport();
             })
         } catch (e) {
             console.log(e);

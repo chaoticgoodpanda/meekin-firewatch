@@ -26,7 +26,7 @@ interface Props {
 
 export default observer (function ThreatForm({post, deleteReport}: Props) {
     const {reportStore} = useStore();
-    const {selectedReport, closeForm, createReport, updateReport, loading} = reportStore;
+    const {selectedReport, createReport, updateReport, loading} = reportStore;
     
     // for the chip dropdown
     const theme = useTheme();
@@ -108,7 +108,8 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
         'Covid Fraud',
         'Consumer Fraud',
         'Donation Fraud',
-        'Anti-LGBTIQ'
+        'Anti-LGBTIQ',
+        'Trafficking'
     ];
     
     const handleChangeJustifications = (event: SelectChangeEvent<typeof justification>) => {
@@ -229,7 +230,7 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
             </Box>
             <LoadingButton sx={{ml: 1, mt: 1}} type='submit' onClick={handleSubmit} color="success"
                     variant="contained" loading={loading}>Submit Report</LoadingButton>
-            <Button sx={{ml: 1, mt: 1}} type='submit' onClick={reportStore.closeForm} color="error"
+            <Button sx={{ml: 1, mt: 1}} type='submit' color="error"
                     variant="contained">Cancel</Button>
         </>
           

@@ -42,7 +42,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default observer(function PostDetails() {
     const {reportStore} = useStore();
-    const {deleteReport, loading, updateReport} = reportStore;
+    const {deleteReport, loading, updateReport, reportsForIdByDate, loadReportsForId, loadingInitial,
+    selectedReport: report} = reportStore;
     
     const [reportsForId, setReportsForId] = useState<PostLabeling[]>([]);
     
@@ -72,8 +73,8 @@ export default observer(function PostDetails() {
     }
     
     // useEffect(() => {
-    //     reportStore.loadReportsForId(id);
-    // }, [reportStore]);
+    //     if (id) loadReportsForId(id);
+    // }, [id, loadReportsForId])
     
     useEffect(() => {
         axios.get<PostLabeling[]>(`https://localhost:5001/api/reports/getReportsOnePost/${id}`)
@@ -94,14 +95,6 @@ export default observer(function PostDetails() {
             .catch(error => console.log(error.response))
             .finally(() => setLoadPost(false));
     }, [id]);
-    //
-    // // another useEffect, this time for loading the reports for the posts
-    // useEffect( () => {
-    //     axios.get<PostLabeling[]>(`https://localhost:5001/api/reports/getReportsOnePost/${id}`)
-    //         .then(reports => setReports(reports.data))
-    //         .catch(error => console.log(error))
-    //         .finally(() => setLoadPost(false));
-    // }, []);
     
     const handleTranslation = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTranslated((event.target as HTMLInputElement).value);
@@ -110,8 +103,8 @@ export default observer(function PostDetails() {
     if (post) {
         reportStore.selectedPost = post;
     }
-    
-    
+
+    if (loadingInitial || !post) return <LoadingComponent />
     // if (loading) return <LoadingComponent message='Loading your post...'/>
     
     if (!post) return <NotFound />;

@@ -150,7 +150,7 @@ export default observer (function PostCard({post, reports, medium}: Props) {
             </CardActions>
             <Box textAlign='center' sx={{mb: 2}}>
                 <Button component={Link} to={`/catalog/${post.guidId}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
-                <Button onClick={() => reportStore.openForm()} variant="contained" color="success">
+                <Button variant="contained" color="success">
                     Report
                 </Button>&nbsp;&nbsp;&nbsp;
                 <Button variant="outlined" color="error">
