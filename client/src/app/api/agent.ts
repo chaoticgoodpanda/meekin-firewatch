@@ -77,6 +77,7 @@ const Catalog = {
 
 const Reports = {
     list: () => requests.get<PostLabeling[]>('reports'),
+    forOnePost: (guidId: string) => requests.get<PostLabeling[]>(`reports/getReportsOnePost/${guidId}`),
     details: (guidId: string) => requests.get<PostLabeling>(`reports/${guidId}`),
     create: (report: PostLabeling) => axios.post('reports', report),
     update: (report: PostLabeling) => axios.put(`reports/${report.id}`, report),

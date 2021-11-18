@@ -18,16 +18,15 @@ import {observer} from "mobx-react-lite";
 
 interface Props {
     post: Post;
-    createOrEdit: (report: PostLabeling) => void;
     deleteReport: (id: string) => void;
     translatedContent: string;
-    submitting: boolean;
 }
 
 
 
-export default observer (function ThreatForm({post, createOrEdit, deleteReport, submitting}: Props) {
+export default observer (function ThreatForm({post, deleteReport}: Props) {
     const {reportStore} = useStore();
+    const {selectedReport, closeForm, createReport, updateReport, loading} = reportStore;
     
     // for the chip dropdown
     const theme = useTheme();
@@ -92,24 +91,24 @@ export default observer (function ThreatForm({post, createOrEdit, deleteReport, 
 
     const rabatJustifications = [
         'Racism',
-        'ReligiousHatred',
+        'Religious Hatred',
         'Misogyny',
         'Violence',
-        'SexualViolence',
+        'Sexual Violence',
         'Nudity',
-        'RacePurity',
-        'ReligiousPurity',
-        'ComparisonToAnimals',
-        'FakeNews',
+        'Race Purity',
+        'Religious Purity',
+        'Comparison To Animals',
+        'Fake News',
         'Bribery',
-        'ElectionFraud',
-        'AntiInterracial',
-        'FemalePurity',
-        'FakeDeath',
-        'CovidFraud',
-        'ConsumerFraud',
-        'DonationFraud',
-        'AntiLGBTIQ'
+        'Election Fraud',
+        'Anti-Interracial',
+        'Female Purity',
+        'Fake Death',
+        'Covid Fraud',
+        'Consumer Fraud',
+        'Donation Fraud',
+        'Anti-LGBTIQ'
     ];
     
     const handleChangeJustifications = (event: SelectChangeEvent<typeof justification>) => {
@@ -144,7 +143,7 @@ export default observer (function ThreatForm({post, createOrEdit, deleteReport, 
     
     function handleSubmit() {
         // console.log(report);
-        createOrEdit(report);
+        report.id ? updateReport(report) : createReport(report);
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -229,7 +228,7 @@ export default observer (function ThreatForm({post, createOrEdit, deleteReport, 
             </FormControl>
             </Box>
             <LoadingButton sx={{ml: 1, mt: 1}} type='submit' onClick={handleSubmit} color="success"
-                    variant="contained" loading={submitting}>Submit Report</LoadingButton>
+                    variant="contained" loading={loading}>Submit Report</LoadingButton>
             <Button sx={{ml: 1, mt: 1}} type='submit' onClick={reportStore.closeForm} color="error"
                     variant="contained">Cancel</Button>
         </>

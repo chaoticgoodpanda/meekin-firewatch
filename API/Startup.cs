@@ -32,6 +32,15 @@ namespace API
 
             services.AddControllers();
             services.AddApplicationServices(_config);
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    // Cors policy whitelisting React client application
+                    policy.AllowAnyMethod().AllowAnyHeader()
+                        .WithOrigins("http://localhost:3000", "https://localhost:5001");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

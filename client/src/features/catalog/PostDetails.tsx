@@ -21,14 +21,9 @@ import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import ThreatForm from "../threats/threatForm/ThreatForm";
 import {PostLabeling} from "../../app/models/postLabeling";
-import {v4 as uuid} from 'uuid';
-import agent from "../../app/api/agent";
 import {useStore} from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
-
-interface Props {
-
-}
+import {LoadingButton} from "@mui/lab";
 
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -44,18 +39,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 }));
 
-export default observer(function PostDetails({}: Props) {
+export default observer(function PostDetails() {
     const {reportStore} = useStore();
+    const {deleteReport, loading, updateReport, reports, loadReportsForId} = reportStore;
     
-    // a single report that a user might generate or update
-    const [report, setReport] = useState<PostLabeling>();
-    // loading the existing reports
-    const [reports, setReports] = useState<PostLabeling[]>([]);
+    // // loading the existing reports
+    // const [reports, setReports] = useState<PostLabeling[]>([]);
     // create the edit mode state for editing reports, initial state of false
     const [editMode, setEditMode] = useState(false);
-    
-    // submitting report to DB
-    const [submitting, setSubmitting] = useState(false);
     
     // capture the translated text for persistence to DB
     const [translated, setTranslated] = useState<string>('');
@@ -65,39 +56,21 @@ export default observer(function PostDetails({}: Props) {
     const {id} = useParams<{id: string}>();
     const [post, setPost] = useState<Post>();
     // set loading indicator to true when initializing this component
-    const [loading, setLoading] = useState(true);
+    const [loadPost, setLoadPost] = useState(true);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
         setEditMode(!editMode);
     };
     
-    
-    // create or edit the report form for threats
-    function handleCreateOrEditReport(report: PostLabeling) {
-        setSubmitting(true);
-        if (report.id) {
-            agent.Reports.update(report).then(() => {
-                setReports([...reports.filter(x => x.id !== report.id), report]);
-                setReport(report);
-                setEditMode(false);
-                setSubmitting(false);
-            })
-        } else {
-            report.id = uuid();
-            agent.Reports.create(report).then(() => {
-                setReports([...reports, {...report}]);
-                setReport(report);
-                setEditMode(false);
-                setSubmitting(false);
-            })
-        }
-    }
-    
     // deletes a report
     function handleDeleteReport(id: string) {
-        setReports([...reports.filter(x => x.id !== id)])
+        deleteReport(id);
     }
+    
+    useEffect(() => {
+        reportStore.loadReportsForId(id);
+    })
     
     // same as OnInit in Angular
     useEffect(() => {
@@ -107,16 +80,16 @@ export default observer(function PostDetails({}: Props) {
                 }
             )
             .catch(error => console.log(error.response))
-            .finally(() => setLoading(false));
+            .finally(() => setLoadPost(false));
     }, [id]);
-
-    // another useEffect, this time for loading the reports for the posts
-    useEffect( () => {
-        axios.get<PostLabeling[]>(`https://localhost:5001/api/reports/getReportsOnePost/${id}`)
-            .then(reports => setReports(reports.data))
-            .catch(error => console.log(error))
-            .finally(() => setLoading(false))
-    }, []);
+    //
+    // // another useEffect, this time for loading the reports for the posts
+    // useEffect( () => {
+    //     axios.get<PostLabeling[]>(`https://localhost:5001/api/reports/getReportsOnePost/${id}`)
+    //         .then(reports => setReports(reports.data))
+    //         .catch(error => console.log(error))
+    //         .finally(() => setLoadPost(false));
+    // }, []);
     
     const handleTranslation = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTranslated((event.target as HTMLInputElement).value);
@@ -127,7 +100,7 @@ export default observer(function PostDetails({}: Props) {
     }
     
     
-    if (reportStore.loading) return <LoadingComponent message='Loading your post...'/>
+    // if (loading) return <LoadingComponent message='Loading your post...'/>
     
     if (!post) return <NotFound />;
     
@@ -141,15 +114,15 @@ export default observer(function PostDetails({}: Props) {
                             <img key={index2} src={media.url} alt={post.account.name} style={{width: '100%'}}/>
                         ))}
                         <br/>
-                        {reports.map((report) => (
+                        {reportStore.reportsForId.map((report) => (
                             <Grid item key={report.id}>
                                 <Card>
                                     <CardContent>
                                         <Typography>
                                             {report.summaryAnalysis} - {report.analysisReport}
                                         </Typography>
-                                        <Button onClick={() => handleCreateOrEditReport(report)} color='warning'>Edit</Button>
-                                        <Button onClick={() => handleDeleteReport(report.id)} color='error'>Delete</Button>
+                                        <LoadingButton loading={loading} onClick={() => updateReport(report)} color='warning'>Edit</LoadingButton>
+                                        <LoadingButton loading={loading} onClick={() => handleDeleteReport(report.id)} color='error'>Delete</LoadingButton>
                                     </CardContent>
                                 </Card>
                             </Grid>
@@ -161,10 +134,8 @@ export default observer(function PostDetails({}: Props) {
                             <br/>
                             <ThreatForm
                                 post={post}
-                                createOrEdit={handleCreateOrEditReport}
                                 translatedContent={translated}
                                 deleteReport={handleDeleteReport}
-                                submitting={submitting}
                             />
                         </Collapse>
                         <ExpandMore

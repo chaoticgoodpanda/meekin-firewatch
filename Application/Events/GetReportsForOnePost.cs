@@ -15,7 +15,7 @@ namespace Application.Events
     {
         public class Query : IRequest<List<PostLabeling>>
         {
-            public string PlatformId { get; set; }
+            public Guid PostGuidId { get; set; }
         }
         
         public class Handler : IRequestHandler<Query, List<PostLabeling>>
@@ -47,7 +47,7 @@ namespace Application.Events
 
                 // eagerly load the nested arrays
                 var reports = await _context.PostLabelings
-                    .Where(o => o.platformId == request.PlatformId).ToListAsync(cancellationToken);
+                    .Where(o => o.FacebookGuid == request.PostGuidId).ToListAsync(cancellationToken);
 
                 return reports;
 
