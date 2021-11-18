@@ -10,15 +10,12 @@ import agent from "../../app/api/agent";
 import {useStore} from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
 
-interface Props {
-    posts: Post[];
-    reports: PostLabeling[];
-}
 
 
 
-export default observer(function PostList({posts, reports}: Props) {
+export default observer(function PostList() {
     const {reportStore} = useStore();
+    const {reportsByDate, postsByDate} = reportStore;
     
     const [medium, setMedium] = useState<Medium[]>([]);
     // another useEffect, this time for loading the reports for the posts
@@ -31,17 +28,17 @@ export default observer(function PostList({posts, reports}: Props) {
     return (
         <>
             <Grid container spacing={4}>
-            {posts.map((post) => (
+            {postsByDate.map((post) => (
                 <Grid item xs={4} key={post.id}>
                     <PostCard 
                         post={post}
-                        reports={reports}
+                        reports={reportsByDate}
                         medium={medium}
                     />
                 </Grid>
             ))}
             </Grid><Grid container spacing={2}>
-                {reports.map((report) => (
+                {reportsByDate.map((report) => (
                     <Grid item xs={2} key={report.id}>
                         <ThreatCard  />
                     </Grid>

@@ -7,14 +7,16 @@ import {useParams, withRouter} from "react-router-dom";
 import {Report} from "@mui/icons-material";
 
 export default class ReportStore {
-    posts: Post[] = [];
+    // posts: Post[] = [];
+    postRegistry = new Map<string, Post>();
     selectedPost: Post | undefined = undefined;
-    reports: PostLabeling[] = [];
+    // reports: PostLabeling[] = [];
+    reportRegistry = new Map<string, PostLabeling>();
     reportsForId: PostLabeling[] = [];
     selectedReport: PostLabeling | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingInitial = false;
+    loadingInitial = true;
     
     constructor() {
         // mobx works out on its own that title is a property and therefore observable
@@ -22,15 +24,25 @@ export default class ReportStore {
         makeAutoObservable(this)
     }
     
+    get reportsByDate() {
+        return Array.from(this.reportRegistry.values()).sort((a, b) => 
+            Date.parse(a.analysisDate) - Date.parse(b.analysisDate)).reverse();
+    }
+    
+    get postsByDate() {
+        return Array.from(this.postRegistry.values()).sort((a, b) => 
+            Date.parse(a.date) - Date.parse(b.date)).reverse();
+    }
+    
     loadPosts = async () => {
-        this.setLoadingInitial(true);
         try {
             const posts = await agent.Catalog.list();
                 // do date conversions
                 posts.forEach(post => {
                     post.date = post.date.split('T')[0];
-                    this.posts.push(post);
+                    this.postRegistry.set(post.id, post);
                 })
+            console.log(Array.from(this.postRegistry));
             this.setLoadingInitial(false);
         } catch (e) {
             console.log(e);
@@ -39,9 +51,12 @@ export default class ReportStore {
     }
     
     loadReports = async () => {
-        this.setLoadingInitial(true);
         try {
             const reports = await agent.Reports.list();
+            reports.forEach(report => {
+                report.analysisDate = report.analysisDate.split('T')[0];
+                this.reportRegistry.set(report.id, report);
+            })
             this.setLoadingInitial(false);
         } catch (e) {
             console.log(e);
@@ -50,7 +65,6 @@ export default class ReportStore {
     }
     
     loadReportsForId = async (id: string) => {
-        this.setLoadingInitial(true);
         try {
             const reportsForId = await agent.Reports.forOnePost(id);
             console.log(reportsForId);
@@ -66,7 +80,7 @@ export default class ReportStore {
     }
     
     selectReport = (id: string) => {
-        this.selectedReport = this.reports.find(a => a.id === id);
+        this.selectedReport = this.reportRegistry.get(id);
     }
     
     cancelSelectedReport = () => {
@@ -88,7 +102,7 @@ export default class ReportStore {
         try {
             await agent.Reports.create(report);
             runInAction(() => {
-                this.reports.push(report);
+                this.reportRegistry.set(report.id, report);
                 this.selectedReport = report;
                 this.editMode = false;
                 this.loading = false;
@@ -106,8 +120,7 @@ export default class ReportStore {
         try {
             await agent.Reports.update(report);
             runInAction(() => {
-                // creates a new array with spread operator, replacing the old array
-                this.reports = [...this.reports.filter(a => a.id !== report.id), report];
+                this.reportRegistry.set(report.id, report);
                 this.selectedReport = report;
                 this.editMode = false;
                 this.loading = false;
@@ -121,7 +134,7 @@ export default class ReportStore {
     }
     
     selectPost = (id: string) => {
-        this.selectedPost = this.posts.find(a => a.id === id);
+        this.selectedPost = this.postRegistry.get(id);
     }
     
     deleteReport = async (id: string) => {
@@ -129,8 +142,7 @@ export default class ReportStore {
         try {
             await agent.Reports.delete(id);
             runInAction(() => {
-                // deletes the report from the list
-                this.reports = [...this.reports.filter(a => a.id !== id)];
+                this.reportRegistry.delete(id);
                 if (this.selectedReport?.id === id) this.cancelSelectedReport();
             })
         } catch (e) {

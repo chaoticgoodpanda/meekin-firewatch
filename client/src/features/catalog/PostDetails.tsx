@@ -42,7 +42,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default observer(function PostDetails() {
     const {reportStore} = useStore();
-    const {deleteReport, loading, updateReport, reports} = reportStore;
+    const {deleteReport, loading, updateReport} = reportStore;
     
     const [reportsForId, setReportsForId] = useState<PostLabeling[]>([]);
     

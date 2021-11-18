@@ -38,7 +38,7 @@ namespace API
                 {
                     // Cors policy whitelisting React client application
                     policy.AllowAnyMethod().AllowAnyHeader()
-                        .WithOrigins("http://localhost:3000", "https://localhost:5001");
+                        .WithOrigins("http://localhost:3000", "https://localhost:5001", "https://video-lax3-1.xx.fbcdn.net");
                 });
             });
         }

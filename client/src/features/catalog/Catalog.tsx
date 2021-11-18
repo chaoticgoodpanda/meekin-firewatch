@@ -32,8 +32,6 @@ export default observer(function Catalog() {
     return (
         <>
             <PostList
-                posts={reportStore.posts} 
-                reports={reportStore.reports}
             />
         </>
 
