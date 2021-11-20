@@ -9,7 +9,7 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Post} from "../../app/models/post";
@@ -42,7 +42,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default observer(function PostDetails() {
     const {reportStore} = useStore();
-    const {deleteReport, loading, updateReport, reportsForIdByDate, loadReportsForId, loadingInitial,
+    const {deleteReport, loading, updateReport, loadingInitial, loadPost, selectedPost: post,
     selectedReport: report} = reportStore;
     
     const [reportsForId, setReportsForId] = useState<PostLabeling[]>([]);
@@ -58,9 +58,9 @@ export default observer(function PostDetails() {
     const [expanded, setExpanded] = React.useState(false);
     // takes the http URL as a string for the specific post detail
     const {id} = useParams<{id: string}>();
-    const [post, setPost] = useState<Post>();
+    // const [post, setPost] = useState<Post>();
     // set loading indicator to true when initializing this component
-    const [loadPost, setLoadPost] = useState(true);
+    const [loader, setLoader] = useState(true);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -72,6 +72,10 @@ export default observer(function PostDetails() {
         deleteReport(id);
     }
     
+    useEffect(() => {
+        if (id) loadPost(id);
+    }, [id, loadPost])
+    
     // useEffect(() => {
     //     if (id) loadReportsForId(id);
     // }, [id, loadReportsForId])
@@ -82,29 +86,14 @@ export default observer(function PostDetails() {
                 setReportsForId(response.data)
             })
             .catch(error => console.log(error.response))
-            .finally(() => setLoadPost(false));
-    }, [id]);
-    
-    // same as OnInit in Angular
-    useEffect(() => {
-        axios.get<Post>(`https://localhost:5001/api/posts/${id}`)
-            .then(response => {
-                 setPost((response.data))
-                }
-            )
-            .catch(error => console.log(error.response))
-            .finally(() => setLoadPost(false));
+            .finally(() => setLoader(false));
     }, [id]);
     
     const handleTranslation = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTranslated((event.target as HTMLInputElement).value);
     };
 
-    if (post) {
-        reportStore.selectedPost = post;
-    }
-
-    if (loadingInitial || !post) return <LoadingComponent />
+    if (loadingInitial || !post) return <LoadingComponent message="Loading your post..." />
     // if (loading) return <LoadingComponent message='Loading your post...'/>
     
     if (!post) return <NotFound />;
@@ -126,7 +115,7 @@ export default observer(function PostDetails() {
                                         <Typography>
                                             {report.speechContent} - {report.analysisReport}
                                         </Typography>
-                                        <LoadingButton loading={loading} onClick={() => updateReport(report)} color='warning'>Edit</LoadingButton>
+                                        <LoadingButton loading={loading} component={Link} to={`/manage/${report.id}`}  onClick={() => updateReport(report)} color='warning'>Edit</LoadingButton>
                                         <LoadingButton loading={loading} onClick={() => handleDeleteReport(report.id)} color='error'>Delete</LoadingButton>
                                     </CardContent>
                                 </Card>

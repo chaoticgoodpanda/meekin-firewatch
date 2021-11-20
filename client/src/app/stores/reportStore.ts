@@ -62,14 +62,18 @@ export default class ReportStore {
         let post = this.getPost(id);
         if (post) {
             this.selectedPost = post;
+            return post;
         } else {
             this.loadingInitial = true;
             try {
                 // if the postId is not already in the post Map, only then fetch it from the API
                 post = await agent.Catalog.details(id);
                 this.setPost(post);
-                this.selectedPost = post;
+                runInAction(() => {
+                    this.selectedPost = post;
+                })
                 this.setLoadingInitial(false);
+                return post;
             } catch (e) {
                 console.log(e);
                 this.setLoadingInitial(false);
@@ -90,14 +94,45 @@ export default class ReportStore {
         try {
             const reports = await agent.Reports.list();
             reports.forEach(report => {
-                report.analysisDate = report.analysisDate.split('T')[0];
-                this.reportRegistry.set(report.id, report);
+                this.setReport(report);
             })
             this.setLoadingInitial(false);
         } catch (e) {
             console.log(e);
             this.setLoadingInitial(false);
         }
+    }
+    
+    // loads a specific report by id
+    loadReport = async (id: string) => {
+        let report = this.getReport(id);
+        if (report) {
+            this.selectedReport = report;
+            return report;
+        } else {
+            this.loadingInitial = true;
+            try {
+                report = await agent.Reports.details(id);
+                this.setReport(report);
+                runInAction(() => {
+                    this.selectedReport = report;
+                })
+                this.setLoadingInitial(false);
+                return report;
+            } catch (e) {
+                console.log(e);
+                this.setLoadingInitial(false);
+            }
+        }
+    }
+    
+    private setReport = (report: PostLabeling) => {
+        report.analysisDate = report.analysisDate.split('T')[0];
+        this.reportRegistry.set(report.id, report);
+    }
+    
+    private getReport = (id: string) => {
+        return this.reportRegistry.get(id);
     }
     
     loadReportsForId = async (id: string) => {

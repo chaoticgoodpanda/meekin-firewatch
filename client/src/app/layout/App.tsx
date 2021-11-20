@@ -53,7 +53,7 @@ function App() {
                 <Route path='/about' component={AboutPage}/>
                 <Route path='/contact' component={ContactPage}/>
                 <Route path='/threats' component={ThreatDashboard} />
-                <Route path='/threatForm' component={ThreatForm} />
+                <Route path={['/createReport', '/manage/:id']} component={ThreatForm} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />
             </Switch>

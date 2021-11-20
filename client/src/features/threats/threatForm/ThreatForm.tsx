@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {
     Box,
     Button, 
@@ -15,6 +15,8 @@ import {Post} from "../../../app/models/post";
 import {LoadingButton} from "@mui/lab";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
+import {Link, useParams} from "react-router-dom";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface Props {
     post: Post;
@@ -26,11 +28,14 @@ interface Props {
 
 export default observer (function ThreatForm({post, deleteReport}: Props) {
     const {reportStore} = useStore();
-    const {selectedReport, createReport, updateReport, loading} = reportStore;
+    const {selectedReport, createReport, updateReport, loading, loadReport, loadingInitial} = reportStore;
+    // const {id} = useParams<{id: string}>();
     
     // for the chip dropdown
     const theme = useTheme();
     const [justification, setJustification] = React.useState<string[]>([]);
+
+
     
     const initialState = reportStore.selectedReport ?? {
         id: '',
@@ -55,6 +60,10 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
         analysisDate: customJSONstringify(new Date()) 
     }
     
+    // useEffect(() => {
+    //     if (id) loadReport(id).then(report => setReport(report!))
+    // }, [id, loadReport]);
+
     const [report, setReport] = useState(initialState);
     const [radioValue, setRadioValue] = React.useState('');
     const [humanRadio, setHumanRadio] = React.useState(false);
@@ -152,6 +161,8 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
         setReport({...report, [name]: value});
     }
     
+    if (loadingInitial) return <LoadingComponent message="Loading report..." />
+    
     return (
         <>
             <Box
@@ -230,7 +241,7 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
             </Box>
             <LoadingButton sx={{ml: 1, mt: 1}} type='submit' onClick={handleSubmit} color="success"
                     variant="contained" loading={loading}>Submit Report</LoadingButton>
-            <Button sx={{ml: 1, mt: 1}} type='submit' color="error"
+            <Button component={Link} to={'/catalog'}  sx={{ml: 1, mt: 1}} type='submit' color="error"
                     variant="contained">Cancel</Button>
         </>
           
