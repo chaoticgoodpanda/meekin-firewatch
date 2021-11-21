@@ -38,7 +38,7 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
 
 
     
-    const initialState = reportStore.selectedReport ?? {
+    const initialState = selectedReport ?? {
         id: '',
         organizationId: post.account.name,     // TODO: placeholder to change later when at user identity
         userId: '',

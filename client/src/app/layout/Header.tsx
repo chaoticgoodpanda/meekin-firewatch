@@ -1,6 +1,6 @@
-import {AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography} from "@mui/material";
+import {AppBar, Badge, Box, Button, IconButton, List, ListItem, Switch, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {Notifications, ShoppingCart} from "@mui/icons-material";
 
 
@@ -52,6 +52,7 @@ export default function Header({darkMode, handleThemeChange}: Props) {
                         Meekin Firewatch
                     </Typography>
                     <Switch checked={darkMode} onChange={handleThemeChange} color="secondary" name="Dark mode"/>
+                    <Button component={Link} to='/createReport' sx={{ml: 1}} variant='contained' color='primary'>Create Report</Button>
                 </Box>
                 
                 <List sx={{display: 'flex'}}>

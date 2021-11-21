@@ -43,7 +43,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 export default observer(function PostDetails() {
     const {reportStore} = useStore();
     const {deleteReport, loading, updateReport, loadingInitial, loadPost, selectedPost: post,
-    selectedReport: report} = reportStore;
+    selectedReport: report, createReport} = reportStore;
     
     const [reportsForId, setReportsForId] = useState<PostLabeling[]>([]);
     
@@ -62,6 +62,7 @@ export default observer(function PostDetails() {
     // set loading indicator to true when initializing this component
     const [loader, setLoader] = useState(true);
 
+    // expands the toggle menu to create a new report
     const handleExpandClick = () => {
         setExpanded(!expanded);
         setEditMode(!editMode);
@@ -108,15 +109,15 @@ export default observer(function PostDetails() {
                             <img key={index2} src={media.url} alt={post.account.name} style={{width: '100%'}}/>
                         ))}
                         <br/>
-                        {reportsForId.map((report) => (
-                            <Grid item key={report.id}>
+                        {reportsForId.map((existingReport) => (
+                            <Grid item key={existingReport.id}>
                                 <Card>
                                     <CardContent>
                                         <Typography>
-                                            {report.speechContent} - {report.analysisReport}
+                                            {existingReport.speechContent} - {existingReport.analysisReport}
                                         </Typography>
-                                        <LoadingButton loading={loading} component={Link} to={`/manage/${report.id}`}  onClick={() => updateReport(report)} color='warning'>Edit</LoadingButton>
-                                        <LoadingButton loading={loading} onClick={() => handleDeleteReport(report.id)} color='error'>Delete</LoadingButton>
+                                        <LoadingButton loading={loading} component={Link} to={`/manage/${existingReport.id}`}  onClick={() => updateReport(existingReport)} color='warning'>Edit</LoadingButton>
+                                        <LoadingButton loading={loading} onClick={() => handleDeleteReport(existingReport.id)} color='error'>Delete</LoadingButton>
                                     </CardContent>
                                 </Card>
                             </Grid>
@@ -139,7 +140,7 @@ export default observer(function PostDetails() {
                             aria-label="show more"
                             editMode={editMode}
                         >
-                            <Button color="primary">Toggle Report Form</Button>
+                            <Button variant='contained' color="primary">Create a New Report</Button>
                         </ExpandMore>
                         <Button onClick={() => history.push('/catalog')} color="secondary">Back to Catalog</Button>
                     </Grid>
