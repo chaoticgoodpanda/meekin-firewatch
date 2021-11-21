@@ -14,14 +14,14 @@ export interface PostLabeling {
   speaker: string;
   speechContent: string;
   translatedSpeechContent: string;
-  justifications: string[] | undefined;
+  justifications: string[];
   intent?: RabatIntent | null;
   rabatLikelihoodHarm: number;
   language: string;
   humanTarget: boolean;
   facebookDecision: string;
-  createdDate: string | null;
-  decisionDate: string | null;
+  createdDate: string;
+  decisionDate: string;
   analysisReport: string;
   summaryAnalysis: string;
   analysisDate: string;

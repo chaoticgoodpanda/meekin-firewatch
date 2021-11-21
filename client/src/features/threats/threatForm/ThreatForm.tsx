@@ -15,7 +15,7 @@ import {Post} from "../../../app/models/post";
 import {LoadingButton} from "@mui/lab";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
-import {Link, useParams} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface Props {
@@ -27,6 +27,7 @@ interface Props {
 
 
 export default observer (function ThreatForm({post, deleteReport}: Props) {
+    const history = useHistory();
     const {reportStore} = useStore();
     const {selectedReport, createReport, updateReport, loading, loadReport, loadingInitial} = reportStore;
     // const {id} = useParams<{id: string}>();
