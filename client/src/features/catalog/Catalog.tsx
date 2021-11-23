@@ -31,7 +31,7 @@ export default observer(function Catalog() {
     }, [reportStore]);
     
     
-    if (reportStore.loadingInitial) return <LoadingComponent message='Loading posts and reports...' />;
+    if (reportStore.loadingInitial) return <LoadingComponent message='Loading posts...' />;
     return (
         <>
             <PostList

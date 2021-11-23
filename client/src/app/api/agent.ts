@@ -10,7 +10,6 @@ axios.defaults.baseURL = 'https://localhost:5001/api/';
 
 // make it easier to extract the response
 const responseBody = <T> (response: AxiosResponse<T>) => response.data;
-// TODO: figure out if it's possible to use this different method for {id} calls
 // const responseDetailBody = (response: AxiosResponse) => response.data.result.posts;
 
 // intercepts the response from the API before it hits the client

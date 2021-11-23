@@ -25,4 +25,5 @@ export interface PostLabeling {
   analysisReport: string;
   summaryAnalysis: string;
   analysisDate: string;
+  originalPostUrl: string;
 }

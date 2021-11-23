@@ -51,5 +51,7 @@ namespace Domain
         public string AnalysisReport { get; set; }
         public string SummaryAnalysis { get; set; }
         public string AnalysisDate { get; set; }
+        
+        public string OriginalPostUrl { get; set; }
     }
 }

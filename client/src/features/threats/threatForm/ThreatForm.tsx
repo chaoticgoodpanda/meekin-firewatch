@@ -58,7 +58,8 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
         decisionDate: '',
         analysisReport: '',
         summaryAnalysis: '',
-        analysisDate: customJSONstringify(new Date()) 
+        analysisDate: customJSONstringify(new Date()),
+        originalPostUrl: post.postUrl
     }
     
     // useEffect(() => {
@@ -68,6 +69,7 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
     const [report, setReport] = useState(initialState);
     const [radioValue, setRadioValue] = React.useState('');
     const [humanRadio, setHumanRadio] = React.useState(false);
+    
     
     // conversion of strings to booleans for radio values
     var str2bool = (value: any) => {
@@ -163,11 +165,14 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
     }
     
     async function submitRefreshPage() {
-        await handleSubmit();
-        window.location.reload();
+        handleSubmit();
+        window.setTimeout(function(){window.location.reload()},1000);
     }
     
-    if (loadingInitial) return <LoadingComponent message="Loading report..." />
+
+    
+    
+    // if (loadingInitial) return <LoadingComponent message="Loading report..." />
     
     return (
         <>
