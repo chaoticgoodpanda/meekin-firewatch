@@ -162,6 +162,11 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
         setReport({...report, [name]: value});
     }
     
+    async function submitRefreshPage() {
+        await handleSubmit();
+        window.location.reload();
+    }
+    
     if (loadingInitial) return <LoadingComponent message="Loading report..." />
     
     return (
@@ -240,10 +245,10 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
                 />
             </FormControl>
             </Box>
-            <LoadingButton sx={{ml: 1, mt: 1}} type='submit' onClick={handleSubmit} color="success"
-                    variant="contained" loading={loading}>Submit Report</LoadingButton>
+            <LoadingButton sx={{ml: 1, mt: 1}} type='submit' onClick={submitRefreshPage} color="success"
+                    variant="outlined" loading={loading}>Submit Report</LoadingButton>
             <Button component={Link} to={'/catalog'}  sx={{ml: 1, mt: 1}} type='submit' color="error"
-                    variant="contained">Cancel</Button>
+                    variant="outlined">Cancel</Button>
         </>
           
     )

@@ -12,10 +12,8 @@ import {
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Post} from "../../app/models/post";
 import {history} from "../../index";
 import NotFound from "../../app/errors/NotFound";
-import LoadingComponent from "../../app/layout/LoadingComponent";
 import GoogleTranslate from "../translate/GoogleTranslate";
 import * as React from "react";
 import IconButton from "@mui/material/IconButton";
@@ -24,8 +22,6 @@ import {PostLabeling} from "../../app/models/postLabeling";
 import {useStore} from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import {LoadingButton} from "@mui/lab";
-
-
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -94,7 +90,7 @@ export default observer(function PostDetails() {
         setTranslated((event.target as HTMLInputElement).value);
     };
 
-    if (loadingInitial || !post) return <LoadingComponent message="Loading your post..." />
+    // if (loadingInitial || !post) return <LoadingComponent message="Loading your post..." />
     // if (loading) return <LoadingComponent message='Loading your post...'/>
     
     if (!post) return <NotFound />;
@@ -114,7 +110,10 @@ export default observer(function PostDetails() {
                                 <Card>
                                     <CardContent>
                                         <Typography>
-                                            {existingReport.speechContent} - {existingReport.analysisReport}
+                                            {existingReport.analysisDate} <br/>
+                                            Danger score: {existingReport.rabatLikelihoodHarm} <br/>
+                                            {existingReport.summaryAnalysis}<br/>
+                                            {existingReport.analysisReport}
                                         </Typography>
                                         <LoadingButton loading={loading} component={Link} to={`/manage/${existingReport.id}`}  onClick={() => updateReport(existingReport)} color='warning'>Edit</LoadingButton>
                                         <LoadingButton loading={loading} onClick={() => handleDeleteReport(existingReport.id)} color='error'>Delete</LoadingButton>

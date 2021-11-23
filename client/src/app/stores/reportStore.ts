@@ -205,6 +205,36 @@ export default class ReportStore {
         this.selectedPost = this.postRegistry.get(id);
     }
     
+    cancelSelectedPost = () => {
+        this.selectedPost = undefined;
+    }
+    
+    openPost = (id?: string) => {
+        id ? this.selectPost(id) : this.cancelSelectedPost();
+        this.editMode = true;
+    }
+    
+    closePost = () => {
+        this.editMode = false;
+    }
+    
+    selectReport = (id: string) => {
+        this.selectedReport = this.reportRegistry.get(id);
+    }
+
+    cancelSelectedReport = () => {
+        this.selectedReport = undefined;
+    }
+
+    openReportForm = (id?: string) => {
+        id ? this.selectReport(id) : this.cancelSelectedReport();
+        this.editMode = true;
+    }
+
+    closeReportForm = () => {
+        this.editMode = false;
+    }
+    
     deleteReport = async (id: string) => {
         this.loading = true;
         try {

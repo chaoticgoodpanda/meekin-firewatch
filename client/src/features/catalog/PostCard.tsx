@@ -1,4 +1,14 @@
-import {Avatar, Box, Button, Collapse, IconButtonProps, styled} from "@mui/material";
+import {
+    Avatar,
+    Box,
+    Button,
+    Collapse, Divider,
+    IconButtonProps, List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    styled
+} from "@mui/material";
 import {Post} from "../../app/models/post";
 import * as React from 'react';
 import Card from '@mui/material/Card';
@@ -24,6 +34,7 @@ import {PostLabeling} from "../../app/models/postLabeling";
 import {Medium} from "../../app/models/medium";
 import {useStore} from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
+import TemporaryDrawer from "../../app/layout/TemporaryDrawer";
 
 interface Props {
     post: Post;
@@ -56,6 +67,7 @@ export default observer (function PostCard({post, reports, medium}: Props) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+    
 
     return (
         <Card>
@@ -149,10 +161,7 @@ export default observer (function PostCard({post, reports, medium}: Props) {
                 </ExpandMore>
             </CardActions>
             <Box textAlign='center' sx={{mb: 2}}>
-                <Button component={Link} to={`/catalog/${post.guidId}`} color="secondary">Analyze</Button>&nbsp;&nbsp;&nbsp;
-                <Button variant="contained" color="success">
-                    Report
-                </Button>&nbsp;&nbsp;&nbsp;
+                <Button variant='contained' component={Link} to={`/catalog/${post.guidId}`} color="secondary">Report</Button>&nbsp;&nbsp;&nbsp;
                 <Button variant="outlined" color="error">
                     Appeal
                 </Button>
@@ -161,3 +170,6 @@ export default observer (function PostCard({post, reports, medium}: Props) {
     );
 })
 
+
+
+// onClick={() => reportStore.selectPost(post.guidId)}

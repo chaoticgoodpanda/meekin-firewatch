@@ -1,21 +1,23 @@
 import {Grid, } from "@mui/material";
 import {Post} from "../../app/models/post";
 import PostCard from "./PostCard";
-import {PostLabeling} from "../../app/models/postLabeling";
-import ThreatCard from "./ThreatCard";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Medium} from "../../app/models/medium";
 import agent from "../../app/api/agent";
 import {useStore} from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
+import PostDetails from "./PostDetails";
+import TemporaryDrawer from "../../app/layout/TemporaryDrawer";
 
-
+interface Props {
+}
 
 
 export default observer(function PostList() {
     const {reportStore} = useStore();
-    const {reportsByDate, postsByDate} = reportStore;
+    const {reportsByDate, postsByDate, selectedPost, editMode} = reportStore;
+
     
     const [medium, setMedium] = useState<Medium[]>([]);
     // another useEffect, this time for loading the reports for the posts
@@ -24,6 +26,8 @@ export default observer(function PostList() {
             .then(medium => setMedium(medium))
             .catch(error => console.log(error))
     }, []);
+    
+
     
     return (
         <>
@@ -37,12 +41,6 @@ export default observer(function PostList() {
                     />
                 </Grid>
             ))}
-            </Grid><Grid container spacing={2}>
-                {reportsByDate.map((report) => (
-                    <Grid item xs={2} key={report.id}>
-                        <ThreatCard  />
-                    </Grid>
-                ))}
             </Grid>
         </>
     )

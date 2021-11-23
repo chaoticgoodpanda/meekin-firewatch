@@ -10,6 +10,8 @@ import {observer} from "mobx-react-lite";
 
 export default observer(function Catalog() {
     const {reportStore} = useStore();
+    const {postsByDate} = reportStore;
+    const [selectedPost, setSelectedPost] = useState<Post | undefined>(undefined);
     // use the setPosts functions to modify the state
     // set to Post type as in models
     // const [posts, setPosts] = useState<Post[]>([]);
@@ -28,10 +30,12 @@ export default observer(function Catalog() {
         reportStore.loadReports();
     }, [reportStore]);
     
+    
     if (reportStore.loadingInitial) return <LoadingComponent message='Loading posts and reports...' />;
     return (
         <>
-            <PostList/>
+            <PostList
+            />
         </>
 
 )
