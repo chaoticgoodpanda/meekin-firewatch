@@ -418,9 +418,6 @@ namespace Persistence.Migrations
                     b.Property<string>("SummaryAnalysis")
                         .HasColumnType("text");
 
-                    b.Property<string>("TranslatedSpeechContent")
-                        .HasColumnType("text");
-
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 

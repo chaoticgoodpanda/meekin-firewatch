@@ -128,7 +128,6 @@ export default observer(function PostDetails() {
                             <br/>
                             <ThreatForm
                                 post={post}
-                                translatedContent={translated}
                                 deleteReport={handleDeleteReport}
                             />
                         </Collapse>

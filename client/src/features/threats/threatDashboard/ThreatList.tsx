@@ -1,5 +1,5 @@
 import {Box, Button, Card, CardContent, CardHeader, CardMedia, Grid, List, ListItem} from '@mui/material';
-import React, {useState} from 'react';
+import React, {SyntheticEvent, useState} from 'react';
 import ThreatListItem from "./ThreatListItem";
 import {useStore} from "../../../app/stores/store";
 import {Link} from "react-router-dom";
@@ -8,7 +8,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function ThreatList() {
     const {reportStore} = useStore();
-    const {reportsByDate, postsByDate, selectedPost, editMode} = reportStore;
+    const {reportsByDate, postsByDate, selectedPost, editMode, openReportForm, selectReport, deleteReport} = reportStore;
+    const [target, setTarget] = useState('');
+    
+    function handleReportDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
+        setTarget(e.currentTarget.name);
+        deleteReport(id);
+    }
     
     return (
         <Grid container spacing={2}>
@@ -30,11 +36,14 @@ export default function ThreatList() {
                             {report.analysisReport}
                         </CardContent>
                         <Box textAlign='center' sx={{mb: 2}}>
-                            <Button variant='contained' component={Link} to={`/catalog/${report.facebookGuid}`} color="secondary">View</Button>&nbsp;&nbsp;&nbsp;
-                            <Button variant="outlined" color="primary">
+                            <Button sx={{mr: 2}} variant='contained' onClick={() => selectReport(report.id)} color="secondary">View</Button>
+                            <Button sx={{mr: 2}} onClick={() => openReportForm(report.id)}  variant="outlined" color="primary">
                                 Edit
-                            </Button> &nbsp;&nbsp;&nbsp;
-                            <Button variant="outlined" color="error">
+                            </Button>
+                            <Button variant="outlined" color="error"
+                                name={report.id}
+                                onClick={(e) => handleReportDelete(e, report.id)}
+                            >
                                 Delete
                             </Button>
                         </Box>
@@ -45,3 +54,5 @@ export default function ThreatList() {
         
     )
 }
+
+// component={Link} to={`/catalog/${report.facebookGuid}`}

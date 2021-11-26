@@ -21,7 +21,6 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 interface Props {
     post: Post;
     deleteReport: (id: string) => void;
-    translatedContent: string;
 }
 
 
@@ -29,7 +28,7 @@ interface Props {
 export default observer (function ThreatForm({post, deleteReport}: Props) {
     const history = useHistory();
     const {reportStore} = useStore();
-    const {selectedReport, createReport, updateReport, loading, loadReport, loadingInitial} = reportStore;
+    const {selectedReport, createReport, updateReport, loading, loadReport, loadingInitial, closeReportForm} = reportStore;
     // const {id} = useParams<{id: string}>();
     
     // for the chip dropdown
@@ -51,7 +50,6 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
         rabatLikelihoodHarm: 0,
         language: post.languageCode,
         speechContent: post.message,
-        translatedSpeechContent: '',
         humanTarget: false,
         facebookDecision: '',
         createdDate: customJSONstringify(post.date),

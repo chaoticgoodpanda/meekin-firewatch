@@ -23,10 +23,6 @@ namespace Domain
         
         // content of speech for Rabat analysis
         public string SpeechContent { get; set; }
-        
-        // translated speech content for storage
-        public string TranslatedSpeechContent { get; set; }
-        
 
         // argument put forth by content as to why to engage in violence
         public string[] Justifications {get; set;}
