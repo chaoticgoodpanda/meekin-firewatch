@@ -25,6 +25,18 @@ export default class ReportStore {
             Date.parse(a.analysisDate) - Date.parse(b.analysisDate)).reverse();
     }
     
+    get groupedReports() {
+        // an array of objects, an object has a key, and for each key we have array of reports
+        return Object.entries(
+            this.reportsByDate.reduce((reports, report) => {
+                const date = report.analysisDate;
+                reports[date] = reports[date] ? [...reports[date], report] : [report];
+                return reports;
+            }, {} as {[key: string]: PostLabeling[]})
+        )
+    }
+    
+    
     get postsByDate() {
         return Array.from(this.postRegistry.values()).sort((a, b) => 
             Date.parse(a.date) - Date.parse(b.date)).reverse();
