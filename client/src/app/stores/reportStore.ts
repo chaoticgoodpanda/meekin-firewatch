@@ -2,9 +2,6 @@ import {makeAutoObservable, runInAction} from "mobx";
 import {PostLabeling} from "../models/postLabeling";
 import agent from "../api/agent";
 import {Post} from "../models/post";
-import {v4 as uuid} from 'uuid';
-import {useParams, withRouter} from "react-router-dom";
-import {Face, Report} from "@mui/icons-material";
 
 export default class ReportStore {
     postRegistry = new Map<string, Post>();
@@ -165,7 +162,6 @@ export default class ReportStore {
     
     createReport = async (report: PostLabeling) => {
         this.loading = true;
-        report.id = uuid();
         try {
             await agent.Reports.create(report);
             runInAction(() => {

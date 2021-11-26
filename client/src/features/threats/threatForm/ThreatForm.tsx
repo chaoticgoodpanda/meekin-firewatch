@@ -15,6 +15,7 @@ import {LoadingButton} from "@mui/lab";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import {Link, useHistory, useParams} from "react-router-dom";
+import {v4 as uuid} from 'uuid';
 
 interface Props {
     post: Post;
@@ -153,7 +154,15 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
     
     function handleSubmit() {
         // console.log(report);
-        report.id ? updateReport(report) : createReport(report);
+        if (report.id.length === 0) {
+            let newReport = {
+                ...report,
+                id: uuid(),
+            };
+            createReport(newReport).then(() => history.push(`/threats/${newReport.id}`));
+        } else {
+            updateReport(report).then(() => history.push(`/threats/${report.id}`));
+        }
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {

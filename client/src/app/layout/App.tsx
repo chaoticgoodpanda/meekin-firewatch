@@ -52,11 +52,11 @@ function App() {
                 <Route exact path='/' component={HomePage}/>
                 <Route exact path='/catalog' component={Catalog}/>
                 <Route exact path='/sandbox' component={Sandbox}/>
-                <Route path='/catalog/:id' component={PostDetails}/>
+                <Route key={location.key}  path='/catalog/:id' component={PostDetails}/>
                 <Route path='/about' component={AboutPage}/>
                 <Route path='/contact' component={ContactPage}/>
                 <Route exact path='/threats' component={ThreatDashboard} />
-                <Route path='/threats/:id' component={ThreatDetails} />
+                <Route key={location.key}  path='/threats/:id' component={ThreatDetails} />
                 <Route key={location.key} path={['/createReport', '/manage/:id']} component={ThreatForm} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />
