@@ -3,8 +3,8 @@ import {Box, Button, Card, CardContent, CardHeader} from "@mui/material";
 import {PostLabeling} from "../../../app/models/postLabeling";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect} from "react";
+import {Link, useParams} from "react-router-dom";
 import {useStore} from "../../../app/stores/store";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 
@@ -14,9 +14,14 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 export default observer(function ThreatDetails() {
     const {reportStore} = useStore();
-    const {selectedReport: report, openReportForm, deleteReport, cancelSelectedReport} = reportStore;
+    const {selectedReport: report, openReportForm, deleteReport, cancelSelectedReport, loadReport, loadingInitial} = reportStore;
+    const {id} = useParams<{id: string}>();
     
-    if (!report) return <LoadingComponent />;
+    useEffect(() => {
+        if (id) loadReport(id);
+    }, [id, loadReport]);
+    
+    if (loadingInitial|| !report) return <LoadingComponent />;
     
     return (
         <Card>

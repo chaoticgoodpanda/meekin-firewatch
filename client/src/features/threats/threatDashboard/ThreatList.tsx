@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {observer} from "mobx-react-lite";
 import {LoadingButton} from "@mui/lab";
+import {Link} from "react-router-dom";
 
 export default observer(function ThreatList() {
     const {reportStore} = useStore();
@@ -36,7 +37,9 @@ export default observer(function ThreatList() {
                             {report.analysisReport}
                         </CardContent>
                         <Box textAlign='center' sx={{mb: 2}}>
-                            <Button sx={{mr: 2}} variant='contained' onClick={() => selectReport(report.id)} color="secondary">View</Button>
+                            <Button sx={{mr: 2}} variant='contained' 
+                                    component={Link} to={`/threats/${report.id}`}
+                                    color="secondary">View</Button>
                             <Button sx={{mr: 2}} onClick={() => openReportForm(report.id)}  variant="outlined" color="primary">
                                 Edit
                             </Button>

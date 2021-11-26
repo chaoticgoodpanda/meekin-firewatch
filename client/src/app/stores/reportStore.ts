@@ -7,10 +7,8 @@ import {useParams, withRouter} from "react-router-dom";
 import {Face, Report} from "@mui/icons-material";
 
 export default class ReportStore {
-    // posts: Post[] = [];
     postRegistry = new Map<string, Post>();
     selectedPost: Post | undefined = undefined;
-    // reports: PostLabeling[] = [];
     reportRegistry = new Map<string, PostLabeling>();
     reportsForId: PostLabeling[] = [];
     reportsForIdRegistry = new Map<string, PostLabeling>();
@@ -91,6 +89,7 @@ export default class ReportStore {
     }
     
     loadReports = async () => {
+        this.loadingInitial = true;
         try {
             const reports = await agent.Reports.list();
             reports.forEach(report => {
@@ -114,9 +113,7 @@ export default class ReportStore {
             try {
                 report = await agent.Reports.details(id);
                 this.setReport(report);
-                runInAction(() => {
-                    this.selectedReport = report;
-                })
+                this.selectedReport = report;
                 this.setLoadingInitial(false);
                 return report;
             } catch (e) {

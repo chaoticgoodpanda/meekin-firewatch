@@ -16,6 +16,8 @@ import ThreatDashboard from "../../features/threats/threatDashboard/ThreatDashbo
 import ThreatForm from "../../features/threats/threatForm/ThreatForm";
 import {useStore} from "../stores/store";
 import {observer} from "mobx-react-lite";
+import * as path from "path";
+import ThreatDetails from "../../features/threats/threatDashboard/ThreatDetails";
 
 
 
@@ -52,7 +54,8 @@ function App() {
                 <Route path='/catalog/:id' component={PostDetails}/>
                 <Route path='/about' component={AboutPage}/>
                 <Route path='/contact' component={ContactPage}/>
-                <Route path='/threats' component={ThreatDashboard} />
+                <Route exact path='/threats' component={ThreatDashboard} />
+                <Route path='/threats/:id' component={ThreatDetails} />
                 <Route path={['/createReport', '/manage/:id']} component={ThreatForm} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />

@@ -7,8 +7,7 @@ import ThreatDetails from "./ThreatDetails";
 
 export default function ThreatDashboard() {
     const {reportStore} = useStore();
-    const {reportsByDate, loadingInitial, deleteReport, openReportForm, closeReportForm, editMode, 
-        selectReport, selectedReport, loadPost, selectedPost} = reportStore;
+    const {reportsByDate, loadingInitial} = reportStore;
 
     // another useEffect, this time for loading the reports for the posts
     useEffect( () => {
@@ -25,9 +24,7 @@ export default function ThreatDashboard() {
                     <ThreatList/>
                 </Grid>
                 <Grid item xs={4}>
-                    {selectedReport && !editMode && 
-                    <ThreatDetails
-                    />}
+                    <h2>Report filters</h2>
                 </Grid>
             </Grid>
         </>
