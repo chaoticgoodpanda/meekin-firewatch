@@ -36,35 +36,36 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
 
     
     // TODO: Need to add an additional set of totally empty fields when not writing a report off of an existing report
-    
-    const initialState = selectedReport ?? {
-        id: '',
-        organizationId: post.account.name,     // TODO: placeholder to change later when at user identity
+    const [report, setReport] = useState({
+        id: '', // TODO: placeholder to change later when at user identity
         userId: '',
-        platformId: post.platformId,
-        facebookGuid: post.guidId,
-        country: post.account.pageAdminTopCountry,
+        organizationId: '',
+        platformId: '',
+        facebookGuid: '',
+        country: '',
         speaker: '',
-        justifications: [],
+        justifications: [] as string[],
         //@ts-ignore
         rabatLikelihoodHarm: 0,
-        language: post.languageCode,
-        speechContent: post.message,
+        language: '',
+        speechContent: '',
         humanTarget: false,
         facebookDecision: '',
-        createdDate: customJSONstringify(post.date),
+        createdDate: '',
         decisionDate: '',
         analysisReport: '',
         summaryAnalysis: '',
         analysisDate: customJSONstringify(new Date()),
-        originalPostUrl: post.postUrl
-    }
+        originalPostUrl: ''
+    });
     
-    // useEffect(() => {
-    //     if (id) loadReport(id).then(report => setReport(report!))
-    // }, [id, loadReport]);
+    useEffect(() => {
+        if (!post) {
+            if (id) loadReport(id).then(report => setReport(report!))
+        }
+    }, [id, loadReport]);
 
-    const [report, setReport] = useState(initialState);
+    
     const [radioValue, setRadioValue] = React.useState('');
     const [humanRadio, setHumanRadio] = React.useState(false);
     
@@ -155,11 +156,29 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
     function handleSubmit() {
         // console.log(report);
         if (report.id.length === 0) {
-            let newReport = {
-                ...report,
-                id: uuid(),
-            };
-            createReport(newReport).then(() => history.push(`/threats/${newReport.id}`));
+            if (!post) {
+                let newReport = {
+                    ...report,
+                    id: uuid(),
+                };
+                createReport(newReport).then(() => history.push(`/threats/${newReport.id}`));
+            } 
+            else {
+                let newReport = {
+                    ...report,
+                    id: uuid(),
+                    organizationId: post.account.name,
+                    platformId: post.platformId,
+                    facebookGuid: post.guidId,
+                    country: post.account.pageAdminTopCountry,
+                    language: post.languageCode,
+                    speechContent: post.message,
+                    createdDate: customJSONstringify(post.date),
+                    originalPostUrl: post.postUrl
+                }
+                createReport(newReport).then(() => history.push(`/catalog/${post.guidId}`));
+            }
+            
         } else {
             updateReport(report).then(() => history.push(`/threats/${report.id}`));
         }
@@ -172,7 +191,7 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
     
     async function submitRefreshPage() {
         handleSubmit();
-        window.setTimeout(function(){window.location.reload()},1000);
+        // window.setTimeout(function(){window.location.reload()},1000);
     }
     
 

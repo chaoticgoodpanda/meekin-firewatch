@@ -36,10 +36,10 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 }));
 
-export default observer(function PostDetails() {
+export default observer(function PostDetails(this: any) {
     const {reportStore} = useStore();
     const {deleteReport, loading, updateReport, loadingInitial, loadPost, selectedPost: post,
-    selectedReport: report, createReport} = reportStore;
+    selectedReport: report, createReport, loadReport} = reportStore;
     
     const [reportsForId, setReportsForId] = useState<PostLabeling[]>([]);
     
@@ -73,9 +73,9 @@ export default observer(function PostDetails() {
         if (id) loadPost(id);
     }, [id, loadPost])
     
-    // useEffect(() => {
-    //     if (id) loadReportsForId(id);
-    // }, [id, loadReportsForId])
+    useEffect(() => {
+        if (id) loadReport(id);
+    }, [id, loadReport])
     
     useEffect(() => {
         axios.get<PostLabeling[]>(`https://localhost:5001/api/reports/getReportsOnePost/${id}`)
@@ -138,7 +138,7 @@ export default observer(function PostDetails() {
                             aria-label="show more"
                             editMode={editMode}
                         >
-                            <Button variant='contained' color="primary">Create a New Report</Button>
+                            <Button  variant='contained' color="primary">Create a New Report</Button>
                         </ExpandMore>
                         <Button onClick={() => history.push('/catalog')} color="secondary">Back to Catalog</Button>
                     </Grid>
