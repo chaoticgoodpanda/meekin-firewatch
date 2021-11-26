@@ -41,12 +41,12 @@ export default observer(function ThreatDetails() {
             </CardContent>
             <Box>
                 <Button sx={{mr: 2}} variant="outlined" color="primary"
-                    onClick={() => openReportForm(report.id)}
+                    component={Link} to={`/manage/${report.id}`}
                 >
                     Edit
                 </Button>
                 <Button variant="outlined" color="error"
-                    onClick={cancelSelectedReport}
+                    component={Link} to={'/threats'}
                 >
                     Cancel
                 </Button>
