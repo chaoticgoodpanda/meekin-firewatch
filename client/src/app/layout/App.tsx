@@ -16,8 +16,7 @@ import ThreatDashboard from "../../features/threats/threatDashboard/ThreatDashbo
 import ThreatForm from "../../features/threats/threatForm/ThreatForm";
 import {useStore} from "../stores/store";
 import {observer} from "mobx-react-lite";
-import * as path from "path";
-import ThreatDetails from "../../features/threats/threatDashboard/ThreatDetails";
+import ThreatDetails from "../../features/threats/threatDetails/ThreatDetails";
 
 
 
