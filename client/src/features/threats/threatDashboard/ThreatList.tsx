@@ -1,14 +1,14 @@
 import {Box, Button, Card, CardContent, CardHeader, CardMedia, Grid, List, ListItem} from '@mui/material';
 import React, {SyntheticEvent, useState} from 'react';
-import ThreatListItem from "./ThreatListItem";
 import {useStore} from "../../../app/stores/store";
-import {Link} from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import {observer} from "mobx-react-lite";
+import {LoadingButton} from "@mui/lab";
 
-export default function ThreatList() {
+export default observer(function ThreatList() {
     const {reportStore} = useStore();
-    const {reportsByDate, postsByDate, selectedPost, editMode, openReportForm, selectReport, deleteReport} = reportStore;
+    const {reportsByDate, postsByDate, selectedPost, editMode, openReportForm, selectReport, deleteReport, loading} = reportStore;
     const [target, setTarget] = useState('');
     
     function handleReportDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
@@ -40,12 +40,13 @@ export default function ThreatList() {
                             <Button sx={{mr: 2}} onClick={() => openReportForm(report.id)}  variant="outlined" color="primary">
                                 Edit
                             </Button>
-                            <Button variant="outlined" color="error"
+                            <LoadingButton variant="outlined" color="error"
                                 name={report.id}
                                 onClick={(e) => handleReportDelete(e, report.id)}
+                                loading={loading && target === report.id}
                             >
                                 Delete
-                            </Button>
+                            </LoadingButton>
                         </Box>
                     </Card>
                     ))}
@@ -53,6 +54,6 @@ export default function ThreatList() {
         </Grid>
         
     )
-}
+})
 
 // component={Link} to={`/catalog/${report.facebookGuid}`}

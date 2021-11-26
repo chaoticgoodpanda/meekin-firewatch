@@ -10,13 +10,11 @@ import {
     TextField, Theme,
     Typography, useTheme
 } from "@mui/material";
-import {PostLabeling} from "../../../app/models/postLabeling";
 import {Post} from "../../../app/models/post";
 import {LoadingButton} from "@mui/lab";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import {Link, useHistory, useParams} from "react-router-dom";
-import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface Props {
     post: Post;
