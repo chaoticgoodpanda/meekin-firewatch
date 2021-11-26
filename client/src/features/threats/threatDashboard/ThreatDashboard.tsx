@@ -3,16 +3,15 @@ import {Grid} from "@mui/material";
 import ThreatList from "./ThreatList";
 import {useStore} from "../../../app/stores/store";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-import ThreatDetails from "./ThreatDetails";
 
 export default function ThreatDashboard() {
     const {reportStore} = useStore();
-    const {reportsByDate, loadingInitial} = reportStore;
+    const {reportsByDate, loadingInitial, loadReports, reportRegistry} = reportStore;
 
     // another useEffect, this time for loading the reports for the posts
     useEffect( () => {
-        reportStore.loadReports();
-    }, [reportStore]);
+        if (reportRegistry.size <= 1) loadReports();
+    }, [reportRegistry.size, loadReports]);
     
 
     if (loadingInitial) return <LoadingComponent message='Loading reports...' />;

@@ -47,21 +47,28 @@ function App() {
         <ToastContainer position='bottom-right' hideProgressBar />
         <CssBaseline />
         <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
-        <Container>
-            <Switch>
-                <Route exact path='/' component={HomePage}/>
-                <Route exact path='/catalog' component={Catalog}/>
-                <Route exact path='/sandbox' component={Sandbox}/>
-                <Route key={location.key}  path='/catalog/:id' component={PostDetails}/>
-                <Route path='/about' component={AboutPage}/>
-                <Route path='/contact' component={ContactPage}/>
-                <Route exact path='/threats' component={ThreatDashboard} />
-                <Route key={location.key}  path='/threats/:id' component={ThreatDetails} />
-                <Route key={location.key} path={['/createReport', '/manage/:id']} component={ThreatForm} />
-                <Route path='/server-error' component={ServerError} />
-                <Route component={NotFound} />
-            </Switch>
-        </Container>
+        <Route exact path='/' component={HomePage}/>
+        <Route
+            path={'/(.+)'}
+            render={() => (
+                <Container>
+                    <Switch>
+                        <Route exact path='/catalog' component={Catalog}/>
+                        <Route exact path='/sandbox' component={Sandbox}/>
+                        <Route key={location.key}  path='/catalog/:id' component={PostDetails}/>
+                        <Route path='/about' component={AboutPage}/>
+                        <Route path='/contact' component={ContactPage}/>
+                        <Route exact path='/threats' component={ThreatDashboard} />
+                        <Route key={location.key}  path='/threats/:id' component={ThreatDetails} />
+                        <Route key={location.key} path={['/createReport', '/manage/:id']} component={ThreatForm} />
+                        <Route path='/server-error' component={ServerError} />
+                        <Route component={NotFound} />
+                    </Switch>
+                </Container>
+            )}
+            />
+
+        
         
 
     </ThemeProvider>
