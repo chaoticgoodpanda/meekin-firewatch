@@ -6,6 +6,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {observer} from "mobx-react-lite";
 import {LoadingButton} from "@mui/lab";
 import {Link} from "react-router-dom";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 export default observer(function ThreatList() {
     const {reportStore} = useStore();
@@ -16,6 +17,7 @@ export default observer(function ThreatList() {
         setTarget(e.currentTarget.name);
         deleteReport(id);
     }
+    
     
     return (
         <Grid container spacing={2}>

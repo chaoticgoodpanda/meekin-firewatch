@@ -56,7 +56,7 @@ export default function Header({darkMode, handleThemeChange}: Props) {
                         Meekin Firewatch
                     </Typography>
                     <Switch checked={darkMode} onChange={handleThemeChange} color="secondary" name="Dark mode"/>
-                    <Button onClick={() => openReportForm()} sx={{ml: 1}} variant='contained' color='success'>Create Report</Button>
+                    <Button component={Link} to={'/createReport'} sx={{ml: 1}} variant='contained' color='success'>Create Report</Button>
                 </Box>
                 
                 <List sx={{display: 'flex'}}>

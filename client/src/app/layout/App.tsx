@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Catalog from "../../features/catalog/Catalog";
 import {Button, Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import Header from "./Header";
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, useLocation} from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
 import PostDetails from "../../features/catalog/PostDetails";
 import AboutPage from "../../features/about/AboutPage";
@@ -22,6 +22,7 @@ import ThreatDetails from "../../features/threats/threatDashboard/ThreatDetails"
 
 
 function App() {
+    const location = useLocation();
     const {reportStore} = useStore();
     
     // create a dark theme, with mode switching capability
@@ -56,7 +57,7 @@ function App() {
                 <Route path='/contact' component={ContactPage}/>
                 <Route exact path='/threats' component={ThreatDashboard} />
                 <Route path='/threats/:id' component={ThreatDetails} />
-                <Route path={['/createReport', '/manage/:id']} component={ThreatForm} />
+                <Route key={location.key} path={['/createReport', '/manage/:id']} component={ThreatForm} />
                 <Route path='/server-error' component={ServerError} />
                 <Route component={NotFound} />
             </Switch>

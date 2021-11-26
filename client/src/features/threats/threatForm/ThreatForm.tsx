@@ -26,14 +26,15 @@ interface Props {
 export default observer (function ThreatForm({post, deleteReport}: Props) {
     const history = useHistory();
     const {reportStore} = useStore();
-    const {selectedReport, createReport, updateReport, loading, loadReport, loadingInitial} = reportStore;
+    const {selectedReport, createReport, updateReport, loading, loadReport, loadingInitial, loadPost} = reportStore;
     const {id} = useParams<{id: string}>();
     
     // for the chip dropdown
     const theme = useTheme();
     const [justification, setJustification] = React.useState<string[]>([]);
 
-
+    
+    // TODO: Need to add an additional set of totally empty fields when not writing a report off of an existing report
     
     const initialState = selectedReport ?? {
         id: '',
@@ -248,7 +249,7 @@ export default observer (function ThreatForm({post, deleteReport}: Props) {
             </Box>
             <LoadingButton sx={{ml: 1, mt: 1}} type='submit' onClick={submitRefreshPage} color="success"
                     variant="outlined" loading={loading}>Submit Report</LoadingButton>
-            <Button component={Link} to={'/catalog'}  sx={{ml: 1, mt: 1}} type='submit' color="error"
+            <Button component={Link} to={'/threats'} sx={{ml: 1, mt: 1}} type='submit' color="error"
                     variant="outlined">Cancel</Button>
         </>
           

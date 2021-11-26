@@ -113,7 +113,9 @@ export default class ReportStore {
             try {
                 report = await agent.Reports.details(id);
                 this.setReport(report);
-                this.selectedReport = report;
+                runInAction(() => {
+                    this.selectedReport = report;
+                })
                 this.setLoadingInitial(false);
                 return report;
             } catch (e) {
