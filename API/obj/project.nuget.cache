@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "51ufFkkaCjOwkf/3uYQ9Pttonfqtdk5L/c3/TfXWSeX2wCfRHFNdL9sxro0WLIpW59tTPH+pE8hnSe5ejIL76w==",
+  "dgSpecHash": "BGx13czuuOlmtwl+H4mLbX8Zmo9Uy6UGqfo5LqHHdVN+41dMdnn17Y+6LFTk9ujNr6wKBmlBCMlquXdMB1HczQ==",
   "success": true,
   "projectFilePath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/API.csproj",
   "expectedPackageFiles": [
     "/Users/michaellwin/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/8.1.1/automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/fluentvalidation/10.3.4/fluentvalidation.10.3.4.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/fluentvalidation.aspnetcore/10.3.4/fluentvalidation.aspnetcore.10.3.4.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/fluentvalidation.dependencyinjectionextensions/10.3.4/fluentvalidation.dependencyinjectionextensions.10.3.4.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/iso3166/1.0.3/iso3166.1.0.3.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/mediatr/9.0.0/mediatr.9.0.0.nupkg.sha512",
