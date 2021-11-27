@@ -31,9 +31,10 @@ namespace API.Controllers
 
         // find a report matching the specific id inputted
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostLabeling>> GetReport(Guid id)
+        // IActionResult returns HTTP responses instead of the type of thing
+        public async Task<IActionResult> GetReport(Guid id)
         {
-            return await Mediator.Send(new GetOneReport.Query{Id = id});
+            return HandleResult(await Mediator.Send(new GetOneReport.Query{Id = id}));
         }
         
         // creates a new report for post, with Rabat labels

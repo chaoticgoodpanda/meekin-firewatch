@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Core;
 using Domain;
 using Domain.Facebook;
 using MediatR;
@@ -10,12 +11,12 @@ namespace Application.Events
 {
     public class GetOneReport
     {
-        public class Query : IRequest<PostLabeling>
+        public class Query : IRequest<Result<PostLabeling>>
         {
             public Guid Id { get; set; }
         }
         
-        public class Handler : IRequestHandler<Query, PostLabeling>
+        public class Handler : IRequestHandler<Query, Result<PostLabeling>>
         {
             private readonly MeekinFirewatchContext _context;
 
@@ -24,9 +25,12 @@ namespace Application.Events
                 _context = context;
             }
 
-            public async Task<PostLabeling> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<PostLabeling>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.PostLabelings.FindAsync(request.Id);
+                var report = await _context.PostLabelings.FindAsync(request.Id);
+
+                // returns null or report in result
+                return Result<PostLabeling>.Success(report);
             }
         }
     }

@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -12,6 +13,15 @@ namespace Application.Events
         public class Command : IRequest
         {
             public PostLabeling PostLabeling { get; set; }
+        }
+        
+        // adding middleware between controller and handler
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.PostLabeling).SetValidator(new ReportValidator());
+            }
         }
 
         public class Handler : IRequestHandler<Command>

@@ -3,6 +3,7 @@ using API.Extensions;
 using API.Middleware;
 using Application.Core;
 using Application.Events;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +31,12 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            // added fluent validation to validate some fields
+            services.AddControllers().AddFluentValidation(config =>
+            {
+                // only need to add one handler class for fluent validation to catch all (hopefully)
+                config.RegisterValidatorsFromAssemblyContaining<CreateReport>();
+            });
             services.AddApplicationServices(_config);
             services.AddCors(opt =>
             {
