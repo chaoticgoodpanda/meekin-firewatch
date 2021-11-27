@@ -26,8 +26,8 @@ export default observer(function ThreatDetails() {
     return (
         <Grid container spacing={4}>
             <Grid item xs={10}>
-                <ThreatDetailedHeader />
-                <ThreatDetailedInfo />
+                <ThreatDetailedHeader report={report} />
+                <ThreatDetailedInfo report={report} />
                 <ThreatDetailedChat />
             </Grid>
             <Grid item xs={2}>
