@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react'
 import {PostLabeling} from "../../../app/models/postLabeling";
 import {Box, Button, Card, CardHeader, CardMedia, styled, Typography} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const ReportImageStyleBox = styled(Box)({
     filter: 'brightness(30%)'
@@ -45,6 +46,7 @@ export default observer (function ThreatDetailedHeader({report}: Props) {
                 <Button variant='outlined' color='warning' sx={{ml: 2}}>
                     Manage Report
                 </Button>
+                <Button color='primary' sx={{ml: 2}} component={Link} to={`/threats`} >Back to Threats</Button>
             </Box></>
     )
 })
