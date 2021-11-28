@@ -16,9 +16,9 @@ namespace API.Controllers
 
         // return a list of reports
         [HttpGet]
-        public async Task<ActionResult<List<PostLabeling>>> GetReports(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetReports(CancellationToken cancellationToken)
         {
-            return await Mediator.Send(new GetReports.Query(), cancellationToken);
+            return HandleResult(await Mediator.Send(new GetReports.Query(), cancellationToken));
         }
         
         // get a list of reports matching a platformId (because multiple users can write multiple reports for multiple posts)
@@ -41,7 +41,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateReport(PostLabeling postLabeling)
         {
-            return Ok(await Mediator.Send(new CreateReport.Command { PostLabeling = postLabeling }));
+            return HandleResult(await Mediator.Send(new CreateReport.Command { PostLabeling = postLabeling }));
         }
         
         // updates a report
@@ -49,14 +49,14 @@ namespace API.Controllers
         public async Task<IActionResult> EditReport(Guid id, PostLabeling postLabeling)
         {
             postLabeling.Id = id;
-            return Ok(await Mediator.Send(new EditReport.Command { PostLabeling = postLabeling }));
+            return HandleResult(await Mediator.Send(new EditReport.Command { PostLabeling = postLabeling }));
         }
         
         // delete a specific report
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReport(Guid id)
         {
-            return Ok(await Mediator.Send(new DeleteReport.Command { Id = id }));
+            return HandleResult(await Mediator.Send(new DeleteReport.Command { Id = id }));
         }
     }
 }

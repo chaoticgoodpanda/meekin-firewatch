@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Core;
 using Domain;
 using FluentValidation;
 using MediatR;
@@ -9,7 +10,8 @@ namespace Application.Events
 {
     public class CreateReport
     {
-        public class Command : IRequest
+        // Unit from Mediatr because we are not returning anything
+        public class Command : IRequest<Result<Unit>>
         {
             public PostLabeling PostLabeling { get; set; }
         }
@@ -23,7 +25,7 @@ namespace Application.Events
             }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly MeekinFirewatchContext _context;
 
@@ -32,13 +34,18 @@ namespace Application.Events
                 _context = context;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 _context.PostLabelings.Add(request.PostLabeling);
 
-                await _context.SaveChangesAsync();
-                
-                return Unit.Value;
+                // SaveChangesAsync actually returns an int, containing the # of result entries written to DB.
+                // so if none written to DB returns 0 (false)
+                var result = await _context.SaveChangesAsync() > 0;
+
+                // returns a 400 Bad Request
+                if (!result) return Result<Unit>.Failure("Failed to create report.");
+
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }

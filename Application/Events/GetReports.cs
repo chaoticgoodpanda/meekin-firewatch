@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Core;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +13,12 @@ namespace Application.Events
 {
     public class GetReports
     {
-        public class Query : IRequest<List<PostLabeling>>
+        public class Query : IRequest<Result<List<PostLabeling>>>
         {
             
         }
         
-        public class Handler : IRequestHandler<Query, List<PostLabeling>>
+        public class Handler : IRequestHandler<Query, Result<List<PostLabeling>>>
         {
             private readonly MeekinFirewatchContext _context;
             private readonly ILogger _logger;
@@ -28,7 +29,7 @@ namespace Application.Events
                 _logger = logger;
             }
 
-            public async Task<List<PostLabeling>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<PostLabeling>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -45,12 +46,12 @@ namespace Application.Events
                 }
 
                 // eagerly load the nested arrays
-                var reports = await _context.PostLabelings
+                var reports = Result<List<PostLabeling>>.Success(await _context.PostLabelings
                     // .Include(j => j.Justifications)
                     // .Include(c => c.Country)
                     // .Include(i => i.Intent)
                     // .Include(s => s.Speaker)
-                    .ToListAsync(cancellationToken);
+                    .ToListAsync(cancellationToken));
 
                 return reports;
 

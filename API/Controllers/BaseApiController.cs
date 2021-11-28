@@ -20,6 +20,7 @@ namespace API.Controllers
         // method to validate each controller method
         protected ActionResult HandleResult<T>(Result<T> result)
         {
+            if (result == null) return NotFound();
             if (result.IsSuccess && result.Value != null) return Ok(result.Value);
 
             if (result.IsSuccess && result.Value == null) return NotFound();
