@@ -17,7 +17,7 @@ namespace Application.Events
         }
         
         // adding middleware between controller and handler
-        public class CommandValidator : AbstractValidator<Command, Result<Unit>>
+        public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
@@ -25,7 +25,7 @@ namespace Application.Events
             }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly MeekinFirewatchContext _context;
             private readonly IMapper _mapper;
