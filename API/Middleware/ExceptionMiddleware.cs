@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Application.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
@@ -37,15 +39,11 @@ namespace API.Middleware
                 // format returned from API to our client
                 context.Response.ContentType = "application/json";
                 // internal server error to indicate from server side
-                context.Response.StatusCode = 500;
+                context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
 
-                var response = new ProblemDetails
-                {
-                    Status = 500,
-                    // convert to string so we don't get null reference exception
-                    Detail = _env.IsDevelopment() ? e.StackTrace?.ToString() : null,
-                    Title = e.Message
-                };
+                var response = _env.IsDevelopment()
+                    ? new AppException(context.Response.StatusCode, e.Message, e.StackTrace?.ToString())
+                    : new AppException(context.Response.StatusCode, "Server Error");
 
                 var options = new JsonSerializerOptions
                 {

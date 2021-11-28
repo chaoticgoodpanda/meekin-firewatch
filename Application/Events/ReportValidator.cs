@@ -9,8 +9,6 @@ namespace Application.Events
         {
             RuleFor(x => x.SummaryAnalysis).NotEmpty();
             RuleFor(x => x.AnalysisDate).NotEmpty();
-            RuleFor(x => x.Country).NotEmpty();
-            RuleFor(x => x.Language).NotEmpty();
             RuleFor(x => x.AnalysisReport).NotEmpty();
             RuleFor(x => x.HumanTarget).NotEmpty();
         }
