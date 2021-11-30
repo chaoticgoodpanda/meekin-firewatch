@@ -15,7 +15,7 @@ const midLinks = [
     {title: 'threats', path: '/threats'},
     {title: 'about', path: '/about'},
     {title: 'contact', path: '/contact'},
-    {title: 'sandbox', path: '/sandbox'},
+    {title: 'errors', path: '/errors'},
 ]
 
 const rightLinks = [

@@ -3,6 +3,7 @@ import {Grid} from "@mui/material";
 import ThreatList from "./ThreatList";
 import {useStore} from "../../../app/stores/store";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import ThreatFilters from "./ThreatFilters";
 
 export default function ThreatDashboard() {
     const {reportStore} = useStore();
@@ -23,7 +24,7 @@ export default function ThreatDashboard() {
                     <ThreatList/>
                 </Grid>
                 <Grid item xs={4}>
-                    <h2>Report filters</h2>
+                    <ThreatFilters />
                 </Grid>
             </Grid>
         </>

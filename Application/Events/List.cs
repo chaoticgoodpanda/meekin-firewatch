@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Core;
 using Domain.Facebook;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,12 @@ namespace Application.Events
 {
     public class List
     {
-        public class Query : IRequest<List<Post>>
+        public class Query : IRequest<Result<List<Post>>>
         {
             
         }
         
-        public class Handler : IRequestHandler<Query, List<Post>>
+        public class Handler : IRequestHandler<Query, Result<List<Post>>>
         {
             private readonly MeekinFirewatchContext _context;
             private readonly ILogger _logger;
@@ -29,7 +30,7 @@ namespace Application.Events
                 _logger = logger;
             }
 
-            public async Task<List<Post>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<Post>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -46,13 +47,13 @@ namespace Application.Events
                 }
 
                 // eagerly load the nested arrays
-                var posts = await _context.Posts
+                var posts = Result<List<Post>>.Success(await _context.Posts
                     .Include(m => m.Media)
                     .Include(a => a.Account)
                     .Include(e => e.ExpandedLinks)
                     .Include(s => s.Statistics)
                     .ThenInclude(act => act.Actual)
-                    .ToListAsync(cancellationToken);
+                    .ToListAsync(cancellationToken));
 
                 return posts;
 

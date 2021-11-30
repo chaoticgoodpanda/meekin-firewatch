@@ -36,9 +36,9 @@ namespace API.Controllers
         // get the posts stored locally on the SQL DB
         // CancellationToken enables cancel possibility if taking too long
         [HttpGet]
-        public async Task<ActionResult<List<Post>>> GetLocalPosts(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetLocalPosts(CancellationToken cancellationToken)
         {
-            return await Mediator.Send(new List.Query(), cancellationToken);
+            return  HandleResult(await Mediator.Send(new List.Query(), cancellationToken));
 
         }
         

@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "snDfyHKZWyD/wqMSXB7xLbmTNDsQBWisD57pZLpD/fC4sbIPxwNHsXJW/22lC3FHE5QaYMV9UBu2ZCq6HrfdqA==",
+  "dgSpecHash": "sOHQvdEz14VyNpz+CIXcHSVoumbXThNINZ/oOLuGgZW1m0Ccr07KjhWp2yh7TCGvp6jlaGL+R5yFLUYL+uUrFQ==",
   "success": true,
   "projectFilePath": "/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/Application/Application.csproj",
   "expectedPackageFiles": [
     "/Users/michaellwin/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/8.1.1/automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/fluentvalidation/10.3.4/fluentvalidation.10.3.4.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/fluentvalidation.aspnetcore/10.3.4/fluentvalidation.aspnetcore.10.3.4.nupkg.sha512",
+    "/Users/michaellwin/.nuget/packages/fluentvalidation.dependencyinjectionextensions/10.3.4/fluentvalidation.dependencyinjectionextensions.10.3.4.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/mediatr/9.0.0/mediatr.9.0.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/9.0.0/mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
     "/Users/michaellwin/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",

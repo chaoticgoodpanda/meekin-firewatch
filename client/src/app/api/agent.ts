@@ -4,6 +4,7 @@ import {toast} from "react-toastify";
 import {Post} from "../models/post";
 import {PostLabeling} from "../models/postLabeling";
 import {Medium} from "../models/medium";
+import {store} from "../stores/store";
 
 // base URL for all of our requests
 axios.defaults.baseURL = 'https://localhost:5001/api/';
@@ -19,9 +20,15 @@ axios.interceptors.response.use(response => {
 }, 
     // this is when the request has been rejected, axios intercepts it
     (error: AxiosError) => {
-        const {data, status} = error.response!;
+        const {data, status, config} = error.response!;
         switch (status) {
             case 400:
+                if (typeof data === 'string') {
+                    toast.error(data);
+                }
+                if (config.method == 'get' && data.errors.hasOwnProperty('id')) {
+                    history.push('/not-found');
+                }
                 if (data.errors) {
                     const modelStateErrors: string[] = [];
                     for (const key in data.errors) {
@@ -34,20 +41,21 @@ axios.interceptors.response.use(response => {
                     // flatten the array so only get back the strings in array
                     // throw stops continued execution of the switch method
                     throw modelStateErrors.flat();
+                } else {
+                    toast.error(data.title);
                 }
-                toast.error(data.title);
                 break;
             case 401:
                 toast.error(data.title);
                 break;
             case 404:
+                // history.push('/not-found');
                 toast.error(data.title);
                 break;
             case 500:
+                store.commonStore.setServerError(data);
                 history.push({
                     pathname: '/server-error',
-                    state: {error: data},
-                    
                 });
                 break;
             default:
