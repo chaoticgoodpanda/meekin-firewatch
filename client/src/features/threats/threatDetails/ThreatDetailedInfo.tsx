@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react'
 import {PostLabeling} from "../../../app/models/postLabeling";
-import {Box, Grid, Icon, Typography} from "@mui/material";
-import {CalendarToday, DateRange, EventNote, Language, Segment} from "@mui/icons-material";
+import {Box, Grid, Typography} from "@mui/material";
+import {DateRange, EventNote, Language} from "@mui/icons-material";
 
 
 interface Props {

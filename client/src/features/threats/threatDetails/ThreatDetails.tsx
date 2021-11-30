@@ -1,9 +1,7 @@
 import {observer} from "mobx-react-lite";
-import {Box, Button, Card, CardContent, CardHeader, Grid} from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import {Grid} from "@mui/material";
 import React, {useEffect} from "react";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useStore} from "../../../app/stores/store";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import ThreatDetailedHeader from "./ThreatDetailedHeader";
@@ -14,7 +12,7 @@ import ThreatDetailedSidebar from "./ThreatDetailedSidebar";
 
 export default observer(function ThreatDetails() {
     const {reportStore} = useStore();
-    const {selectedReport: report, openReportForm, deleteReport, cancelSelectedReport, loadReport, loadingInitial} = reportStore;
+    const {selectedReport: report, loadReport, loadingInitial} = reportStore;
     const {id} = useParams<{id: string}>();
     
     useEffect(() => {

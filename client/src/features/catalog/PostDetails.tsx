@@ -38,8 +38,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default observer(function PostDetails(this: any) {
     const {reportStore} = useStore();
-    const {deleteReport, loading, updateReport, loadingInitial, loadPost, selectedPost: post,
-    selectedReport: report, createReport, loadReport} = reportStore;
+    const {deleteReport, loading, updateReport, loadPost, selectedPost: post,
+    loadReport} = reportStore;
     
     const [reportsForId, setReportsForId] = useState<PostLabeling[]>([]);
     
@@ -136,7 +136,6 @@ export default observer(function PostDetails(this: any) {
                             onClick={handleExpandClick}
                             aria-expanded={expanded}
                             aria-label="show more"
-                            editMode={editMode}
                         >
                             <Button  variant='contained' color="primary">Create a New Report</Button>
                         </ExpandMore>

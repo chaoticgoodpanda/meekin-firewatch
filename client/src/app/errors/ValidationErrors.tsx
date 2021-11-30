@@ -1,6 +1,6 @@
-import {Message} from "@mui/icons-material";
+
 import {Alert} from "@mui/lab";
-import {Box, Card, CardContent, Stack} from "@mui/material";
+import {Box, Stack} from "@mui/material";
 
 
 interface Props {

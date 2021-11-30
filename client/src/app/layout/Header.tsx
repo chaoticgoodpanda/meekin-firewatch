@@ -2,7 +2,6 @@ import {AppBar, Badge, Box, Button, IconButton, List, ListItem, Switch, Toolbar,
 import MenuIcon from '@mui/icons-material/Menu';
 import {Link, NavLink} from "react-router-dom";
 import {Notifications, ShoppingCart} from "@mui/icons-material";
-import {useStore} from "../stores/store";
 
 
 interface Props {
@@ -36,8 +35,6 @@ const navStyles = {
 }
 
 export default function Header({darkMode, handleThemeChange}: Props) {
-    const {reportStore} = useStore();
-    const {openReportForm} = reportStore;
     
     return (
         <AppBar position ='static' sx={{mb: 4}}>

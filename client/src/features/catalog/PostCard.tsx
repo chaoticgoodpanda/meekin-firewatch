@@ -2,11 +2,8 @@ import {
     Avatar,
     Box,
     Button,
-    Collapse, Divider,
-    IconButtonProps, List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
+    Collapse,
+    IconButtonProps,
     styled
 } from "@mui/material";
 import {Post} from "../../app/models/post";
@@ -25,16 +22,14 @@ import {Link} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
     ChildCare,
-    Dangerous, EmojiObjects, Report,
+    Dangerous, EmojiObjects,
     SentimentVeryDissatisfied,
     SentimentVerySatisfied,
     ThumbUpAltOutlined
 } from "@mui/icons-material";
 import {PostLabeling} from "../../app/models/postLabeling";
 import {Medium} from "../../app/models/medium";
-import {useStore} from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
-import TemporaryDrawer from "../../app/layout/TemporaryDrawer";
 
 interface Props {
     post: Post;
@@ -56,11 +51,10 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 }));
 
-const mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+// const mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
 
 
-export default observer (function PostCard({post, reports, medium}: Props) {
-    const {reportStore} = useStore();
+export default observer (function PostCard({post}: Props) {
     
     const [expanded, setExpanded] = React.useState(false);
 

@@ -1,5 +1,5 @@
 import {Box, Button, Container, Divider, Paper, Typography} from "@mui/material";
-import {useHistory, useLocation} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {useStore} from "../stores/store";
 import {observer} from "mobx-react-lite";
 
@@ -7,7 +7,7 @@ export default observer(function ServerError() {
     const {commonStore} = useStore();
     // from React Router <Router>
     const history = useHistory();
-    const {state} = useLocation<any>();
+    // const {state} = useLocation<any>();
     return (
         <Container component={Paper}>
             <Typography variant='h3' color='error' gutterBottom>{commonStore.error?.message}</Typography>

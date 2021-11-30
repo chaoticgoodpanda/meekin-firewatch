@@ -7,7 +7,7 @@ import ThreatFilters from "./ThreatFilters";
 
 export default function ThreatDashboard() {
     const {reportStore} = useStore();
-    const {reportsByDate, loadingInitial, loadReports, reportRegistry} = reportStore;
+    const {loadingInitial, loadReports, reportRegistry} = reportStore;
 
     // another useEffect, this time for loading the reports for the posts
     useEffect( () => {
@@ -31,9 +31,3 @@ export default function ThreatDashboard() {
 
     )
 }
-
-// {editMode &&
-// <ThreatForm
-//     deleteReport={deleteReport}
-//     post={selectedPost}
-// />}

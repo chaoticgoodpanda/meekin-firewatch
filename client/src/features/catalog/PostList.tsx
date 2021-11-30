@@ -1,22 +1,15 @@
 import {Grid, } from "@mui/material";
-import {Post} from "../../app/models/post";
 import PostCard from "./PostCard";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {Medium} from "../../app/models/medium";
 import agent from "../../app/api/agent";
 import {useStore} from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
-import PostDetails from "./PostDetails";
-import TemporaryDrawer from "../../app/layout/TemporaryDrawer";
-
-interface Props {
-}
 
 
 export default observer(function PostList() {
     const {reportStore} = useStore();
-    const {reportsByDate, postsByDate, selectedPost, editMode} = reportStore;
+    const {reportsByDate, postsByDate} = reportStore;
 
     
     const [medium, setMedium] = useState<Medium[]>([]);

@@ -25,7 +25,7 @@ export default observer (function ThreatDetailedHeader({report}: Props) {
     return (
         <>
             <Box>
-                <ReportImageStyleBox basic>
+                <ReportImageStyleBox>
                     <Card sx={{padding: '0'}}>
                         <ReportImageTextStyleCardMedia src='/public/favicon.ico' />
                         <CardHeader

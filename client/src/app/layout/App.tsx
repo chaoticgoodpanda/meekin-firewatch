@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Catalog from "../../features/catalog/Catalog";
-import {Button, Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import Header from "./Header";
 import {Route, Switch, useLocation} from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
@@ -14,7 +14,6 @@ import NotFound from "../errors/NotFound";
 import Sandbox from "../../features/sandbox/Sandbox";
 import ThreatDashboard from "../../features/threats/threatDashboard/ThreatDashboard";
 import ThreatForm from "../../features/threats/threatForm/ThreatForm";
-import {useStore} from "../stores/store";
 import {observer} from "mobx-react-lite";
 import ThreatDetails from "../../features/threats/threatDetails/ThreatDetails";
 import TestErrors from "../errors/TestErrors";
@@ -23,7 +22,6 @@ import TestErrors from "../errors/TestErrors";
 
 function App() {
     const location = useLocation();
-    const {reportStore} = useStore();
     
     // create a dark theme, with mode switching capability
     const [darkMode, setDarkMode] = useState(true);

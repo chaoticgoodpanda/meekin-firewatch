@@ -1,11 +1,8 @@
 import React from 'react';
-import {Divider, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Paper, Typography} from "@mui/material";
+import {Divider, ListItemIcon, ListItemText, MenuItem, MenuList, Paper, Typography} from "@mui/material";
 import {FollowTheSigns, Group, Report} from "@mui/icons-material";
-import StaticDatePickerDemo from "../../../app/layout/StaticDatePickerDemo";
-import {format} from 'date-fns';
 
 export default function ThreatFilters() {
-    const [value, setValue] = React.useState(new Date());
     
     return (
         <Paper sx={{ width: 320, maxWidth: '100%' }}>

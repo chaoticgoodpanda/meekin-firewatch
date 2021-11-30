@@ -24,10 +24,10 @@ interface Props {
 
 
 
-export default observer (function ThreatForm({post, deleteReport}: Props) {
+export default observer (function ThreatForm({post}: Props) {
     const history = useHistory();
     const {reportStore} = useStore();
-    const {selectedReport, createReport, updateReport, loading, loadReport, loadingInitial, loadPost} = reportStore;
+    const {createReport, updateReport, loading, loadReport} = reportStore;
     const {id} = useParams<{id: string}>();
     
     // for the chip dropdown
