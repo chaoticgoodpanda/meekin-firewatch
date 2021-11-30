@@ -1,14 +1,17 @@
 import ReportStore from "./reportStore";
 import {createContext, useContext} from "react";
+import CommonStore from "./commonStore";
 
 
 interface Store {
     // classes can also be used as types
     reportStore: ReportStore;
+    commonStore: CommonStore;
 }
 
 export const store: Store = {
-    reportStore: new ReportStore()
+    reportStore: new ReportStore(),
+    commonStore: new CommonStore()
 }
 
 // as we create new stores, we are adding instances of new stores to this context, and 

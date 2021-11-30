@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import {Box, Button, Typography} from "@mui/material";
+import ValidationErrors from "./ValidationErrors";
 
 export default function TestErrors() {
     const baseUrl = 'https://localhost:5001/api/'
+    const [errors, setErrors] = useState(null);
 
     function handleNotFound() {
         axios.get(baseUrl + 'buggy/not-found').catch(err => console.log(err.response));
@@ -26,7 +28,7 @@ export default function TestErrors() {
     }
 
     function handleValidationError() {
-        axios.post(baseUrl + 'reports', {}).catch(err => console.log(err.response));
+        axios.post(baseUrl + 'reports', {}).catch(err => setErrors(err));
     }
 
     return (
@@ -40,6 +42,9 @@ export default function TestErrors() {
                 <Button onClick={handleUnauthorised}>Unauthorized</Button>
                 <Button onClick={handleBadGuid}>Bad Guid</Button>
             </Box>
+            {errors && 
+                <ValidationErrors errors={errors} />
+            }
         </>
     )
 }
