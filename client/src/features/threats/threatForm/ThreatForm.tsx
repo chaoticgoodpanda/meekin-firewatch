@@ -67,7 +67,7 @@ export default observer (function ThreatForm({post}: Props) {
 
 
     const [radioValue, setRadioValue] = React.useState('');
-    const [humanRadio, setHumanRadio] = React.useState(false);
+    const [humanRadio, setHumanRadio] = React.useState('');
 
 
     // conversion of strings to booleans for radio values
@@ -210,7 +210,7 @@ export default observer (function ThreatForm({post}: Props) {
                 autoComplete="on"
             >
                 <FormControl onSubmit={handleSubmit}>
-                    <TextField id="outlined-basic" value={report.summaryAnalysis} name='summaryAnalysis' label="Report title" variant="outlined" onChange={handleInputChange} />
+                    <TextField error={report.summaryAnalysis === ""} helperText={report.summaryAnalysis === "" ? 'This field is required' : ''} id="outlined-basic" value={report.summaryAnalysis} name='summaryAnalysis' label="Report title" variant="outlined" onChange={handleInputChange} />
                     <Typography id="input-slider" gutterBottom>
                         Use the slider to express how dangerous the content is. <br/>
                         -100 = not dangerous at all. 100 = the most dangerous content.
@@ -237,8 +237,8 @@ export default observer (function ThreatForm({post}: Props) {
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Does the content target a human or group of humans?</FormLabel>
                         <RadioGroup row aria-label="rabat-speaker?" value={humanRadio} name="row-buttons-radio-group" onChange={handleHumanRadioChange}>
-                            <FormControlLabel value="true" control={<Radio />} label="Yes" color="secondary" />
-                            <FormControlLabel value="false" control={<Radio />} label="No" color="secondary" />
+                            <FormControlLabel value="true" control={<Radio required={true} />} label="Yes" color="secondary" />
+                            <FormControlLabel value="false" control={<Radio required={true} />} label="No" color="secondary" />
                         </RadioGroup>
                     </FormControl>
                     <FormControl component="fieldset">
