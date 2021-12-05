@@ -14,8 +14,8 @@ namespace API.Extensions
             // creates about six DB tables just from adding this code (users, roles, etc.)
             services.AddIdentityCore<User>(opt =>
                 {
-                    // put options in here on password strength
-                    opt.Password.RequireNonAlphanumeric = false;
+                    // require unique emails in DB
+                    opt.User.RequireUniqueEmail = true;
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MeekinFirewatchContext>();
