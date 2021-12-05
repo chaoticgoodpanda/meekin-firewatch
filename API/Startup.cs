@@ -3,10 +3,12 @@ using API.Extensions;
 using API.Middleware;
 using Application.Core;
 using Application.Events;
+using Domain;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,6 +49,13 @@ namespace API
                         .WithOrigins("http://localhost:3000", "https://localhost:5001", "https://video-lax3-1.xx.fbcdn.net");
                 });
             });
+            // adding identity roles
+            // creates about six DB tables just from adding this code (users, roles, etc.)
+            services.AddIdentityCore<User>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<MeekinFirewatchContext>();
+            services.AddAuthentication();
+            services.AddAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

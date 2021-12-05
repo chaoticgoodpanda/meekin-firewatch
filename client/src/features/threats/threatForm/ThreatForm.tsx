@@ -67,7 +67,7 @@ export default observer (function ThreatForm({post}: Props) {
 
 
     const [radioValue, setRadioValue] = React.useState('');
-    const [humanRadio, setHumanRadio] = React.useState('');
+    const [humanRadio, setHumanRadio] = React.useState(false);
 
 
     // conversion of strings to booleans for radio values
@@ -237,8 +237,8 @@ export default observer (function ThreatForm({post}: Props) {
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Does the content target a human or group of humans?</FormLabel>
                         <RadioGroup row aria-label="rabat-speaker?" value={humanRadio} name="row-buttons-radio-group" onChange={handleHumanRadioChange}>
-                            <FormControlLabel value="true" control={<Radio required={true} />} label="Yes" color="secondary" />
-                            <FormControlLabel value="false" control={<Radio required={true} />} label="No" color="secondary" />
+                            <FormControlLabel value="true" control={<Radio />} label="Yes" color="secondary" />
+                            <FormControlLabel value="false" control={<Radio />} label="No" color="secondary" />
                         </RadioGroup>
                     </FormControl>
                     <FormControl component="fieldset">

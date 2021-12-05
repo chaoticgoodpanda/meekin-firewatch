@@ -155,3 +155,15 @@
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/FluentValidation.dll
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/FluentValidation.AspNetCore.dll
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/FluentValidation.DependencyInjectionExtensions.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.Extensions.Identity.Core.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.Extensions.Identity.Stores.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.IdentityModel.Logging.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.IdentityModel.Protocols.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.IdentityModel.Tokens.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/System.IdentityModel.Tokens.Jwt.dll
