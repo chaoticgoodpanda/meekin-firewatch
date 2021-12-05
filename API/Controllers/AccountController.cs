@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    // allows anonymous (not logged in) access to endpoints in order for user to actually login :)
+    [AllowAnonymous]
     // we don't use MediatR for this part of the app
     [ApiController]
     [Route("api/[controller]")]

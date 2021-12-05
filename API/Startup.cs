@@ -6,9 +6,11 @@ using Application.Events;
 using Domain;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,8 +35,16 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // added fluent validation to validate some fields
-            services.AddControllers().AddFluentValidation(config =>
+            // added auth policy requiring logins to access site
+            services.AddControllers(opt =>
+                {
+                    // require user to be authorized in order to access all API endpoints
+                    // unless we tell it otherwise (so don't need to manually add [Authorize] in controllers
+                    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                    opt.Filters.Add(new AuthorizeFilter(policy));
+                })
+                // added fluent validation to validate some fields
+                .AddFluentValidation(config =>
             {
                 // only need to add one handler class for fluent validation to catch all (hopefully)
                 config.RegisterValidatorsFromAssemblyContaining<CreateReport>();
