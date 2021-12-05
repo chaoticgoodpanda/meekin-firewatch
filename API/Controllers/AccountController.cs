@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using API.DTOs;
+using API.Services;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,22 +13,28 @@ namespace API.Controllers
     public class AccountController : BaseApiController
     {
         private readonly UserManager<User> _userManager;
+        private readonly TokenService _tokenService;
 
-        public AccountController(UserManager<User> userManager)
+        public AccountController(UserManager<User> userManager, TokenService tokenService)
         {
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             // TODO: Maybe put in later logic to also login via email address (ternary likely w/ new var)
-            var user = await _userManager.FindByNameAsync(loginDto.Username);
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null || !await _userManager.CheckPasswordAsync(user, loginDto.Password))
                 return Unauthorized();
 
-            // return user at this point b/c they have successfully logged in
-            return user;
+            return new UserDto
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                Token = await _tokenService.GenerateToken(user)
+            };
         }
 
         [HttpPost("register")]

@@ -1,3 +1,4 @@
+using API.Services;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,8 @@ namespace API.Extensions
                 .AddEntityFrameworkStores<MeekinFirewatchContext>();
             services.AddAuthentication();
             services.AddAuthorization();
+            // token service is scoped to HttpRequest -- once request is gone, service is disposed of
+            services.AddScoped<TokenService>();
 
             return services;
         }
