@@ -161,8 +161,8 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "217830cd-01bd-47ef-b4e9-f2de6d6c2910", "0c8c7d30-cd7a-4af4-9da2-1f715104b7d7", "Member", "MEMBER" },
-                    { "bde4995e-6dfe-4b88-bdcb-cafdfa7d91b4", "9e7be26c-8b16-469f-ad31-623d866b0bf3", "Admin", "ADMIN" }
+                    { "88a8a3b8-ecb9-48ae-8875-3db7a7c60daf", "03534765-bd04-41aa-9768-c75a4d26d2ec", "Member", "MEMBER" },
+                    { "2aec4f46-d474-4517-828b-d011e8611484", "c9b151cc-6419-4652-9506-4ac682642b4e", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

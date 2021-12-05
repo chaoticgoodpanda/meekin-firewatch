@@ -15,17 +15,32 @@ namespace Persistence
           // check to see if any users in DB
           if (!userManager.Users.Any())
           {
-              // create sample user
-              var user = new User
+              var users = new List<User>
               {
-                  UserName = "maung",
-                  Email = "maung@test.com"
+                  new User
+                  {
+                      DisplayName = "Maung Maung", UserName = "maung", Email = "maung@test.com",
+                      Organization = "Koe Koe Tech"
+                  },
+                  new User
+                  {
+                      DisplayName = "Desi UNDP", UserName = "desi", Email = "desi@test.com", Organization = "UNDP"
+                  },
+                  new User
+                  {
+                      DisplayName = "Lilli FHI360", UserName = "lilli", Email = "lilli@test.com",
+                      Organization = "FHI360"
+                  }
+
               };
 
-              // generate user and user password
-              await userManager.CreateAsync(user, "Pa$$w0rd");
-              // user will have a "Member" role
-              await userManager.AddToRoleAsync(user, "Member");
+              foreach (var user in users)
+              {
+                  // generate user and user password
+                  await userManager.CreateAsync(user, "Pa$$w0rd");
+                  // user will have a "Member" role
+                  await userManager.AddToRoleAsync(user, "Member");
+              }
               
               // create sample admin
               var admin = new User
@@ -38,7 +53,9 @@ namespace Persistence
               await userManager.CreateAsync(admin, "Pa$$w0rd");
               // admin will have multiple roles: "Member" role and "Admin" role
               await userManager.AddToRolesAsync(admin, new[] {"Member", "Admin"});
-          }
+
+          };
+        
         }
     }
 }

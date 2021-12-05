@@ -40,6 +40,8 @@ namespace API
                 config.RegisterValidatorsFromAssemblyContaining<CreateReport>();
             });
             services.AddApplicationServices(_config);
+            // adding in identity service extensions
+            services.AddIdentityServices(_config);
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
@@ -49,13 +51,7 @@ namespace API
                         .WithOrigins("http://localhost:3000", "https://localhost:5001", "https://video-lax3-1.xx.fbcdn.net");
                 });
             });
-            // adding identity roles
-            // creates about six DB tables just from adding this code (users, roles, etc.)
-            services.AddIdentityCore<User>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<MeekinFirewatchContext>();
-            services.AddAuthentication();
-            services.AddAuthorization();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

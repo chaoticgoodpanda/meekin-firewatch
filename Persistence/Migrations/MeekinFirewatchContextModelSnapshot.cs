@@ -530,15 +530,15 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "217830cd-01bd-47ef-b4e9-f2de6d6c2910",
-                            ConcurrencyStamp = "0c8c7d30-cd7a-4af4-9da2-1f715104b7d7",
+                            Id = "88a8a3b8-ecb9-48ae-8875-3db7a7c60daf",
+                            ConcurrencyStamp = "03534765-bd04-41aa-9768-c75a4d26d2ec",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "bde4995e-6dfe-4b88-bdcb-cafdfa7d91b4",
-                            ConcurrencyStamp = "9e7be26c-8b16-469f-ad31-623d866b0bf3",
+                            Id = "2aec4f46-d474-4517-828b-d011e8611484",
+                            ConcurrencyStamp = "c9b151cc-6419-4652-9506-4ac682642b4e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
