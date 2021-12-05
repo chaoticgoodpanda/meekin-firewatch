@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using API.DTOs;
 using API.Services;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +58,22 @@ namespace API.Controllers
             await _userManager.AddToRoleAsync(user, "Member");
 
             return StatusCode(201);
+        }
+
+        [Authorize]
+        [HttpGet("currentUser")]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            // retrieves name from token
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            return new UserDto
+            {
+                Email = user.Email,
+                Username = user.UserName,
+                Organization = user.Organization,
+                Token = await _tokenService.GenerateToken(user)
+            };
         }
     }
 }

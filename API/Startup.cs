@@ -78,6 +78,8 @@ namespace API
                 opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
             });
 
+            // need to authenticate before authorizing user
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

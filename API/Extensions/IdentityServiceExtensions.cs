@@ -1,8 +1,11 @@
+using System.Text;
 using API.Services;
 using Domain;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Persistence;
 
 namespace API.Extensions
@@ -20,7 +23,23 @@ namespace API.Extensions
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MeekinFirewatchContext>();
-            services.AddAuthentication();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        // issuer of our token is our API right now (https://localhost:5001)
+                        ValidateIssuer = false,
+                        // audience is address of our client on localhost
+                        ValidateAudience = false,
+                        // true b/c we've given token expiry date and want API to reject post-expiry
+                        ValidateLifetime = true,
+                        // check secret key of our token matches server-side signature
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                            .GetBytes(config["JWTSettings:TokenKey"]))
+                    };
+                });
             services.AddAuthorization();
             // token service is scoped to HttpRequest -- once request is gone, service is disposed of
             services.AddScoped<TokenService>();

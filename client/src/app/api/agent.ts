@@ -5,6 +5,7 @@ import {Post} from "../models/post";
 import {PostLabeling} from "../models/postLabeling";
 import {Medium} from "../models/medium";
 import {store} from "../stores/store";
+import {values} from "mobx";
 
 // base URL for all of our requests
 axios.defaults.baseURL = 'https://localhost:5001/api/';
@@ -104,11 +105,20 @@ const TestErrors = {
     getValidationError: () => requests.get('buggy/validation-error'),
 }
 
+// tracks requests that go up to the account controller
+const Account = {
+    login: (values: any) => requests.post('account/login', values),
+    register: (values: any) => requests.post('account/register', values),
+    // to retrieve the JWT
+    currentUser: () => requests.get('account/currentUser'),
+}
+
 const agent = {
     Catalog,
     TestErrors,
     Reports,
-    Media
+    Media,
+    Account
 }
 
 export default agent;
