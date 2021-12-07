@@ -176,7 +176,7 @@ namespace API.Tests
         [TestMethod]
         public async Task TestSpecificPostIdEndpoint()
         {
-            string id = "155869377766434_6112776065409039";
+            string id = "4abcf1c3-65f6-46b9-8c13-4243869271c7";
             // specific post ID segment of URL
             var onePost = string.Format("post/{0}?token=", id);
             

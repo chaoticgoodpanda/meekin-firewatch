@@ -41,6 +41,7 @@ namespace API
                     // require user to be authorized in order to access all API endpoints
                     // unless we tell it otherwise (so don't need to manually add [Authorize] in controllers
                     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                    // every single endpoint in our API now requires authentication unless we tell it otherwise (can comment out for testing)
                     opt.Filters.Add(new AuthorizeFilter(policy));
                 })
                 // added fluent validation to validate some fields

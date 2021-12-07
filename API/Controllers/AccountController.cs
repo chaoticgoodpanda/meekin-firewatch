@@ -5,6 +5,7 @@ using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -36,6 +37,8 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Email = user.Email,
+                Organization = user.Organization,
+                DisplayName = user.DisplayName,
                 Token = await _tokenService.GenerateToken(user)
             };
         }
@@ -43,7 +46,23 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register(RegisterDto registerDto)
         {
-            var user = new User { UserName = registerDto.Username, Email = registerDto.Email, Organization = registerDto.Organization};
+            if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
+            {
+                return BadRequest("Email already in use.");
+            }
+
+            if (await _userManager.Users.AnyAsync(x => x.UserName == registerDto.Username))
+            {
+                return BadRequest("Username already taken.");
+            }
+            
+            var user = new User
+            {
+                UserName = registerDto.Username, 
+                Email = registerDto.Email, 
+                Organization = registerDto.Organization,
+                DisplayName = registerDto.DisplayName
+            };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -56,7 +75,7 @@ namespace API.Controllers
 
                 return ValidationProblem();
             }
-
+            
             await _userManager.AddToRoleAsync(user, "Member");
 
             return StatusCode(201);
