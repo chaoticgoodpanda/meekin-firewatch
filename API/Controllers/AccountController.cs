@@ -1,3 +1,5 @@
+using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Services;
@@ -35,16 +37,15 @@ namespace API.Controllers
 
             return new UserDto
             {
-                Username = user.UserName,
                 Email = user.Email,
+                Username = user.UserName,
                 Organization = user.Organization,
-                DisplayName = user.DisplayName,
                 Token = await _tokenService.GenerateToken(user)
             };
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
@@ -78,11 +79,17 @@ namespace API.Controllers
             
             await _userManager.AddToRoleAsync(user, "Member");
 
-            return StatusCode(201);
+            return new UserDto
+            {
+                Email = user.Email,
+                Username = user.UserName,
+                Organization = user.Organization,
+                Token = await _tokenService.GenerateToken(user)
+            };
         }
 
         [Authorize]
-        [HttpGet("currentUser")]
+        [HttpGet()]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             // retrieves name from token
