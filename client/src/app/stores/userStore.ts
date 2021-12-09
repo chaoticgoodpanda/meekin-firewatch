@@ -25,6 +25,7 @@ export default class UserStore {
             // sets our user
             runInAction(() => this.user = user);
             history.push('/catalog');
+            store.modalStore.closeModal();
         } catch (error) {
             throw error;
         }

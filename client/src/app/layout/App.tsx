@@ -21,6 +21,7 @@ import Register from "../../features/account/Register";
 import LoginForm from "../../features/account/LoginForm";
 import {useStore} from "../stores/store";
 import LoadingComponent from "./LoadingComponent";
+import ModalContainer from "../common/modals/ModalContainer";
 
 
 
@@ -59,6 +60,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
         <ToastContainer position='bottom-right' hideProgressBar />
+        <ModalContainer />
         <CssBaseline />
         <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
         <Route exact path='/' component={HomePage}/>
