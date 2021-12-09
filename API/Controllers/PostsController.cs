@@ -12,7 +12,6 @@ using RestSharp;
 
 namespace API.Controllers
 {
-    [AllowAnonymous]
     public class PostsController : BaseApiController
     {
         private readonly string _fbApiKey;
