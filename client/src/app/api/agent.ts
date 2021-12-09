@@ -11,6 +11,13 @@ import {User, UserFormValues} from "../models/user";
 // base URL for all of our requests
 axios.defaults.baseURL = 'https://localhost:5001/api/';
 
+// axios interceptor for *requests* (I've written response axios interceptor below this block
+axios.interceptors.request.use(config => {
+    const token = store.commonStore.token;
+    if (token) config.headers!.Authorization = `Bearer ${token}`
+    return config;
+})
+
 // make it easier to extract the response
 const responseBody = <T> (response: AxiosResponse<T>) => response.data;
 // const responseDetailBody = (response: AxiosResponse) => response.data.result.posts;

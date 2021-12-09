@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Catalog from "../../features/catalog/Catalog";
 import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import Header from "./Header";
@@ -19,12 +19,24 @@ import ThreatDetails from "../../features/threats/threatDetails/ThreatDetails";
 import TestErrors from "../errors/TestErrors";
 import Register from "../../features/account/Register";
 import LoginForm from "../../features/account/LoginForm";
+import {useStore} from "../stores/store";
+import LoadingComponent from "./LoadingComponent";
 
 
 
 function App() {
     const location = useLocation();
+    const {commonStore, userStore} = useStore();
     
+    useEffect(() => {
+        // see if user is logged in
+        if (commonStore.token) {
+            userStore.getUser().finally(() => commonStore.setAppLoaded());
+        } else {
+            commonStore.setAppLoaded();
+        }
+    }, [commonStore, userStore]);
+
     // create a dark theme, with mode switching capability
     const [darkMode, setDarkMode] = useState(true);
     const paletteType = darkMode ? 'dark' : 'light';
@@ -36,6 +48,8 @@ function App() {
             }
         }
     })
+    
+    if (!commonStore.appLoaded) return <LoadingComponent message='Loading app...' />
     
     // toggles between dark and light mode
     function handleThemeChange() {
