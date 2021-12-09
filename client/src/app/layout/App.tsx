@@ -17,8 +17,8 @@ import ThreatForm from "../../features/threats/threatForm/ThreatForm";
 import {observer} from "mobx-react-lite";
 import ThreatDetails from "../../features/threats/threatDetails/ThreatDetails";
 import TestErrors from "../errors/TestErrors";
-import Login from "../../features/account/Login";
 import Register from "../../features/account/Register";
+import LoginForm from "../../features/account/LoginForm";
 
 
 
@@ -58,7 +58,7 @@ function App() {
                         <Route key={location.key}  path='/catalog/:id' component={PostDetails}/>
                         <Route path='/about' component={AboutPage}/>
                         <Route path='/contact' component={ContactPage}/>
-                        <Route path='/login' component={Login}/>
+                        <Route path='/login' component={LoginForm}/>
                         <Route path='/register' component={Register}/>
                         <Route exact path='/threats' component={ThreatDashboard} />
                         <Route key={location.key}  path='/threats/:id' component={ThreatDetails} />

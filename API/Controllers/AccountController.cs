@@ -40,6 +40,7 @@ namespace API.Controllers
                 Email = user.Email,
                 Username = user.UserName,
                 Organization = user.Organization,
+                DisplayName = user.DisplayName,
                 Token = await _tokenService.GenerateToken(user)
             };
         }
@@ -84,6 +85,7 @@ namespace API.Controllers
                 Email = user.Email,
                 Username = user.UserName,
                 Organization = user.Organization,
+                DisplayName = user.DisplayName,
                 Token = await _tokenService.GenerateToken(user)
             };
         }
@@ -100,6 +102,7 @@ namespace API.Controllers
                 Email = user.Email,
                 Username = user.UserName,
                 Organization = user.Organization,
+                DisplayName = user.DisplayName,
                 Token = await _tokenService.GenerateToken(user)
             };
         }

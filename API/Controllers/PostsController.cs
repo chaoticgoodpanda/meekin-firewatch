@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Application.Events;
 using Domain;
 using Domain.Facebook;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 
 namespace API.Controllers
 {
+    [AllowAnonymous]
     public class PostsController : BaseApiController
     {
         private readonly string _fbApiKey;

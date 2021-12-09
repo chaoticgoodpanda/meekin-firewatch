@@ -6,6 +6,7 @@ import {PostLabeling} from "../models/postLabeling";
 import {Medium} from "../models/medium";
 import {store} from "../stores/store";
 import {values} from "mobx";
+import {User, UserFormValues} from "../models/user";
 
 // base URL for all of our requests
 axios.defaults.baseURL = 'https://localhost:5001/api/';
@@ -71,9 +72,9 @@ axios.interceptors.response.use(response => {
 const requests = {
     //pulls response.data straight from the get call
     //consider changing to array form
-    get: <T> (url: string) => axios.get<T>(url).then(responseBody),
-    post: <T> (url: string, body: {}) => axios.post<T>(url).then(responseBody),
-    put: <T> (url: string, body: {}) => axios.put<T>(url).then(responseBody),
+    get: <T> (url: string, params?: URLSearchParams) => axios.get<T>(url, {params}).then(responseBody),
+    post: <T> (url: string, body: {}) => axios.post<T>(url, body).then(responseBody),
+    put: <T> (url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
     delete: <T> (url: string) => axios.delete<T>(url).then(responseBody),
 }
 
@@ -107,10 +108,10 @@ const TestErrors = {
 
 // tracks requests that go up to the account controller
 const Account = {
-    login: (values: any) => requests.post('account/login', values),
-    register: (values: any) => requests.post('account/register', values),
+    login: (user: UserFormValues) => requests.post<User>('account/login', user),
+    register: (user: UserFormValues) => requests.post<User>('account/register', user),
     // to retrieve the JWT
-    currentUser: () => requests.get('account/currentUser'),
+    currentUser: () => requests.get<User>('account/currentUser'),
 }
 
 const agent = {
