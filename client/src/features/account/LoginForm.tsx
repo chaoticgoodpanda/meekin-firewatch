@@ -22,14 +22,14 @@ export default observer(function LoginForm() {
     // use of the userStore
     const {userStore} = useStore();
     const {register, handleSubmit, formState: {isSubmitting, errors, isValid}} = useForm({
-        mode: 'onTouched'
+        mode: 'all'
     });
     
     async function submitForm(data: any) {
         try {
             await userStore.login(data);
         } catch (error) {
-            console.log(error);
+            return errors.email.message;
         }
         
     }
