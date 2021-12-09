@@ -24,6 +24,7 @@
     "dayjs": "^1.10.7",
     "formik": "^2.2.9",
     "i": "^0.3.7",
+    "material-ui-image": "^3.3.2",
     "mobx": "^6.3.7",
     "mobx-react-lite": "^3.2.2",
     "moment": "^2.29.1",

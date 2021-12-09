@@ -1,8 +1,23 @@
-import {AppBar, Badge, Box, Button, IconButton, List, ListItem, Switch, Toolbar, Typography} from "@mui/material";
+import {
+    AppBar,
+    Badge,
+    Box,
+    Button,
+    Card,
+    CardMedia,
+    IconButton,
+    List,
+    ListItem,
+    Switch,
+    Toolbar,
+    Typography
+} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {Link, NavLink} from "react-router-dom";
 import {Notifications, ShoppingCart} from "@mui/icons-material";
 import {useStore} from "../stores/store";
+import Image from "material-ui-image";
+import SignedInMenu from "./SignedInMenu";
 
 
 interface Props {
@@ -81,18 +96,22 @@ export default function Header({darkMode, handleThemeChange}: Props) {
                             <ShoppingCart />
                         </Badge>
                     </IconButton>
-                    <List sx={{display: 'flex'}}>
-                        {rightLinks.map(({title, path}) => (
-                            <ListItem
-                                component={NavLink}
-                                to={path}
-                                key={path}
-                                sx={navStyles}
-                            >
-                                {title.toUpperCase()}
-                            </ListItem>
-                        ))}
-                    </List>
+                    {user ? (
+                        <SignedInMenu />
+                    ) : (
+                        <List sx={{display: 'flex'}}>
+                            {rightLinks.map(({title, path}) => (
+                                <ListItem
+                                    component={NavLink}
+                                    to={path}
+                                    key={path}
+                                    sx={navStyles}
+                                >
+                                    {title.toUpperCase()}
+                                </ListItem>
+                            ))}
+                        </List>
+                    )}
                 </Box>
             </Toolbar>
         </AppBar>

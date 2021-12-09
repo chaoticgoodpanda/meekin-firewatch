@@ -4,7 +4,7 @@ import {useStore} from "../stores/store";
 import {observer} from "mobx-react-lite";
 
 export default observer(function SignedInMenu() {
-    const {userStore} = useStore();
+    const {userStore: {user, logout}} = useStore();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: any) => {
@@ -18,8 +18,9 @@ export default observer(function SignedInMenu() {
         <>
             <Button
                 onClick={handleClick}
+                sx={{typography: 'h6'}}
             >
-                Dashboard
+                {user?.email}
             </Button>
             <Menu
                 anchorEl={anchorEl}
@@ -28,8 +29,8 @@ export default observer(function SignedInMenu() {
                 TransitionComponent={Fade}
             >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleClose}>My reports</MenuItem>
+                <MenuItem onClick={() => logout()}>Logout</MenuItem>
             </Menu>
         </>
     );
