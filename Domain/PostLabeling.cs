@@ -52,6 +52,8 @@ namespace Domain
         public string OriginalPostUrl { get; set; }
         
         // users can have a many-to-many relationship with reports
-        public ICollection<ReportReporter> Reporters { get; set; }
+        // need to initialize so we don't get a null reference when we try to add something to this collection
+        // can't add something to null
+        public ICollection<ReportReporter> Reporters { get; set; } = new List<ReportReporter>();
     }
 }

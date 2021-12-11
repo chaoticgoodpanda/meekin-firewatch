@@ -74,7 +74,7 @@ namespace Domain.Facebook
         public int? VideoLengthMS { get; set; }
         
         // posts can have a many-to-many relationship with users
-        public ICollection<PostFollower> PostFollowers { get; set; }
+        public ICollection<PostFollower> PostFollowers { get; set; } = new List<PostFollower>();
 
 
     }
