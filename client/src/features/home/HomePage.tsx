@@ -3,6 +3,7 @@ import React from "react";
 import {useStore} from "../../app/stores/store";
 import {Link} from "react-router-dom";
 import LoginForm from "../account/LoginForm";
+import RegisterForm from "../account/RegisterForm";
 
 export default function HomePage() {
     const {userStore, modalStore} = useStore();
@@ -25,7 +26,7 @@ export default function HomePage() {
                     <Button variant='contained' size='large' onClick={() => modalStore.openModal(<LoginForm/>)} sx={{mr: 3}} color='secondary'>
                     Login
                 </Button>
-                <Button variant='contained' size='large' onClick={() => modalStore.openModal(<h1>Register</h1>)}>
+                <Button variant='contained' size='large' onClick={() => modalStore.openModal(<RegisterForm/>)}>
                     Register
                 </Button>
                 </>
