@@ -11,13 +11,10 @@ import Typography from '@mui/material/Typography';
 import {Link, useHistory} from "react-router-dom";
 
 import Image from '../../maria_ressa.jpg';
-import agent from "../../app/api/agent";
-import {FieldValues, useForm} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {LoadingButton} from "@mui/lab";
 import {useStore} from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
-import {useState} from "react";
-import {Alert, AlertTitle, List, ListItem, ListItemText} from "@mui/material";
 import {toast} from "react-toastify";
 
 

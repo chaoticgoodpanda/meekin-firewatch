@@ -50,12 +50,16 @@ namespace API.Controllers
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
-                return BadRequest("Email already in use.");
+                // manually add errors to model state to fix errors not a function error on client side
+                ModelState.AddModelError("email", "Email already in use.");
+                // need to use ValidationProblem in order to properly return the errors Object to work with client side
+                return ValidationProblem(ModelState);
             }
 
             if (await _userManager.Users.AnyAsync(x => x.UserName == registerDto.Username))
             {
-                return BadRequest("Username already taken.");
+                ModelState.AddModelError("username", "Username already taken.");
+                return ValidationProblem(ModelState);
             }
             
             var user = new User
