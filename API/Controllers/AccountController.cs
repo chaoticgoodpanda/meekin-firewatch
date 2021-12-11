@@ -32,8 +32,17 @@ namespace API.Controllers
         {
             // TODO: Maybe put in later logic to also login via email address (ternary likely w/ new var)
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
-            if (user == null || !await _userManager.CheckPasswordAsync(user, loginDto.Password))
-                return Unauthorized();
+            if (user == null )
+            {
+                ModelState.AddModelError("email", "Email invalid.");
+                return ValidationProblem(ModelState);
+            }
+
+            if (!await _userManager.CheckPasswordAsync(user, loginDto.Password))
+            {
+                ModelState.AddModelError("password", "Invalid password.");
+                return ValidationProblem(ModelState);
+            }
 
             return new UserDto
             {

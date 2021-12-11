@@ -23,7 +23,7 @@ export default observer(function LoginForm() {
     const location = useLocation<any>();
     // use of the userStore
     const {userStore} = useStore();
-    const {register, handleSubmit, formState: {isSubmitting, errors, isValid}} = useForm({
+    const {register, handleSubmit, setError, formState: {isSubmitting, errors, isValid}} = useForm({
         mode: 'all'
     });
     
@@ -32,9 +32,23 @@ export default observer(function LoginForm() {
             await userStore.login(data);
             history.push(location.state.from.pathname || '/catalog');
         } catch (error) {
-            return errors.email.message;
+            handleApiErrors(error);
         }
         
+    }
+
+    function handleApiErrors(errors: any) {
+        if (errors) {
+            errors.forEach((error: string) => {
+                if (error.includes('Password')) {
+                    setError('password', {message: error})
+                } else if (error.includes('Email')) {
+                    setError('email', {message: error})
+                } else if (error.includes('Username')) {
+                    setError('username', {message: error})
+                }
+            });
+        }
     }
 
     return (

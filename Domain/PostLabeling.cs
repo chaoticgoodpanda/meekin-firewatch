@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Domain.Facebook;
 using Domain.PostAggregate;
 
 namespace Domain
@@ -49,5 +50,8 @@ namespace Domain
         public string AnalysisDate { get; set; }
         
         public string OriginalPostUrl { get; set; }
+        
+        // users can have a many-to-many relationship with reports
+        public ICollection<ReportReporter> Reporters { get; set; }
     }
 }
