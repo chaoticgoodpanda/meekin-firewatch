@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import {Link} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 
 import Image from '../../time-assk-1990.webp';
 import agent from "../../app/api/agent";
@@ -19,6 +19,8 @@ import {observer} from "mobx-react-lite";
 
 
 export default observer(function LoginForm() {
+    const history = useHistory();
+    const location = useLocation<any>();
     // use of the userStore
     const {userStore} = useStore();
     const {register, handleSubmit, formState: {isSubmitting, errors, isValid}} = useForm({
@@ -28,6 +30,7 @@ export default observer(function LoginForm() {
     async function submitForm(data: any) {
         try {
             await userStore.login(data);
+            history.push(location.state.from.pathname || '/catalog');
         } catch (error) {
             return errors.email.message;
         }

@@ -22,6 +22,7 @@ import {useStore} from "../stores/store";
 import LoadingComponent from "./LoadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
 import RegisterForm from "../../features/account/RegisterForm";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -69,16 +70,16 @@ function App() {
             render={() => (
                 <Container>
                     <Switch>
-                        <Route exact path='/catalog' component={Catalog}/>
+                        <PrivateRoute exact path='/catalog' component={Catalog}/>
                         <Route exact path='/sandbox' component={Sandbox}/>
-                        <Route key={location.key}  path='/catalog/:id' component={PostDetails}/>
+                        <PrivateRoute key={location.key}  path='/catalog/:id' component={PostDetails}/>
                         <Route path='/about' component={AboutPage}/>
                         <Route path='/contact' component={ContactPage}/>
                         <Route path='/login' component={LoginForm}/>
                         <Route path='/register' component={RegisterForm}/>
-                        <Route exact path='/threats' component={ThreatDashboard} />
-                        <Route key={location.key}  path='/threats/:id' component={ThreatDetails} />
-                        <Route key={location.key} path={['/createReport', '/manage/:id']} component={ThreatForm} />
+                        <PrivateRoute exact path='/threats' component={ThreatDashboard} />
+                        <PrivateRoute key={location.key}  path='/threats/:id' component={ThreatDetails} />
+                        <PrivateRoute key={location.key} path={['/createReport', '/manage/:id']} component={ThreatForm} />
                         <Route path='/server-error' component={ServerError} />
                         <Route path='/errors' component={TestErrors} />
                         <Route component={NotFound} />
