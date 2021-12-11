@@ -167,3 +167,5 @@
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Microsoft.IdentityModel.Tokens.dll
 /Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Infrastructure.dll
+/Users/michaellwin/Dropbox/hackerz/meekin-firewatch/API/bin/Debug/net5.0/Infrastructure.pdb

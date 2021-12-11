@@ -35,6 +35,7 @@
         "dependencies": {
           "Application": "1.0.0",
           "ISO3166": "1.0.3",
+          "Infrastructure": "1.0.0",
           "MSTest.TestAdapter": "2.2.7",
           "MSTest.TestFramework": "2.2.7",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.12",
@@ -2037,6 +2038,17 @@
         },
         "compile": {
           "Domain.dll": {}
+        }
+      },
+      "Infrastructure/1.0.0": {
+        "dependencies": {
+          "Application": "1.0.0"
+        },
+        "runtime": {
+          "Infrastructure.dll": {}
+        },
+        "compile": {
+          "Infrastructure.dll": {}
         }
       },
       "Persistence/1.0.0": {
@@ -4723,6 +4735,11 @@
       "sha512": ""
     },
     "Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
