@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -13,23 +15,25 @@ namespace Application.Events
 {
     public class GetReports
     {
-        public class Query : IRequest<Result<List<PostLabeling>>>
+        public class Query : IRequest<Result<List<PostLabelingDto>>>
         {
             
         }
         
-        public class Handler : IRequestHandler<Query, Result<List<PostLabeling>>>
+        public class Handler : IRequestHandler<Query, Result<List<PostLabelingDto>>>
         {
             private readonly MeekinFirewatchContext _context;
             private readonly ILogger _logger;
+            private readonly IMapper _mapper;
 
-            public Handler(MeekinFirewatchContext context, ILogger<List> logger)
+            public Handler(MeekinFirewatchContext context, ILogger<List> logger, IMapper mapper)
             {
                 _context = context;
                 _logger = logger;
+                _mapper = mapper;
             }
 
-            public async Task<Result<List<PostLabeling>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<PostLabelingDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -44,16 +48,14 @@ namespace Application.Events
                 {
                     _logger.LogInformation("Posts retrieval was canceled by user.");
                 }
-
+                
                 // eagerly load the nested arrays
-                var reports = Result<List<PostLabeling>>.Success(await _context.PostLabelings
-                    // .Include(j => j.Justifications)
-                    // .Include(c => c.Country)
-                    // .Include(i => i.Intent)
-                    // .Include(s => s.Speaker)
-                    .ToListAsync(cancellationToken));
+                var reports = await _context.PostLabelings
+                    .ProjectTo<PostLabelingDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
+                
 
-                return reports;
+                return Result<List<PostLabelingDto>>.Success(reports);
 
             
             }

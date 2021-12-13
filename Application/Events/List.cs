@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Domain.Facebook;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -14,23 +16,25 @@ namespace Application.Events
 {
     public class List
     {
-        public class Query : IRequest<Result<List<Post>>>
+        public class Query : IRequest<Result<List<PostDto>>>
         {
             
         }
         
-        public class Handler : IRequestHandler<Query, Result<List<Post>>>
+        public class Handler : IRequestHandler<Query, Result<List<PostDto>>>
         {
             private readonly MeekinFirewatchContext _context;
             private readonly ILogger _logger;
+            private readonly IMapper _mapper;
 
-            public Handler(MeekinFirewatchContext context, ILogger<List> logger)
+            public Handler(MeekinFirewatchContext context, ILogger<List> logger, IMapper mapper)
             {
                 _context = context;
                 _logger = logger;
+                _mapper = mapper;
             }
 
-            public async Task<Result<List<Post>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<PostDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -47,15 +51,17 @@ namespace Application.Events
                 }
 
                 // eagerly load the nested arrays
-                var posts = Result<List<Post>>.Success(await _context.Posts
+                var posts = await _context.Posts
                     .Include(m => m.Media)
                     .Include(a => a.Account)
                     .Include(e => e.ExpandedLinks)
                     .Include(s => s.Statistics)
                     .ThenInclude(act => act.Actual)
-                    .ToListAsync(cancellationToken));
+                    .ProjectTo<PostDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
+                
 
-                return posts;
+                return Result<List<PostDto>>.Success(posts);
 
             }
         }
