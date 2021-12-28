@@ -40,7 +40,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLocalPosts([FromQuery]PagingParams param, CancellationToken cancellationToken)
         {
-            return  HandleResult(await Mediator.Send(new List.Query{Params = param}, cancellationToken));
+            return HandlePagedResult(await Mediator.Send(new List.Query{Params = param}, cancellationToken));
 
         }
         

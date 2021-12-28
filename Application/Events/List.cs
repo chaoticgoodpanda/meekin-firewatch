@@ -60,6 +60,7 @@ namespace Application.Events
                     .Include(e => e.ExpandedLinks)
                     .Include(s => s.Statistics)
                     .ThenInclude(act => act.Actual)
+                    .OrderBy(d => d.Date)
                     .ProjectTo<PostDto>(_mapper.ConfigurationProvider,
                         new {currentUsername = _userAccessor.GetUsername()})
                     .AsQueryable();
