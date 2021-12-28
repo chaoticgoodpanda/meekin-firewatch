@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
+using Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Domain.Facebook;
@@ -16,25 +17,27 @@ namespace Application.Events
 {
     public class List
     {
-        public class Query : IRequest<Result<List<PostDto>>>
+        public class Query : IRequest<Result<PagedList<PostDto>>>
         {
-            
+            public PagingParams Params { get; set; }
         }
         
-        public class Handler : IRequestHandler<Query, Result<List<PostDto>>>
+        public class Handler : IRequestHandler<Query, Result<PagedList<PostDto>>>
         {
             private readonly MeekinFirewatchContext _context;
             private readonly ILogger _logger;
             private readonly IMapper _mapper;
+            private readonly IUserAccessor _userAccessor;
 
-            public Handler(MeekinFirewatchContext context, ILogger<List> logger, IMapper mapper)
+            public Handler(MeekinFirewatchContext context, ILogger<List> logger, IMapper mapper, IUserAccessor userAccessor)
             {
                 _context = context;
                 _logger = logger;
                 _mapper = mapper;
+                _userAccessor = userAccessor;
             }
 
-            public async Task<Result<List<PostDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<PagedList<PostDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -51,17 +54,20 @@ namespace Application.Events
                 }
 
                 // eagerly load the nested arrays
-                var posts = await _context.Posts
+                var query = _context.Posts
                     .Include(m => m.Media)
                     .Include(a => a.Account)
                     .Include(e => e.ExpandedLinks)
                     .Include(s => s.Statistics)
                     .ThenInclude(act => act.Actual)
-                    .ProjectTo<PostDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
+                    .ProjectTo<PostDto>(_mapper.ConfigurationProvider,
+                        new {currentUsername = _userAccessor.GetUsername()})
+                    .AsQueryable();
                 
 
-                return Result<List<PostDto>>.Success(posts);
+                return Result<PagedList<PostDto>>.Success(
+                        await PagedList<PostDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)
+                    );
 
             }
         }

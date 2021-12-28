@@ -9,7 +9,7 @@ namespace Application.Core
     // inherits everything in the List class and then extends the List class to give it some pagination properties
     public class PagedList<T> : List<T>
     {
-        public PagedList(IEnumerable<T> items, int pageNumber, int pageSize, int count) : base(collection)
+        public PagedList(IEnumerable<T> items, int pageNumber, int pageSize, int count)
         {
             CurrentPage = pageNumber;
             TotalPages = (int)Math.Ceiling(count / (double) pageSize);

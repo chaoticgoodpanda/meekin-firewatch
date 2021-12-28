@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Core;
 using Application.Events;
 using Domain;
 using Domain.Facebook;
@@ -37,9 +38,9 @@ namespace API.Controllers
         // get the posts stored locally on the SQL DB
         // CancellationToken enables cancel possibility if taking too long
         [HttpGet]
-        public async Task<IActionResult> GetLocalPosts(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetLocalPosts([FromQuery]PagingParams param, CancellationToken cancellationToken)
         {
-            return  HandleResult(await Mediator.Send(new List.Query(), cancellationToken));
+            return  HandleResult(await Mediator.Send(new List.Query{Params = param}, cancellationToken));
 
         }
         
