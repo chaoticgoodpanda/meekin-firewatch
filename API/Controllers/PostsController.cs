@@ -45,9 +45,9 @@ namespace API.Controllers
         
         //get a specific post stored locally on the SQL DB
         [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> GetLocalPost(Guid id)
+        public async Task<IActionResult> GetLocalPost(Guid id)
         {
-            return await Mediator.Send(new Details.Query{Id = id});
+            return HandleResult(await Mediator.Send(new Details.Query{Id = id}));
         }
         
         

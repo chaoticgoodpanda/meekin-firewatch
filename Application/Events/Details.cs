@@ -2,6 +2,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Core;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Domain.Facebook;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -11,28 +14,33 @@ namespace Application.Events
 {
     public class Details
     {
-        public class Query : IRequest<Post>
+        public class Query : IRequest<Result<PostDto>>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Post>
+        public class Handler : IRequestHandler<Query, Result<PostDto>>
         {
             private readonly MeekinFirewatchContext _context;
+            private readonly IMapper _mapper;
 
-            public Handler(MeekinFirewatchContext context)
+            public Handler(MeekinFirewatchContext context, IMapper mapper)
             {
                 _context = context;
+                _mapper = mapper;
             }
 
-            public async Task<Post> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<PostDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return _context.Posts
+                var post = await _context.Posts
                     .Include(m => m.Media)
                     .Include(a => a.Account)
                     .Include(s => s.Statistics)
                     .Include(e => e.ExpandedLinks)
-                    .SingleOrDefault(r => r.GuidId == request.Id);
+                    .ProjectTo<PostDto>(_mapper.ConfigurationProvider)
+                    .FirstOrDefaultAsync(r => r.GuidId == request.Id);
+
+                return Result<PostDto>.Success(post);
 
             }
         }
