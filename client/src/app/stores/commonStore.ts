@@ -34,7 +34,6 @@ export default class CommonStore {
     
     setToken = (token: string | null) => {
         // if there is a token, store in browser's local storage
-        if (token) window.localStorage.setItem('jwt', token);
         this.token = token;
     }
     

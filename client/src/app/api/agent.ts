@@ -118,7 +118,7 @@ const Account = {
     login: (user: UserFormValues) => requests.post<User>('account/login', user),
     register: (user: UserFormValues) => requests.post<User>('account/register', user),
     // to retrieve the JWT
-    currentUser: () => requests.get<User>('account/currentUser'),
+    currentUser: () => requests.get<User>('account/'),
 }
 
 const agent = {

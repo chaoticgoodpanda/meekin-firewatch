@@ -104,7 +104,7 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpGet()]
+        [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             // retrieves name from token
