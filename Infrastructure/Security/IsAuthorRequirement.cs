@@ -13,12 +13,12 @@ namespace Infrastructure.Security
         
     }
 
-    public class IsHostRequirementHandler : AuthorizationHandler<IsAuthorRequirement>
+    public class IsAuthorRequirementHandler : AuthorizationHandler<IsAuthorRequirement>
     {
         private readonly MeekinFirewatchContext _dbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public IsHostRequirementHandler(MeekinFirewatchContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public IsAuthorRequirementHandler(MeekinFirewatchContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;

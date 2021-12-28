@@ -1,7 +1,9 @@
 using System.Text;
 using API.Services;
 using Domain;
+using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +42,15 @@ namespace API.Extensions
                             .GetBytes(config["JWTSettings:TokenKey"]))
                     };
                 });
-            services.AddAuthorization();
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("IsReportAuthor", policy =>
+                {
+                    policy.Requirements.Add(new IsAuthorRequirement());
+                });
+            });
+            // only need auth policy to last as long as method is running
+            services.AddTransient<IAuthorizationHandler, IsAuthorRequirementHandler>();
             // token service is scoped to HttpRequest -- once request is gone, service is disposed of
             services.AddScoped<TokenService>();
 

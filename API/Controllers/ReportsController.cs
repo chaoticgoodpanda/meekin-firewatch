@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Events;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -45,6 +46,8 @@ namespace API.Controllers
         }
         
         // updates a report
+        // only author of report can edit a report
+        [Authorize(Policy = "IsReportAuthor")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditReport(Guid id, PostLabeling postLabeling)
         {
@@ -53,6 +56,8 @@ namespace API.Controllers
         }
         
         // delete a specific report
+        // only author of report can delete a report
+        [Authorize(Policy = "IsReportAuthor")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReport(Guid id)
         {

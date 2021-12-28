@@ -11,8 +11,7 @@ import Typography from '@mui/material/Typography';
 import {Link, useHistory, useLocation} from "react-router-dom";
 
 import Image from '../../time-assk-1990.webp';
-import agent from "../../app/api/agent";
-import {FieldValues, useForm} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {LoadingButton} from "@mui/lab";
 import {useStore} from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
@@ -23,18 +22,32 @@ export default observer(function LoginForm() {
     const location = useLocation<any>();
     // use of the userStore
     const {userStore} = useStore();
-    const {register, handleSubmit, formState: {isSubmitting, errors, isValid}} = useForm({
+    const {register, handleSubmit, setError, formState: {isSubmitting, errors, isValid}} = useForm({
         mode: 'all'
     });
     
     async function submitForm(data: any) {
         try {
             await userStore.login(data);
-            history.push(location.state.from.pathname || '/catalog');
+            history.push(location.state?.from?.pathname || '/catalog');
         } catch (error) {
-            return errors.email.message;
+            handleApiErrors(error);
         }
         
+    }
+
+    function handleApiErrors(errors: any) {
+        if (errors) {
+            errors.forEach((error: string) => {
+                if (error.includes('Password')) {
+                    setError('password', {message: error})
+                } else if (error.includes('Email')) {
+                    setError('email', {message: error})
+                } else if (error.includes('Username')) {
+                    setError('username', {message: error})
+                }
+            });
+        }
     }
 
     return (
@@ -74,7 +87,6 @@ export default observer(function LoginForm() {
                                 margin="normal"
                                 fullWidth
                                 label="Email Address"
-                                autoComplete="email"
                                 autoFocus
                                 {...register('email', {required: 'Please enter a valid email.'})}
                                 error={!!errors.email}
